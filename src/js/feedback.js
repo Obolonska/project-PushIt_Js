@@ -15,6 +15,8 @@ async function getFeedbacks() {
 
     new Swiper('.swiper', {
       loop: true,
+      centeredSlides: false,
+      spaceBetween: 0,
       pagination: { el: '.swiper-pagination', clickable: true },
       navigation: { nextEl: '.right_btn', prevEl: '.left_btn' },
       scrollbar: { el: '.swiper-scrollbar' },
