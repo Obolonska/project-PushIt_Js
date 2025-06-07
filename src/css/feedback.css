@@ -1,5 +1,16 @@
-.hide {
+.left_btn,
+.right_btn {
   display: none;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none !important;
+}
+
+.swiper {
+  width: 288px;
+  height: 300px;
 }
 
 .feedback {
@@ -36,8 +47,14 @@
 }
 
 @media screen and (min-width: 768px) {
-  .hide {
+  .left_btn,
+  .right_btn {
     display: flex;
+  }
+
+  .swiper {
+    width: 704px;
+    height: 300px;
   }
 
   .fb_container {
@@ -94,6 +111,11 @@
     gap: 175px;
   }
 
+  .swiper {
+    width: 1312px;
+    height: 300px;
+  }
+
   .fb_list {
     max-width: 811px;
   }
@@ -111,4 +133,18 @@
     margin-top: 112px;
     margin-bottom: 112px;
   }
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: #777;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #fff;
 }
