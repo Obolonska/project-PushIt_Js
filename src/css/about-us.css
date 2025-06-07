@@ -1,0 +1,96 @@
+/* mobile styles */
+.about-us-photo{
+    width: 100%;
+    max-width: 280px;
+    height: 168px;
+    border-radius: 16px;
+    margin: 64px auto 48px; 
+    background-image: url("../img/about-us/team_mobile_1x.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.about-us-logo{
+    margin-bottom: 20px;
+    max-width: 64px; 
+    max-height: 64px;
+}
+
+.about-us-header{
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 120%;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+}
+
+.about-us-description{
+    line-height: 150%;
+    margin-bottom: 64px;
+}
+
+@media screen and (min-resolution: 192dpi) {
+  .about-us-photo {
+    background-image: url("../img/about-us/team_mobile_2x.jpg");
+  }
+}
+
+
+                                /* tablet styles */
+
+@media screen and (min-width: 768px) {
+    .about-us-photo{
+        max-width: 704px;
+    height: 413px;
+    margin: 64px auto 24px; 
+    background-image: url("../img/about-us/team_tablet_1x.jpg");
+}
+.about-us-logo{
+    margin-bottom: 24px;
+    width: 80px; 
+    height: 80px;
+}
+
+.about-us-header{
+    margin-bottom: 24px;
+}
+.about-us-description{
+    font-size: 20px;
+}
+  
+}
+@media screen and (min-width: 768px) and (min-resolution: 192dpi) {
+  .about-us-photo {
+    background-image: url("../img/about-us/team_tablet_2x.jpg");
+  }
+}
+
+/* desktop styles */
+@media screen and (min-width: 1280px) {
+    .container{
+        /* background-color: aliceblue; */
+        display: flex;
+        max-width: 1440px;
+        padding: 112px 64px;
+    }
+    .about-us-photo{
+        max-width: 640px;
+        height: 664px;
+        margin-right: 32px;
+        background-image: url("../img/about-us/team_desktop_1x.jpg");
+    }
+    .about-us-info{
+        margin: auto 0; 
+        max-width: 640px;
+    }
+    .about-us-header{
+        font-size: 60px;
+    }
+
+  
+}
+@media screen and (min-width: 1280px) and (min-resolution: 192dpi) {
+  .about-us-photo {
+    background-image: url("../img/about-us/team_desktop_2x.jpg");
+  }
+}
