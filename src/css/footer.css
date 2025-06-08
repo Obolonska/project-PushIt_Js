@@ -69,8 +69,8 @@
 
 .footer-socials-icon {
     fill: white;
-    width: 24px;
-    height: 24px;
+    width: 33px;
+    height: 33px;
 
     transition: fill 250ms;
 }
@@ -93,5 +93,10 @@
     .footer-socials {
         flex-direction: row;
         justify-content: space-between;
+    }
+
+    .footer-socials-icon {
+        width: 24px;
+        height: 24px;
     }
 }
