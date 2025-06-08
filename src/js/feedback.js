@@ -27,6 +27,8 @@ async function getFeedbacks() {
   }
 }
 
+
+
 function slideTemplate(slide) {
   return `
     <div class="fb_item swiper-slide">
@@ -42,10 +44,31 @@ function renderSlides(slides) {
 }
 
 function createStars(rating) {
-  const filledStars = '★'.repeat(rating);
-  const emptyStars = '☆'.repeat(5 - rating);
-  return filledStars + emptyStars;
+  let starsMarkup = '';
+  const totalStars = 5;
+
+  for (let i = 1; i <= totalStars; i++) {
+    if (i <= rating) {
+      starsMarkup += `
+        <svg class="star">
+          <use href="/img/icons.svg#icon-purple-star"></use>
+        </svg>
+      `;
+    } else {
+      starsMarkup += `
+        <svg class="star">
+          <use href="/img/icons.svg#icon-white-star"></use>
+        </svg>
+      `;
+    }
+  }
+  return starsMarkup;
 }
+
+
+// ... (the rest of your code)
+
+
 
 
 document.addEventListener('DOMContentLoaded', () => {

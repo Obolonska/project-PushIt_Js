@@ -5,7 +5,7 @@
 
 .swiper-button-next::after,
 .swiper-button-prev::after {
-  display: none !important;
+  display: none;
 }
 
 .swiper {
@@ -23,7 +23,9 @@
 }
 
 .fb_item {
+  position: relative;
   text-align: center;
+  cursor: default;
 }
 
 .stars {
@@ -47,15 +49,6 @@
 }
 
 @media screen and (min-width: 768px) {
-  .left_btn,
-  .right_btn {
-    display: flex;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-  }
-
   button.swiper-button-next svg,
   button.swiper-button-prev svg {
     width: 14px;
@@ -63,17 +56,15 @@
     object-fit: contain;
   }
 
-  .fb-outer-wrapper {
-    position: relative;
-  }
-
   .swiper {
     width: 518px;
     height: 300px;
   }
 
-  .fb_list {
-    max-width: 518px;
+  .fb-outer-wrapper {
+  }
+
+  .swiper-wrapper {
   }
 
   .fb_user_text {
@@ -85,7 +76,10 @@
   }
 
   .left_btn {
-    left: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 30px;
+    position: absolute;
     justify-content: center;
     align-items: center;
     border: 1px solid rgba(255, 255, 255, 0.5);
@@ -107,7 +101,10 @@
   }
 
   .right_btn {
-    right: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 30px;
+    position: absolute;
     justify-content: center;
     align-items: center;
     border: 1px solid rgba(255, 255, 255, 0.5);
@@ -160,4 +157,21 @@
 
 .swiper-pagination-bullet-active {
   background-color: #fff;
+}
+
+.star-wrapper {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.star {
+  width: 16px;
+  height: 16px;
+  fill: #a259ff;
+  color: #a259ff;
+}
+
+.star.empty {
+  fill: #ffffff;
 }
