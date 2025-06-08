@@ -23,7 +23,6 @@
 }
 
 .fb_item {
-  position: relative;
   text-align: center;
   cursor: default;
 }
@@ -61,7 +60,7 @@
     height: 300px;
   }
 
-  .fb-outer-wrapper {
+  .fb_outer_wrapper {
     position: relative;
   }
 
@@ -77,7 +76,7 @@
   }
 
   .left_btn {
-    top: 50%;
+    top: 40%;
     transform: translateY(-50%);
     position: absolute;
     justify-content: center;
@@ -101,7 +100,7 @@
   }
 
   .right_btn {
-    top: 50%;
+    top: 40%;
     transform: translateY(-50%);
     position: absolute;
     justify-content: center;
