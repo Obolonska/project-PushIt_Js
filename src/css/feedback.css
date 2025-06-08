@@ -14,8 +14,8 @@
 }
 
 .feedback {
-  margin-top: 64px;
-  margin-bottom: 64px;
+  padding-top: 64px;
+  padding-bottom: 64px;
 }
 
 .fb_container {
@@ -64,9 +64,6 @@
     position: relative;
   }
 
-  .swiper-wrapper {
-  }
-
   .fb_user_text {
     font-size: 26px;
   }
@@ -77,6 +74,7 @@
 
   .left_btn {
     top: 40%;
+    left: 64px;
     transform: translateY(-50%);
     position: absolute;
     justify-content: center;
@@ -101,6 +99,7 @@
 
   .right_btn {
     top: 40%;
+    right: 64px;
     transform: translateY(-50%);
     position: absolute;
     justify-content: center;
@@ -143,8 +142,8 @@
   }
 
   .feedback {
-    margin-top: 112px;
-    margin-bottom: 112px;
+    padding-top: 112px;
+    padding-bottom: 112px;
   }
 }
 
