@@ -21,13 +21,13 @@
 .about-us-header{
     font-weight: 700;
     font-size: 44px;
-    line-height: 120%;
+    line-height: 1.2;
     letter-spacing: -0.01em;
     margin-bottom: 20px;
 }
 
 .about-us-description{
-    line-height: 150%;
+    line-height: 1.5;
 }
 
 
