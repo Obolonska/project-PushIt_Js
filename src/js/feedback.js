@@ -66,10 +66,6 @@ function createStars(rating) {
 }
 
 
-// ... (the rest of your code)
-
-
-
 
 document.addEventListener('DOMContentLoaded', () => {
   getFeedbacks();
