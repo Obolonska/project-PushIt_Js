@@ -62,6 +62,7 @@
   }
 
   .fb-outer-wrapper {
+    position: relative;
   }
 
   .swiper-wrapper {
@@ -78,7 +79,6 @@
   .left_btn {
     top: 50%;
     transform: translateY(-50%);
-    left: 30px;
     position: absolute;
     justify-content: center;
     align-items: center;
@@ -103,7 +103,6 @@
   .right_btn {
     top: 50%;
     transform: translateY(-50%);
-    right: 30px;
     position: absolute;
     justify-content: center;
     align-items: center;
