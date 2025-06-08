@@ -51,13 +51,13 @@ function createStars(rating) {
     if (i <= rating) {
       starsMarkup += `
         <svg class="star">
-          <use href="../img/icons.svg#icon-purple-star"></use>
+          <use href="/img/icons.svg#icon-purple-star"></use>
         </svg>
       `;
     } else {
       starsMarkup += `
         <svg class="star">
-          <use href="../img/icons.svg#icon-white-star"></use>
+          <use href="/img/icons.svg#icon-white-star"></use>
         </svg>
       `;
     }
