@@ -1,8 +1,16 @@
-import{S as d}from"./assets/vendor-CQMm3erF.js";(function(){const n=document.createElement("link").relList;if(n&&n.supports&&n.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))i(e);new MutationObserver(e=>{for(const r of e)if(r.type==="childList")for(const o of r.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&i(o)}).observe(document,{childList:!0,subtree:!0});function s(e){const r={};return e.integrity&&(r.integrity=e.integrity),e.referrerPolicy&&(r.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?r.credentials="include":e.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function i(e){if(e.ep)return;e.ep=!0;const r=s(e);fetch(e.href,r)}})();const p=document.querySelector(".swiper-wrapper");async function u(){try{const n=await(await fetch("https://sound-wave.b.goit.study/api/feedbacks?limit=3&page=2")).json();console.log("API response:",n);const s=m(n.data);p.innerHTML=s,new d(".swiper",{loop:!0,centeredSlides:!1,spaceBetween:0,pagination:{el:".swiper-pagination",clickable:!0},navigation:{nextEl:".right_btn",prevEl:".left_btn"},scrollbar:{el:".swiper-scrollbar"}})}catch(t){console.error("Fetch error:",t)}}function f(t){return`
+import{S as u}from"./assets/vendor-CQMm3erF.js";(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))n(e);new MutationObserver(e=>{for(const s of e)if(s.type==="childList")for(const i of s.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&n(i)}).observe(document,{childList:!0,subtree:!0});function o(e){const s={};return e.integrity&&(s.integrity=e.integrity),e.referrerPolicy&&(s.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?s.credentials="include":e.crossOrigin==="anonymous"?s.credentials="omit":s.credentials="same-origin",s}function n(e){if(e.ep)return;e.ep=!0;const s=o(e);fetch(e.href,s)}})();const d=document.querySelector(".swiper-wrapper");async function p(){try{const r=await(await fetch("https://sound-wave.b.goit.study/api/feedbacks?limit=3&page=2")).json();console.log("API response:",r);const o=g(r.data);d.innerHTML=o,new u(".swiper",{loop:!0,centeredSlides:!1,spaceBetween:0,pagination:{el:".swiper-pagination",clickable:!0},navigation:{nextEl:".right_btn",prevEl:".left_btn"},scrollbar:{el:".swiper-scrollbar"}})}catch(t){console.error("Fetch error:",t)}}function f(t){return`
     <div class="fb_item swiper-slide">
-      <div class="stars">${y(t.rating)}</div>
+      <div class="stars">${m(t.rating)}</div>
       <p class="fb_user_text">"${t.descr}"</p>
       <p class="fb_user_name">${t.name}</p>
     </div>
-  `}function m(t){return t.map(n=>f(n)).join("")}function y(t){const n="★".repeat(t),s="☆".repeat(5-t);return n+s}document.addEventListener("DOMContentLoaded",()=>{u()});const c=document.querySelector(".left_btn"),a=document.querySelector(".right_btn");function l(){window.innerWidth>=768?(c.style.display="flex",a.style.display="flex"):(c.style.display="none",a.style.display="none")}l();window.addEventListener("resize",l);
+  `}function g(t){return t.map(r=>f(r)).join("")}function m(t){let r="";for(let n=1;n<=5;n++)n<=t?r+=`
+        <svg class="star">
+          <use href="/img/icons.svg#icon-purple-star"></use>
+        </svg>
+      `:r+=`
+        <svg class="star">
+          <use href="/img/icons.svg#icon-white-star"></use>
+        </svg>
+      `;return r}document.addEventListener("DOMContentLoaded",()=>{p()});const c=document.querySelector(".left_btn"),a=document.querySelector(".right_btn");function l(){window.innerWidth>=768?(c.style.display="flex",a.style.display="flex"):(c.style.display="none",a.style.display="none")}l();window.addEventListener("resize",l);
 //# sourceMappingURL=index.js.map
