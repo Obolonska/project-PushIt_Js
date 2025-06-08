@@ -1,22 +1,355 @@
-<section class="section hero">
-  <div class="container hero-container">
+<section class="hero-section" id="hero">
+  <div class="container">
     <div class="hero-content">
-      <h1 class="hero-title">Discover Your Next Favorite Artist Today</h1>
-      <p class="hero-subtitle">
-        Dive into a world of music discoveries with ArtistsHub – your personal
+      <h1 class="hero-header" tabindex="0">
+        Discover Your Next Favorite Artist Today
+      </h1>
+      <p class="hero-text">
+        Dive into a world of music discoveries with ArtistsHub - your personal
         guide to the boundless universe of sound. Explore, filter, and learn
         about your favorite artists all in one place.
       </p>
-
-      <a href="#artists" class="hero-button"
+      <a
+        href="#artists"
+        class="hero-btn-link"
+        aria-label="link-to-artists-section"
         >Explore Artists
-        <svg class="icon" width="24" height="24" viewBox="0 0 32 32">
-          <path
-            d="M7.381 29.181c0.216 0.112 0.458 0.164 0.701 0.149s0.477-0.096 0.677-0.234l17.333-12c0.177-0.123 0.322-0.287 0.422-0.477s0.152-0.403 0.152-0.619-0.052-0.428-0.152-0.619c-0.1-0.191-0.245-0.355-0.422-0.477l-17.333-12c-0.2-0.139-0.434-0.221-0.677-0.237s-0.486 0.036-0.702 0.149c-0.216 0.113-0.396 0.283-0.522 0.492s-0.192 0.448-0.191 0.691v24c-0 0.243 0.067 0.482 0.192 0.69s0.307 0.378 0.522 0.491zM9.333 6.545l13.657 9.455-13.657 9.455v-18.909z"
-          />
+        <svg class="hero-btn-svg" width="24" height="24">
+          <use href="../public/favicon.svg#icon-right-arrow"></use>
         </svg>
       </a>
     </div>
-    <div class="background-wrapper"></div>
+
+    <div class="hero-img-wrapper">
+      <div class="hero-columns-container">
+        <div class="hero-column-up">
+          <picture class="hero-image-up">
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                /src/img/hero/mobile-hero/mobile-1.webp    1x,
+                /src/img/hero/mobile-hero/mobile-1@2x.webp 2x
+              "
+            />
+            <source
+              media="(max-width: 1439px)"
+              srcset="
+                /src/img/hero/tablet-hero/hero-tablet01.webp    1x,
+                /src/img/hero/tablet-hero/hero-tablet01@2x.webp 2x
+              "
+            />
+            <source
+              srcset="
+                /src/img/hero/dekstop-hero/hero-dekstop01.webp    1x,
+                /src/img/hero/dekstop-hero/hero-dekstop01@2x.webp 2x
+              "
+            />
+            <img
+              src="/src/img/hero/dekstop-hero/hero-dekstop01.webp"
+              alt="Artist 1"
+            />
+          </picture>
+
+          <picture class="hero-image-up">
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                /src/img/hero/mobile-hero/mobile-2.webp    1x,
+                /src/img/hero/mobile-hero/mobile-2@2x.webp 2x
+              "
+            />
+            <source
+              media="(max-width: 1439px)"
+              srcset="
+                /src/img/hero/tablet-hero/hero-tablet02.webp    1x,
+                /src/img/hero/tablet-hero/hero-tablet02@2x.webp 2x
+              "
+            />
+            <source
+              srcset="
+                /src/img/hero/dekstop-hero/hero-dekstop02.webp    1x,
+                /src/img/hero/dekstop-hero/hero-dekstop02@2x.webp 2x
+              "
+            />
+            <img
+              src="/src/img/hero/dekstop-hero/hero-dekstop02.webp"
+              alt="Artist 2"
+            />
+          </picture>
+
+          <picture class="hero-image-up">
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                /src/img/hero/mobile-hero/mobile-3.webp    1x,
+                /src/img/hero/mobile-hero/mobile-3@2x.webp 2x
+              "
+            />
+            <source
+              media="(max-width: 1439px)"
+              srcset="
+                /src/img/hero/tablet-hero/hero-tablet03.webp    1x,
+                /src/img/hero/tablet-hero/hero-tablet03@2x.webp 2x
+              "
+            />
+            <source
+              srcset="
+                /src/img/hero/dekstop-hero/hero-dekstop03.webp    1x,
+                /src/img/hero/dekstop-hero/hero-dekstop03@2x.webp 2x
+              "
+            />
+            <img
+              src="/src/img/hero/dekstop-hero/hero-dekstop03.webp"
+              alt="Artist 3"
+            />
+          </picture>
+
+          <picture class="hero-image-up">
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                /src/img/hero/mobile-hero/mobile-1.webp    1x,
+                /src/img/hero/mobile-hero/mobile-1@2x.webp 2x
+              "
+            />
+            <source
+              media="(max-width: 1439px)"
+              srcset="
+                /src/img/hero/tablet-hero/hero-tablet01.webp    1x,
+                /src/img/hero/tablet-hero/hero-tablet01@2x.webp 2x
+              "
+            />
+            <source
+              srcset="
+                /src/img/hero/dekstop-hero/hero-dekstop01.webp    1x,
+                /src/img/hero/dekstop-hero/hero-dekstop01@2x.webp 2x
+              "
+            />
+            <img
+              src="/src/img/hero/dekstop-hero/hero-dekstop01.webp"
+              alt="Artist 1"
+            />
+          </picture>
+
+          <picture class="hero-image-up">
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                /src/img/hero/mobile-hero/mobile-2.webp    1x,
+                /src/img/hero/mobile-hero/mobile-2@2x.webp 2x
+              "
+            />
+            <source
+              media="(max-width: 1439px)"
+              srcset="
+                /src/img/hero/tablet-hero/hero-tablet02.webp    1x,
+                /src/img/hero/tablet-hero/hero-tablet02@2x.webp
+              "
+            />
+            <source
+              srcset="
+                /src/img/hero/dekstop-hero/hero-dekstop02.webp    1x,
+                /src/img/hero/dekstop-hero/hero-dekstop02@2x.webp 2x
+              "
+            />
+            <img
+              src="/src/img/hero/dekstop-hero/hero-dekstop02.webp"
+              alt="Artist 2"
+            />
+          </picture>
+
+          <picture class="hero-image-up">
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                /src/img/hero/mobile-hero/mobile-3.webp    1x,
+                /src/img/hero/mobile-hero/mobile-3@2x.webp 2x
+              "
+            />
+            <source
+              media="(max-width: 1439px)"
+              srcset="
+                /src/img/hero/tablet-hero/hero-tablet03.webp    1x,
+                /src/img/hero/tablet-hero/hero-tablet03@2x.webp 2x
+              "
+            />
+            <source
+              srcset="
+                /src/img/hero/dekstop-hero/hero-dekstop03.webp    1x,
+                /src/img/hero/dekstop-hero/hero-dekstop03@2x.webp 2x
+              "
+            />
+            <img
+              src="/src/img/hero/dekstop-hero/hero-dekstop03.webp"
+              alt="Artist 3"
+            />
+          </picture>
+        </div>
+
+        <div class="hero-column-down">
+          <picture class="hero-image-down">
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                /src/img/hero/mobile-hero/mobile-4.webp    1x,
+                /src/img/hero/mobile-hero/mobile-4@2x.webp 2x
+              "
+            />
+            <source
+              media="(max-width: 1439px)"
+              srcset="
+                /src/img/hero/tablet-hero/hero-tablet04.webp    1x,
+                /src/img/hero/tablet-hero/hero-tablet04@2x.webp 2x
+              "
+            />
+            <source
+              srcset="
+                /src/img/hero/dekstop-hero/hero-dekstop04.webp    1x,
+                /src/img/hero/dekstop-hero/hero-dekstop04@2x.webp 2x
+              "
+            />
+            <img
+              src="/src/img/hero/dekstop-hero/hero-dekstop04.webp"
+              alt="Artist 4"
+            />
+          </picture>
+
+          <picture class="hero-image-down">
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                /src/img/hero/mobile-hero/mobile-5.webp    1x,
+                /src/img/hero/mobile-hero/mobile-5@2x.webp 2x
+              "
+            />
+            <source
+              media="(max-width: 1439px)"
+              srcset="
+                /src/img/hero/tablet-hero/hero-tablet05.webp    1x,
+                /src/img/hero/tablet-hero/hero-tablet05@2x.webp 2x
+              "
+            />
+            <source
+              srcset="
+                /src/img/hero/dekstop-hero/hero-dekstop05.webp    1x,
+                /src/img/hero/dekstop-hero/hero-dekstop05@2x.webp 2x
+              "
+            />
+            <img
+              src="/src/img/hero/dekstop-hero/hero-dekstop05.webp"
+              alt="Artist 5"
+            />
+          </picture>
+
+          <picture class="hero-image-down">
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                /src/img/hero/mobile-hero/mobile-6.webp    1x,
+                /src/img/hero/mobile-hero/mobile-6@2x.webp 2x
+              "
+            />
+            <source
+              media="(max-width: 1439px)"
+              srcset="
+                /src/img/hero/tablet-hero/hero-tablet06.webp    1x,
+                /src/img/hero/tablet-hero/hero-tablet06@2x.webp 2x
+              "
+            />
+            <source
+              srcset="
+                /src/img/hero/dekstop-hero/hero-dekstop06.webp    1x,
+                /src/img/hero/dekstop-hero/hero-dekstop06@2x.webp 2x
+              "
+            />
+            <img
+              src="/src/img/hero/dekstop-hero/hero-dekstop06.webp"
+              alt="Artist 6"
+            />
+          </picture>
+
+          <picture class="hero-image-down">
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                /src/img/hero/mobile-hero/mobile-4.webp    1x,
+                /src/img/hero/mobile-hero/mobile-4@2x.webp 2x
+              "
+            />
+            <source
+              media="(max-width: 1439px)"
+              srcset="
+                /src/img/hero/tablet-hero/hero-tablet04.webp    1x,
+                /src/img/hero/tablet-hero/hero-tablet04@2x.webp 2x
+              "
+            />
+            <source
+              srcset="
+                /src/img/hero/dekstop-hero/hero-dekstop04.webp    1x,
+                /src/img/hero/dekstop-hero/hero-dekstop04@2x.webp 2x
+              "
+            />
+            <img
+              src="/src/img/hero/dekstop-hero/hero-dekstop04.webp"
+              alt="Artist 4"
+            />
+          </picture>
+
+          <picture class="hero-image-down">
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                /src/img/hero/mobile-hero/mobile-5.webp    1x,
+                /src/img/hero/mobile-hero/mobile-5@2x.webp 2x
+              "
+            />
+            <source
+              media="(max-width: 1439px)"
+              srcset="
+                /src/img/hero/tablet-hero/hero-tablet05.webp    1x,
+                /src/img/hero/tablet-hero/hero-tablet05@2x.webp 2x
+              "
+            />
+            <source
+              srcset="
+                /src/img/hero/dekstop-hero/hero-dekstop05.webp    1x,
+                /src/img/hero/dekstop-hero/hero-dekstop05@2x.webp 2x
+              "
+            />
+            <img
+              src="/src/img/hero/dekstop-hero/hero-dekstop05.webp"
+              alt="Artist 5"
+            />
+          </picture>
+
+          <picture class="hero-image-down">
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                /src/img/hero/mobile-hero/mobile-6.webp    1x,
+                /src/img/hero/mobile-hero/mobile-6@2x.webp 2x
+              "
+            />
+            <source
+              media="(max-width: 1439px)"
+              srcset="
+                /src/img/hero/tablet-hero/hero-tablet06.webp    1x,
+                /src/img/hero/tablet-hero/hero-tablet06@2x.webp 2x
+              "
+            />
+            <source
+              srcset="
+                /src/img/hero/dekstop-hero/hero-dekstop06.webp    1x,
+                /src/img/hero/dekstop-hero/hero-dekstop06@2x.webp 2x
+              "
+            />
+            <img
+              src="/src/img/hero/dekstop-hero/hero-dekstop06.webp"
+              alt="Artist 6"
+            />
+          </picture>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
