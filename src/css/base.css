@@ -12,6 +12,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  --color-hover: #764191;
+  --color-focus: #764191;
 }
 
 body {
@@ -31,16 +33,52 @@ html {
 
 button {
   font-family: inherit;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 1.5;
   color: #fff;
   margin: 0;
   text-transform: none;
-  border-radius: 12px;
-  box-shadow: 0 1px 2px 0 rgba(6, 3, 7, 0.05),
-    inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(6, 3, 7, 0.15),
-    inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
-    inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
-  background: #764191;
+}
+
+.loader-backdrop {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.66);
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  position: fixed;
+  display: none;
+}
+
+.loader-backdrop.show {
+  display: block;
+}
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 3px solid #FFF;
+  border-right: 3px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.hidden {
+  display: none;
+}
+
+.body-hidden {
+  overflow: hidden;
 }
