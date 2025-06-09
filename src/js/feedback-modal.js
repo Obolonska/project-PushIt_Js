@@ -1,316 +1,356 @@
 // Модуль для управління модальним вікном зворотного зв'язку
 
-// Глобальні змінні
-let currentRating = 0;
-
-// API конфігурація
-const API_BASE_URL = 'https://sound-wave.b.goit.study/api';
-
-// Функція відкриття модального вікна
-function openFeedbackModal() {
-    const modal = document.getElementById('feedbackModal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.classList.add('modal-open');
+class FeedbackModal {
+    constructor() {
+        this.modal = null;
+        this.form = null;
+        this.isSubmitting = false;
+        this.currentRating = 0;
         
-        // Фокус на перше поле
-        const firstInput = modal.querySelector('#feedbackName');
-        if (firstInput) {
-            setTimeout(() => firstInput.focus(), 100);
+        // API конфігурація
+        this.apiUrl = 'https://sound-wave.b.goit.study/api/feedbacks';
+        
+        this.init();
+    }
+    
+    init() {
+        // Знаходимо модальне вікно
+        this.modal = document.getElementById('feedbackModal');
+        this.form = document.getElementById('feedbackForm');
+        
+        if (!this.modal || !this.form) {
+            console.error('Feedback modal elements not found');
+            return;
+        }
+        
+        this.bindEvents();
+        this.calculateScrollbarWidth();
+    }
+    
+    bindEvents() {
+        // Обробка форми
+        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+        
+        // Обробка рейтингу
+        this.setupRating();
+        
+        // Валідація в реальному часі
+        this.setupValidation();
+        
+        // Закриття по Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.modal.classList.contains('active')) {
+                this.close();
+            }
+        });
+        
+        // Закриття по кліку на оверлей
+        this.modal.querySelector('.feedback-modal__overlay').addEventListener('click', () => {
+            this.close();
+        });
+        
+        // Закриття по кнопці
+        this.modal.querySelector('.feedback-modal__close').addEventListener('click', () => {
+            this.close();
+        });
+    }
+    
+    setupRating() {
+        const stars = this.modal.querySelectorAll('.feedback-modal__star');
+        const ratingInputs = this.modal.querySelectorAll('.feedback-modal__rating-input');
+        
+        stars.forEach((star, index) => {
+            // Hover ефект
+            star.addEventListener('mouseenter', () => {
+                this.highlightStars(index + 1);
+            });
+            
+            // Клік для вибору рейтингу
+            star.addEventListener('click', () => {
+                this.setRating(index + 1);
+            });
+        });
+        
+        // Повернення до поточного рейтингу при виході миші
+        this.modal.querySelector('.feedback-modal__rating').addEventListener('mouseleave', () => {
+            this.highlightStars(this.currentRating);
+        });
+    }
+    
+    highlightStars(rating) {
+        const stars = this.modal.querySelectorAll('.feedback-modal__star');
+        stars.forEach((star, index) => {
+            if (index < rating) {
+                star.classList.add('active');
+            } else {
+                star.classList.remove('active');
+            }
+        });
+    }
+    
+    setRating(rating) {
+        this.currentRating = rating;
+        const ratingInput = this.modal.querySelector(`input[name="rating"][value="${rating}"]`);
+        if (ratingInput) {
+            ratingInput.checked = true;
+        }
+        this.highlightStars(rating);
+        this.clearError('rating');
+    }
+    
+    setupValidation() {
+        const nameInput = this.modal.querySelector('#feedbackName');
+        const messageInput = this.modal.querySelector('#feedbackMessage');
+        
+        nameInput.addEventListener('input', () => this.validateName());
+        nameInput.addEventListener('blur', () => this.validateName());
+        
+        messageInput.addEventListener('input', () => this.validateMessage());
+        messageInput.addEventListener('blur', () => this.validateMessage());
+    }
+    
+    validateName() {
+        const nameInput = this.modal.querySelector('#feedbackName');
+        const name = nameInput.value.trim();
+        
+        if (!name) {
+            this.showError('name', 'Ім\'я є обов\'язковим');
+            return false;
+        }
+        
+        if (name.length < 2) {
+            this.showError('name', 'Ім\'я повинно містити мінімум 2 символи');
+            return false;
+        }
+        
+        if (name.length > 16) {
+            this.showError('name', 'Ім\'я не повинно перевищувати 16 символів');
+            return false;
+        }
+        
+        this.clearError('name');
+        return true;
+    }
+    
+    validateMessage() {
+        const messageInput = this.modal.querySelector('#feedbackMessage');
+        const message = messageInput.value.trim();
+        
+        if (!message) {
+            this.showError('message', 'Повідомлення є обов\'язковим');
+            return false;
+        }
+        
+        if (message.length < 10) {
+            this.showError('message', 'Повідомлення повинно містити мінімум 10 символів');
+            return false;
+        }
+        
+        if (message.length > 512) {
+            this.showError('message', 'Повідомлення не повинно перевищувати 512 символів');
+            return false;
+        }
+        
+        this.clearError('message');
+        return true;
+    }
+    
+    validateRating() {
+        if (this.currentRating === 0) {
+            this.showError('rating', 'Будь ласка, оберіть рейтинг');
+            return false;
+        }
+        
+        this.clearError('rating');
+        return true;
+    }
+    
+    showError(field, message) {
+        const errorElement = this.modal.querySelector(`#${field}Error`);
+        const inputElement = this.modal.querySelector(`#feedback${field.charAt(0).toUpperCase() + field.slice(1)}`);
+        
+        if (errorElement) {
+            errorElement.textContent = message;
+        }
+        
+        if (inputElement) {
+            inputElement.classList.add('error');
         }
     }
-}
-
-// Функція закриття модального вікна
-function closeFeedbackModal() {
-    const modal = document.getElementById('feedbackModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.classList.remove('modal-open');
+    
+    clearError(field) {
+        const errorElement = this.modal.querySelector(`#${field}Error`);
+        const inputElement = this.modal.querySelector(`#feedback${field.charAt(0).toUpperCase() + field.slice(1)}`);
         
-        // Скидання форми
-        resetFeedbackForm();
-    }
-}
-
-// Скидання форми
-function resetFeedbackForm() {
-    const form = document.getElementById('feedbackForm');
-    if (form) {
-        form.reset();
-        clearErrors();
-        resetRating();
-    }
-}
-
-// Очищення помилок
-function clearErrors() {
-    const errorElements = document.querySelectorAll('.feedback-form__error');
-    errorElements.forEach(element => {
-        element.textContent = '';
-    });
-}
-
-// Скидання рейтингу
-function resetRating() {
-    currentRating = 0;
-    const stars = document.querySelectorAll('.rating__star');
-    stars.forEach(star => {
-        star.classList.remove('active');
-    });
-}
-
-// Валідація імені згідно з API
-function validateName(value) {
-    if (!value.trim()) {
-        return "Ім'я обов'язкове для заповнення";
-    }
-    if (value.trim().length < 2) {
-        return "Ім'я повинно містити мінімум 2 символи";
-    }
-    if (value.trim().length > 16) {
-        return "Ім'я не повинно перевищувати 16 символів";
-    }
-    return '';
-}
-
-// Валідація повідомлення згідно з API
-function validateMessage(value) {
-    if (!value.trim()) {
-        return "Повідомлення обов'язкове для заповнення";
-    }
-    if (value.trim().length < 10) {
-        return 'Повідомлення повинно містити мінімум 10 символів';
-    }
-    if (value.trim().length > 512) {
-        return 'Повідомлення не повинно перевищувати 512 символів';
-    }
-    return '';
-}
-
-// Валідація рейтингу згідно з API
-function validateRating() {
-    if (currentRating === 0) {
-        return 'Будь ласка, оберіть рейтинг';
-    }
-    if (currentRating < 1 || currentRating > 5) {
-        return 'Рейтинг повинен бути від 1 до 5';
-    }
-    return '';
-}
-
-// Показ помилки
-function showError(fieldId, message) {
-    const errorElement = document.getElementById(fieldId + 'Error');
-    if (errorElement) {
-        errorElement.textContent = message;
-    }
-}
-
-// Валідація всієї форми
-function validateForm() {
-    const nameValue = document.getElementById('feedbackName').value;
-    const messageValue = document.getElementById('feedbackMessage').value;
-    
-    const nameError = validateName(nameValue);
-    const messageError = validateMessage(messageValue);
-    const ratingError = validateRating();
-    
-    showError('name', nameError);
-    showError('message', messageError);
-    showError('rating', ratingError);
-    
-    return !nameError && !messageError && !ratingError;
-}
-
-// Обробка відправки форми
-async function handleFeedbackSubmit(event) {
-    event.preventDefault();
-    
-    if (!validateForm()) {
-        return;
+        if (errorElement) {
+            errorElement.textContent = '';
+        }
+        
+        if (inputElement) {
+            inputElement.classList.remove('error');
+        }
     }
     
-    const submitButton = event.target.querySelector('.feedback-form__submit');
-    const submitText = submitButton.querySelector('.submit-text');
-    const submitLoader = submitButton.querySelector('.submit-loader');
+    clearAllErrors() {
+        ['name', 'message', 'rating'].forEach(field => this.clearError(field));
+    }
     
-    // Показати завантаження
-    submitButton.disabled = true;
-    submitText.style.display = 'none';
-    submitLoader.style.display = 'inline-block';
-    
-    try {
-        const formData = {
-            name: document.getElementById('feedbackName').value.trim(),
-            descr: document.getElementById('feedbackMessage').value.trim(),
-            rating: currentRating
+    async handleSubmit(e) {
+        e.preventDefault();
+        
+        if (this.isSubmitting) return;
+        
+        // Валідація всіх полів
+        const isNameValid = this.validateName();
+        const isMessageValid = this.validateMessage();
+        const isRatingValid = this.validateRating();
+        
+        if (!isNameValid || !isMessageValid || !isRatingValid) {
+            return;
+        }
+        
+        // Збираємо дані форми
+        const formData = new FormData(this.form);
+        const data = {
+            name: formData.get('name').trim(),
+            descr: formData.get('descr').trim(),
+            rating: parseInt(formData.get('rating'))
         };
         
-        // Запит до реального API
-        await submitFeedback(formData);
-        
-        // Показати успіх
-        showSuccess();
-        
-        // Закрити модальне вікно через 1.5 секунди
-        setTimeout(() => {
-            closeFeedbackModal();
-        }, 1500);
-        
-    } catch (error) {
-        console.error('Помилка відправки відгуку:', error);
-        
-        // Обробка різних типів помилок
-        if (error.status === 400) {
-            showError('general', 'Невірні дані. Перевірте правильність заповнення полів.');
-        } else if (error.status >= 500) {
-            showError('general', 'Помилка сервера. Спробуйте пізніше.');
-        } else {
-            showError('general', 'Сталася помилка при відправці відгуку. Спробуйте ще раз.');
-        }
-    } finally {
-        // Приховати завантаження
-        submitButton.disabled = false;
-        submitText.style.display = 'inline';
-        submitLoader.style.display = 'none';
-    }
-}
-
-// Функція відправки даних до реального API
-async function submitFeedback(data) {
-    const response = await fetch(`${API_BASE_URL}/feedbacks`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    });
-    
-    if (!response.ok) {
-        const error = new Error(`HTTP error! status: ${response.status}`);
-        error.status = response.status;
-        
-        // Спроба отримати деталі помилки з відповіді
         try {
-            const errorData = await response.json();
-            error.details = errorData;
-        } catch (e) {
-            // Ігноруємо помилки парсингу JSON
+            this.setSubmitting(true);
+            
+            const response = await fetch(this.apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+            }
+            
+            const result = await response.json();
+            
+            // Успішна відправка
+            this.showSuccessMessage();
+            setTimeout(() => {
+                this.close();
+                this.resetForm();
+            }, 2000);
+            
+        } catch (error) {
+            console.error('Error submitting feedback:', error);
+            this.showErrorMessage(error.message);
+        } finally {
+            this.setSubmitting(false);
         }
-        
-        throw error;
     }
     
-    return await response.json();
-}
-
-// Показ повідомлення про успіх
-function showSuccess() {
-    const submitButton = document.querySelector('.feedback-form__submit');
-    const originalText = submitButton.innerHTML;
-    
-    submitButton.innerHTML = '✓ Відправлено!';
-    submitButton.style.background = '#10b981';
-    
-    setTimeout(() => {
-        submitButton.innerHTML = originalText;
-        submitButton.style.background = '#8b5cf6';
-    }, 1500);
-}
-
-// Ініціалізація при завантаженні DOM
-document.addEventListener('DOMContentLoaded', function() {
-    // Обробники для рейтингу
-    const stars = document.querySelectorAll('.rating__star');
-    
-    stars.forEach((star, index) => {
-        // Hover ефект
-        star.addEventListener('mouseenter', function() {
-            highlightStars(index + 1);
-        });
+    setSubmitting(isSubmitting) {
+        this.isSubmitting = isSubmitting;
+        const submitBtn = this.modal.querySelector('#submitBtn');
+        const submitText = submitBtn.querySelector('.feedback-modal__submit-text');
+        const submitLoader = submitBtn.querySelector('.feedback-modal__submit-loader');
         
-        // Клік для вибору рейтингу
-        star.addEventListener('click', function() {
-            currentRating = index + 1;
-            setActiveStars(currentRating);
-            clearErrors();
-        });
-    });
-    
-    // Скидання hover ефекту при відході миші
-    const ratingContainer = document.getElementById('feedbackRating');
-    if (ratingContainer) {
-        ratingContainer.addEventListener('mouseleave', function() {
-            setActiveStars(currentRating);
-        });
-    }
-    
-    // Закриття по Escape
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-            const modal = document.getElementById('feedbackModal');
-            if (modal && modal.classList.contains('active')) {
-                closeFeedbackModal();
-            }
-        }
-    });
-    
-    // Валідація в реальному часі
-    const nameInput = document.getElementById('feedbackName');
-    const messageInput = document.getElementById('feedbackMessage');
-    
-    if (nameInput) {
-        nameInput.addEventListener('blur', function() {
-            const error = validateName(this.value);
-            showError('name', error);
-        });
-        
-        nameInput.addEventListener('input', function() {
-            // Очищення помилки при введенні
-            if (this.value.trim().length >= 2) {
-                showError('name', '');
-            }
-        });
-    }
-    
-    if (messageInput) {
-        messageInput.addEventListener('blur', function() {
-            const error = validateMessage(this.value);
-            showError('message', error);
-        });
-        
-        messageInput.addEventListener('input', function() {
-            // Очищення помилки при введенні
-            if (this.value.trim().length >= 10) {
-                showError('message', '');
-            }
-        });
-    }
-});
-
-// Функція підсвічування зірок при hover
-function highlightStars(rating) {
-    const stars = document.querySelectorAll('.rating__star');
-    stars.forEach((star, index) => {
-        if (index < rating) {
-            star.classList.add('hover');
+        if (isSubmitting) {
+            submitBtn.disabled = true;
+            submitText.style.display = 'none';
+            submitLoader.style.display = 'flex';
         } else {
-            star.classList.remove('hover');
+            submitBtn.disabled = false;
+            submitText.style.display = 'block';
+            submitLoader.style.display = 'none';
         }
-    });
+    }
+    
+    showSuccessMessage() {
+        // Можна додати toast повідомлення або змінити текст кнопки
+        const submitBtn = this.modal.querySelector('#submitBtn');
+        const submitText = submitBtn.querySelector('.feedback-modal__submit-text');
+        const originalText = submitText.textContent;
+        
+        submitText.textContent = 'Відправлено!';
+        submitBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+        
+        setTimeout(() => {
+            submitText.textContent = originalText;
+            submitBtn.style.background = '';
+        }, 2000);
+    }
+    
+    showErrorMessage(message) {
+        // Показуємо помилку користувачу
+        alert(`Помилка відправки: ${message}`);
+    }
+    
+    calculateScrollbarWidth() {
+        const scrollDiv = document.createElement('div');
+        scrollDiv.style.cssText = 'width: 100px; height: 100px; overflow: scroll; position: absolute; top: -9999px;';
+        document.body.appendChild(scrollDiv);
+        const scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+        document.body.removeChild(scrollDiv);
+        document.documentElement.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
+    }
+    
+    open() {
+        this.modal.classList.add('active');
+        document.body.classList.add('modal-open');
+        
+        // Фокус на першому полі
+        setTimeout(() => {
+            const firstInput = this.modal.querySelector('#feedbackName');
+            if (firstInput) {
+                firstInput.focus();
+            }
+        }, 300);
+    }
+    
+    close() {
+        this.modal.classList.remove('active');
+        document.body.classList.remove('modal-open');
+    }
+    
+    resetForm() {
+        this.form.reset();
+        this.currentRating = 0;
+        this.highlightStars(0);
+        this.clearAllErrors();
+    }
 }
 
-// Функція встановлення активних зірок
-function setActiveStars(rating) {
-    const stars = document.querySelectorAll('.rating__star');
-    stars.forEach((star, index) => {
-        star.classList.remove('hover');
-        if (index < rating) {
-            star.classList.add('active');
-        } else {
-            star.classList.remove('active');
-        }
-    });
+// Ініціалізація модального вікна
+let feedbackModalInstance = null;
+
+function initFeedbackModal() {
+    if (!feedbackModalInstance) {
+        feedbackModalInstance = new FeedbackModal();
+    }
+}
+
+// Функції для відкриття та закриття модального вікна
+function openFeedbackModal() {
+    if (feedbackModalInstance) {
+        feedbackModalInstance.open();
+    } else {
+        console.error('Feedback modal not initialized');
+    }
+}
+
+function closeFeedbackModal() {
+    if (feedbackModalInstance) {
+        feedbackModalInstance.close();
+    }
+}
+
+// Автоматична ініціалізація при завантаженні DOM
+document.addEventListener('DOMContentLoaded', initFeedbackModal);
+
+// Експорт для використання в інших модулях
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { FeedbackModal, openFeedbackModal, closeFeedbackModal };
 }
 
