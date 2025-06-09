@@ -75,7 +75,7 @@
 .mob-nav-item:hover,
 .mob-nav-item:focus {
   border: 1px solid #060307;
-  color: #764191;
+  color: var(--color-hover);
 }
 
 .mob-nav-item:active {
@@ -109,7 +109,7 @@
   .header-nav-item:hover,
   .header-nav-item:focus {
     border: 1px solid #060307;
-    color: #764191;
+    color: var(--color-hover);
   }
   
   .header-nav-item:active {
