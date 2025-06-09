@@ -21,16 +21,64 @@
     <script type="module" crossorigin src="/project-PushIt_Js/index.js"></script>
     <link rel="modulepreload" crossorigin href="/project-PushIt_Js/assets/vendor-CQMm3erF.js">
     <link rel="stylesheet" crossorigin href="/project-PushIt_Js/assets/vendor-BZ_WhpHG.css">
-    <link rel="stylesheet" crossorigin href="/project-PushIt_Js/assets/index--i3Ik3YH.css">
+    <link rel="stylesheet" crossorigin href="/project-PushIt_Js/assets/index-C4BLqmdX.css">
   </head>
   <body>
-    <header class="header">
-  <div class="container">Header</div>
+    <header class="header-section">
+  <div class="header-container container">
+    <nav class="header-nav">
+      <a class="header-logo-link" href="./index.html">
+        <svg class="header-logo">
+          <use class="header-logo-icon" href="/project-PushIt_Js/assets/icons-0zWjcESH.svg#icon-logo"></use>
+        </svg>
+      </a>
+      <ul class="header-nav-list">
+        <li class="header-nav-item">
+          <a class="header-nav-link" href="#artist-section">Artists</a>
+        </li>
+        <li class="header-nav-item">
+          <a class="header-nav-link" href="#about-us-section">About Us</a>
+        </li>
+        <li class="header-nav-item">
+          <a class="header-nav-link" href="#reviews-section">Reviews</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="button-container">
+      <button type="button" data-menu-open class="burger-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 6H20V8H4V6ZM8 11H20V13H8V11ZM13 16H20V18H13V16Z" fill="white" />
+        </svg>
+      </button>
+      <button type="button" class="is-hidden mob-menu-close" data-menu-close>
+        <svg class="icon-close" width="24" height="24">
+          <use href="/project-PushIt_Js/assets/icons-0zWjcESH.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="mob-menu is-hidden" data-modal>
+    <nav class="mob-navig">
+      <ul class="mob-nav-list">
+        <li class="mob-nav-item">
+          <a class="mobile-menu-link" href="#artist-section" data-menu-item>Artists</a>
+        </li>
+        <li class="mob-nav-item">
+          <a class="mobile-menu-link" href="#about-us-section" data-menu-item>About Us</a>
+        </li>
+        <li class="mob-nav-item">
+          <a class="mobile-menu-link" href="#reviews-section" data-menu-item>Reviews</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </header>
 
 
+
+
     <main>
-      <!-- Loads the specified .html file -->
+      
       <div class="container">Hero</div>
 
       <div class="container">Artists</div>
