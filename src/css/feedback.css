@@ -47,12 +47,34 @@
   margin-bottom: 16px;
 }
 
+.fb-btn {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #fff;
+  margin: 0 auto;
+  border-radius: 12px;
+  padding: 10px 24px;
+  width: 288px;
+  height: 47px;
+  box-shadow: 0 1px 2px 0 rgba(6, 3, 7, 0.05),
+    inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(6, 3, 7, 0.15),
+    inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
+  background: #764191;
+}
+
 @media screen and (min-width: 768px) {
   button.swiper-button-next svg,
   button.swiper-button-prev svg {
     width: 14px;
     height: 14px;
     object-fit: contain;
+  }
+
+  .fb-btn {
+    width: 188px;
   }
 
   .swiper {
