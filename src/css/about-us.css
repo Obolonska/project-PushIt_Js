@@ -1,13 +1,14 @@
 /* mobile styles */
 
-
-.about-us-section{
-    padding: 64px 16px;
+#about-us-section{
+    padding: 64px 0;
 }
-.about-us-photo{
+.about-us-container{
+    padding: 0 16px;
+}
+.team-photo{
     width: 100%;
-    max-width: 280px;
-    height: 168px;
+    min-height: 168px;
     border-radius: 16px;
     margin: 0 auto 48px; 
 }
@@ -16,6 +17,7 @@
     margin-bottom: 20px;
     width: 64px; 
     height: 64px;
+    fill: #fff;
 }
 
 .about-us-header{
@@ -30,50 +32,49 @@
     line-height: 1.5;
 }
 
-
 /* tablet styles */
 
-
 @media screen and (min-width: 768px) {
-    .about-us-section{
-        padding: 64px 32px;
-        
+    .about-us-container{
+    padding: 0 32px;
+}
+    .team-photo{
+        max-width: 704px;
+        height: 413px;
+        margin: 0 auto 24px; 
     }
-    .about-us-photo{
-    max-width: 704px;
-    height: 413px;
-    margin: 0 auto 24px; 
-}
-.about-us-logo{
-    margin-bottom: 24px;
-    width: 80px; 
-    height: 80px;
-}
-
-.about-us-header{
-    margin-bottom: 24px;
-}
-.about-us-description{
-    font-size: 20px;
-}
+    .about-us-logo{
+        margin-bottom: 24px;
+        width: 80px; 
+        height: 80px;
+    }
+    .about-us-header{
+        margin-bottom: 24px;
+    }
+    .about-us-description{
+        font-size: 20px;
+    }
 }
 
 /* desktop styles */
 
 
-@media only screen and (min-width: 1440px) {
-    .about-us-section{
-        padding: 112px 64px;
+@media screen and (min-width: 1440px) {
+    #about-us-section{
+    padding: 112px 0;
+}
+    .about-us-container{
+        padding: 0 64px;
         display: flex;
-        margin: 0 auto;
+        gap: 32px;
+        justify-content: center;
+        align-items: center;
     }
-    .about-us-photo{
+    .team-photo{
         max-width: 640px;
         height: 664px;
-        margin-right: 32px;
     }
     .about-us-info{
-        margin: auto 0; 
         max-width: 640px;
     }
     .about-us-header{
