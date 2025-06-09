@@ -1,0 +1,66 @@
+<!-- Модальне вікно зворотного зв'язку -->
+<div class="feedback-modal" id="feedbackModal">
+    <div class="feedback-modal__overlay" onclick="closeFeedbackModal()"></div>
+    <div class="feedback-modal__content">
+        <button class="feedback-modal__close" onclick="closeFeedbackModal()" aria-label="Закрити">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        
+        <h2 class="feedback-modal__title">Submit feedback</h2>
+        
+        <form class="feedback-form" id="feedbackForm" onsubmit="handleFeedbackSubmit(event)">
+            <div class="feedback-form__field">
+                <label for="feedbackName" class="feedback-form__label">Name</label>
+                <input 
+                    type="text" 
+                    id="feedbackName" 
+                    name="name" 
+                    class="feedback-form__input"
+                    required
+                    minlength="2"
+                    maxlength="16"
+                >
+                <span class="feedback-form__error" id="nameError"></span>
+            </div>
+            
+            <div class="feedback-form__field">
+                <label for="feedbackMessage" class="feedback-form__label">Message</label>
+                <textarea 
+                    id="feedbackMessage" 
+                    name="descr" 
+                    class="feedback-form__textarea"
+                    rows="4"
+                    required
+                    minlength="10"
+                    maxlength="512"
+                ></textarea>
+                <span class="feedback-form__error" id="messageError"></span>
+            </div>
+            
+            <div class="feedback-form__field">
+                <label class="feedback-form__label">Rating</label>
+                <div class="rating" id="feedbackRating">
+                    <span class="rating__star" data-rating="1">★</span>
+                    <span class="rating__star" data-rating="2">★</span>
+                    <span class="rating__star" data-rating="3">★</span>
+                    <span class="rating__star" data-rating="4">★</span>
+                    <span class="rating__star" data-rating="5">★</span>
+                </div>
+                <span class="feedback-form__error" id="ratingError"></span>
+            </div>
+            
+            <button type="submit" class="feedback-form__submit">
+                <span class="submit-text">Submit</span>
+                <span class="submit-loader" style="display: none;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12a9 9 0 11-6.219-8.56"/>
+                    </svg>
+                </span>
+            </button>
+        </form>
+    </div>
+</div>
+
