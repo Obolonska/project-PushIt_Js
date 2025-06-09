@@ -195,3 +195,14 @@
     z-index: 2;
   }
 }
+.hero__overlay-bottom  {
+  height: 100px;
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 3, 7, 0) 75%,
+    rgba(6, 3, 7, 1) 100%
+  )
+}
