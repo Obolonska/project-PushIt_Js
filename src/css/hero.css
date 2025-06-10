@@ -195,7 +195,7 @@
     z-index: 2;
   }
 }
-.hero__overlay-bottom  {
+.hero__overlay-bottom {
   height: 100px;
   position: absolute;
   bottom: 0;
@@ -204,5 +204,10 @@
     180deg,
     rgba(6, 3, 7, 0) 75%,
     rgba(6, 3, 7, 1) 100%
-  )
+  );
+}
+@media screen and (max-width: 1439px) {
+  .hero__title {
+    font-size: 48px;
+  }
 }
