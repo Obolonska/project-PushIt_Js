@@ -209,3 +209,7 @@
 img {
     fill: #ffffff;
 }
+
+.hidden {
+    display: none;
+}
