@@ -1,12 +1,16 @@
 .header-section {
-  position: relative;
-  top: 0;
+
+  position: fixed;
+  top: 0; 
   left: 0;
   width: 100%;
   z-index: 1000;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  background-color: #060307;
   padding-top: 11px;
   padding-bottom: 11px;
 }
+
 
 .header-container {
   width: 100%;
@@ -28,12 +32,11 @@
 
 .mob-menu {
   position: fixed;
-  top: 64px;
   left: 0;
   width: 100%;
   height: 100%;
   display: block;
-  background-color: #8c17b4;
+  background-color: #060307;
 }
 @media screen and (max-width: 768px) {
   .mob-menu.is-hidden {
@@ -82,9 +85,13 @@
   color: #bfa0c2;
 }
 
-@media screen and (min-width: 768px) {
-  .header-container {
-    min-width: 640px;
+
+
+@media screen and (min-width: 768px){
+  .header-container{
+  width:704px;
+  display: block;
+
   }
   .header-nav {
     display: flex;
@@ -113,3 +120,19 @@
     color: var(--color-hover);
   }
 }
+
+
+@media screen and (min-width: 1440px){
+  .header-container{
+  width:1440px;
+
+  }
+  
+}
+
+
+
+
+
+
+
