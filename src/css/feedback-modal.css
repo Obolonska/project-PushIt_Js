@@ -261,49 +261,6 @@
   }
 }
 
-/* Стилі для кнопки відкриття модального вікна */
-.leave-feedback-btn,
-.feedback-modal-trigger,
-[data-feedback-modal] {
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  color: #ffffff;
-  border: none;
-  padding: 16px 32px;
-  border-radius: 12px;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
-  min-width: 160px;
-}
-
-.leave-feedback-btn:hover,
-.feedback-modal-trigger:hover,
-[data-feedback-modal]:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-}
-
-.leave-feedback-btn:active,
-.feedback-modal-trigger:active,
-[data-feedback-modal]:active {
-  transform: translateY(0);
-}
-
-/* Адаптивність для кнопки */
-@media (max-width: 768px) {
-  .leave-feedback-btn,
-  .feedback-modal-trigger,
-  [data-feedback-modal] {
-    padding: 14px 28px;
-    font-size: 14px;
-    min-width: 140px;
-  }
-}
-
 /* Блокування скролу сторінки */
 body:has(.feedback-modal.is-open) {
   overflow: hidden;

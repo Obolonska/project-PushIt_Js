@@ -7,7 +7,7 @@ const swiperWrapper = document.querySelector('.swiper-wrapper');
 
 async function getFeedbacks() {
   try {
-    const res = await fetch('https://sound-wave.b.goit.study/api/feedbacks?limit=3&page=2');
+    const res = await fetch('https://sound-wave.b.goit.study/api/feedbacks?limit=6&page=1');
     const data = await res.json();
     console.log('API response:', data);
 
@@ -84,4 +84,3 @@ function toggleNavButtons() {
 toggleNavButtons();
 window.addEventListener('resize', toggleNavButtons);
 
-refs.feedbackModalBtn.addEventListener('click', feedbackModalServise.open)

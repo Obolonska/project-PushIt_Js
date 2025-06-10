@@ -3,6 +3,10 @@
   display: none;
 }
 
+.fb-btn:hover {
+  background-color: var(--color-hover);
+}
+
 .swiper-button-next::after,
 .swiper-button-prev::after {
   display: none;
