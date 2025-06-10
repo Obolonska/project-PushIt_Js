@@ -24,7 +24,7 @@
 }
 
 .footer-logo {
-    fill: var(--main-purple);
+    fill: var(--color-hover);
     width: 110px;
     height: 32px;
 }
