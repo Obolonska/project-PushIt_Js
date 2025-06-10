@@ -21,7 +21,7 @@
     <script type="module" crossorigin src="/project-PushIt_Js/index.js"></script>
     <link rel="modulepreload" crossorigin href="/project-PushIt_Js/assets/vendor-CQMm3erF.js">
     <link rel="stylesheet" crossorigin href="/project-PushIt_Js/assets/vendor-BZ_WhpHG.css">
-    <link rel="stylesheet" crossorigin href="/project-PushIt_Js/assets/index-BC_dsRkF.css">
+    <link rel="stylesheet" crossorigin href="/project-PushIt_Js/assets/index-CBJEYeJ7.css">
   </head>
   <body>
     <header class="header-section">
@@ -187,7 +187,82 @@
   </div>
 </section>
 
-      
+      <!-- Модальне вікно зворотного зв'язку -->
+<div class="feedback-modal" id="feedbackModal">
+    <div class="feedback-modal__overlay"></div>
+    <div class="feedback-modal__content">
+        <button class="feedback-modal__close" type="button" aria-label="Закрити модальне вікно">
+            <svg width="24" height="24">
+                <use href="#icon-close"></use>
+            </svg>
+        </button>
+
+        <h2 class="feedback-modal__title">Submit feedback</h2>
+
+        <form class="feedback-modal__form" id="feedbackForm">
+            <div class="feedback-modal__field">
+                <label class="feedback-modal__label" for="feedbackName">
+                    Ім'я
+                </label>
+                <input class="feedback-modal__input" type="text" id="feedbackName" name="name" required minlength="2"
+                    maxlength="16" placeholder="Введіть ваше ім'я">
+                <span class="feedback-modal__error" id="nameError"></span>
+            </div>
+
+            <div class="feedback-modal__field">
+                <label class="feedback-modal__label" for="feedbackMessage">
+                    Повідомлення
+                </label>
+                <textarea class="feedback-modal__textarea" id="feedbackMessage" name="descr" required minlength="10"
+                    maxlength="512" placeholder="Поділіться вашими думками..." rows="4"></textarea>
+                <span class="feedback-modal__error" id="messageError"></span>
+            </div>
+
+            <div class="feedback-modal__field">
+                <label class="feedback-modal__label">
+                    Рейтинг
+                </label>
+                <div class="feedback-modal__rating" id="feedbackRating">
+                    <button type="button" class="feedback-modal__star" data-rating="1">
+                        <svg width="20" height="20">
+                            <use href="#icon-white-star"></use>
+                        </svg>
+                    </button>
+                    <button type="button" class="feedback-modal__star" data-rating="2">
+                        <svg width="20" height="20">
+                            <use href="#icon-white-star"></use>
+                        </svg>
+                    </button>
+                    <button type="button" class="feedback-modal__star" data-rating="3">
+                        <svg width="20" height="20">
+                            <use href="#icon-white-star"></use>
+                        </svg>
+                    </button>
+                    <button type="button" class="feedback-modal__star" data-rating="4">
+                        <svg width="20" height="20">
+                            <use href="#icon-white-star"></use>
+                        </svg>
+                    </button>
+                    <button type="button" class="feedback-modal__star" data-rating="5">
+                        <svg width="20" height="20">
+                            <use href="#icon-white-star"></use>
+                        </svg>
+                    </button>
+                </div>
+                <span class="feedback-modal__error" id="ratingError"></span>
+            </div>
+
+            <button class="feedback-modal__submit" type="submit">
+                <span class="feedback-modal__submit-text">Відправити</span>
+                <div class="feedback-modal__loader" style="display: none;">
+                    <svg width="20" height="20">
+                        <use href="#icon-loader"></use>
+                    </svg>
+                </div>
+            </button>
+        </form>
+    </div>
+</div>
       <div class="container">Artist details modal</div>
 
       <div class="loader-backdrop">
