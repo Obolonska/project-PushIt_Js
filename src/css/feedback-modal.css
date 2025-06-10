@@ -1,24 +1,21 @@
-/* Стилі для модального вікна зворотного зв'язку */
-
-/* Модальне вікно */
+/* Модальне вікно зворотного зв'язку */
 .feedback-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 9999;
+  z-index: 1000;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.feedback-modal--active {
+.feedback-modal.is-open {
   opacity: 1;
   visibility: visible;
 }
 
-/* Оверлей */
 .feedback-modal__overlay {
   position: absolute;
   top: 0;
@@ -26,10 +23,9 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(4px);
+  cursor: pointer;
 }
 
-/* Контент модального вікна */
 .feedback-modal__content {
   position: absolute;
   top: 50%;
@@ -42,198 +38,239 @@
   max-width: 480px;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   transition: transform 0.3s ease;
 }
 
-.feedback-modal--active .feedback-modal__content {
+.feedback-modal.is-open .feedback-modal__content {
   transform: translate(-50%, -50%) scale(1);
 }
 
-/* Кнопка закриття */
 .feedback-modal__close {
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 40px;
-  height: 40px;
   background: transparent;
   border: none;
-  color: #9ca3af;
   cursor: pointer;
+  padding: 8px;
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
+  transition: background-color 0.3s ease;
+  color: #ffffff;
 }
 
 .feedback-modal__close:hover {
   background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
 }
 
-.feedback-modal__close:focus {
-  outline: 2px solid #8b5cf6;
-  outline-offset: 2px;
+.feedback-modal__close svg {
+  display: block;
 }
 
-/* Заголовок */
 .feedback-modal__title {
-  font-size: 24px;
-  font-weight: 600;
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.2;
   color: #ffffff;
   margin: 0 0 24px 0;
   text-align: center;
 }
 
-/* Форма */
-.feedback-form {
+.feedback-modal__form {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.feedback-form__field {
+.feedback-modal__field {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.feedback-form__label {
-  font-size: 14px;
+.feedback-modal__label {
+  font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 500;
-  color: #d1d5db;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #ffffff;
 }
 
-/* Поля вводу */
-.feedback-form__input,
-.feedback-form__textarea {
-  width: 100%;
-  padding: 12px 16px;
-  background: #2d2d2d;
+.feedback-modal__input,
+.feedback-modal__textarea {
+  background: #2a2a2a;
   border: 1px solid #404040;
   border-radius: 8px;
+  padding: 12px 16px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
   color: #ffffff;
-  font-size: 14px;
-  font-family: inherit;
-  transition: all 0.2s ease;
-  resize: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.feedback-form__input:focus,
-.feedback-form__textarea:focus {
+.feedback-modal__input::placeholder,
+.feedback-modal__textarea::placeholder {
+  color: #888888;
+}
+
+.feedback-modal__input:focus,
+.feedback-modal__textarea:focus {
   outline: none;
   border-color: #8b5cf6;
   box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
 
-.feedback-form__input::placeholder,
-.feedback-form__textarea::placeholder {
-  color: #6b7280;
-}
-
-.feedback-form__textarea {
+.feedback-modal__textarea {
+  resize: vertical;
   min-height: 100px;
 }
 
-/* Рейтинг зірками */
-.feedback-rating {
+.feedback-modal__rating {
   display: flex;
-  gap: 4px;
+  gap: 8px;
   align-items: center;
 }
 
-.feedback-rating__input {
-  display: none;
+.feedback-modal__star {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: transform 0.2s ease;
+  color: #ffffff;
 }
 
-.feedback-rating__star {
-  width: 32px;
-  height: 32px;
-  color: #404040;
+.feedback-modal__star:hover {
+  transform: scale(1.1);
+}
+
+.feedback-modal__star svg {
+  display: block;
+  transition: fill 0.2s ease;
+}
+
+.feedback-modal__submit {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 32px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.4;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.feedback-modal__submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+}
+
+.feedback-modal__submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.feedback-modal__submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.feedback-modal__loader {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.feedback-rating__star:hover,
-.feedback-rating__star--active {
-  color: #fbbf24;
-  transform: scale(1.1);
+.feedback-modal__loader svg {
+  animation: spin 1s linear infinite;
 }
 
-.feedback-rating__input:checked ~ .feedback-rating__star,
-.feedback-rating__input:checked + .feedback-rating__star {
-  color: #fbbf24;
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-/* Повідомлення про помилки */
-.feedback-form__error {
+.feedback-modal__error {
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 12px;
+  line-height: 1.4;
   color: #ef4444;
   display: none;
   margin-top: 4px;
 }
 
-/* Кнопка відправки */
-.feedback-form__submit {
+/* Адаптивність */
+@media (max-width: 768px) {
+  .feedback-modal__content {
+    padding: 24px;
+    width: 95%;
+    margin: 20px auto;
+    max-height: calc(100vh - 40px);
+  }
+
+  .feedback-modal__title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .feedback-modal__form {
+    gap: 16px;
+  }
+
+  .feedback-modal__submit {
+    padding: 14px 28px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .feedback-modal__content {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .feedback-modal__title {
+    font-size: 20px;
+  }
+
+  .feedback-modal__input,
+  .feedback-modal__textarea {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .feedback-modal__rating {
+    gap: 6px;
+  }
+
+  .feedback-modal__star svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Стилі для кнопки відкриття модального вікна */
+.leave-feedback-btn,
+.feedback-modal-trigger,
+[data-feedback-modal] {
   background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
   color: #ffffff;
   border: none;
-  padding: 16px 24px;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.feedback-form__submit:hover:not(:disabled) {
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
-}
-
-.feedback-form__submit:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.feedback-form__submit:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.feedback-form__submit:focus {
-  outline: 2px solid #8b5cf6;
-  outline-offset: 2px;
-}
-
-.feedback-form__loading {
-  display: none;
-}
-
-/* Кнопка "Leave feedback" для About Us секції */
-.feedback-button-container {
-  text-align: center;
-  margin-top: 40px;
-}
-
-.leave-feedback-btn {
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  color: white;
-  border: none;
   padding: 16px 32px;
   border-radius: 12px;
-  font-family: inherit;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -242,127 +279,32 @@
   min-width: 160px;
 }
 
-.leave-feedback-btn:hover {
+.leave-feedback-btn:hover,
+.feedback-modal-trigger:hover,
+[data-feedback-modal]:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
   background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
 }
 
-.leave-feedback-btn:active {
+.leave-feedback-btn:active,
+.feedback-modal-trigger:active,
+[data-feedback-modal]:active {
   transform: translateY(0);
 }
 
-.leave-feedback-btn:focus {
-  outline: 2px solid #8b5cf6;
-  outline-offset: 2px;
-}
-
-/* Адаптивність */
+/* Адаптивність для кнопки */
 @media (max-width: 768px) {
-  .feedback-modal__content {
-    padding: 24px;
-    width: 95%;
-    margin: 20px;
-    max-height: calc(100vh - 40px);
-  }
-
-  .feedback-modal__title {
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
-
-  .feedback-form {
-    gap: 16px;
-  }
-
-  .feedback-form__submit {
-    padding: 14px 20px;
-    font-size: 14px;
-  }
-
-  .leave-feedback-btn {
+  .leave-feedback-btn,
+  .feedback-modal-trigger,
+  [data-feedback-modal] {
     padding: 14px 28px;
     font-size: 14px;
     min-width: 140px;
   }
-
-  .feedback-rating__star {
-    width: 28px;
-    height: 28px;
-  }
 }
 
-@media (max-width: 480px) {
-  .feedback-modal__content {
-    padding: 20px;
-    width: calc(100% - 32px);
-    margin: 16px;
-  }
-
-  .feedback-modal__title {
-    font-size: 18px;
-  }
-
-  .feedback-form__input,
-  .feedback-form__textarea {
-    padding: 10px 12px;
-    font-size: 16px; /* Запобігає зуму на iOS */
-  }
-
-  .feedback-rating__star {
-    width: 24px;
-    height: 24px;
-  }
-}
-
-/* Анімації */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
-  }
-}
-
-/* Доступність */
-@media (prefers-reduced-motion: reduce) {
-  .feedback-modal,
-  .feedback-modal__content,
-  .feedback-form__submit,
-  .leave-feedback-btn,
-  .feedback-rating__star {
-    transition: none;
-  }
-}
-
-/* Високий контраст */
-@media (prefers-contrast: high) {
-  .feedback-modal__content {
-    border: 2px solid #ffffff;
-  }
-
-  .feedback-form__input,
-  .feedback-form__textarea {
-    border: 2px solid #ffffff;
-  }
-
-  .feedback-form__input:focus,
-  .feedback-form__textarea:focus {
-    border-color: #8b5cf6;
-    box-shadow: 0 0 0 2px #8b5cf6;
-  }
+/* Блокування скролу сторінки */
+body:has(.feedback-modal.is-open) {
+  overflow: hidden;
 }
