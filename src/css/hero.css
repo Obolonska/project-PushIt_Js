@@ -10,10 +10,29 @@
   padding-top: 64px;
   margin: auto;
 }
+@media screen and (min-width: 768px) {
+  .hero {
+    padding-top: 32px;
+  }
+  .hero__title {
+    width: 624px;
+    margin-bottom: 24px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .hero__title {
+    font-size: 84px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .hero__title {
+    width: 280px;
+  }
+}
 .hero__title {
   color: #fff;
   font-family: Epilogue;
-  font-size: 84px;
+  font-size: 48px;
   font-style: normal;
   font-weight: 700;
   line-height: 110%; /* 92.4px */
@@ -195,7 +214,7 @@
     z-index: 2;
   }
 }
-.hero__overlay-bottom  {
+.hero__overlay-bottom {
   height: 100px;
   position: absolute;
   bottom: 0;
@@ -204,5 +223,5 @@
     180deg,
     rgba(6, 3, 7, 0) 75%,
     rgba(6, 3, 7, 1) 100%
-  )
+  );
 }

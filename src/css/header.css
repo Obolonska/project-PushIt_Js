@@ -1,19 +1,20 @@
 .header-section {
   position: relative;
-  top: 0; 
+  top: 0;
   left: 0;
-  width: 100%; 
+  width: 100%;
   z-index: 1000;
-} 
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
 
- .header-container {
+.header-container {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: transparent;
-}  
-
+}
 
 .header-logo {
   width: 119px;
@@ -21,11 +22,10 @@
   fill: #764191;
 }
 
-.header-nav-list{
+.header-nav-list {
   display: none;
 }
 
- 
 .mob-menu {
   position: fixed;
   top: 64px;
@@ -35,15 +35,13 @@
   display: block;
   background-color: #8c17b4;
 }
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   .mob-menu.is-hidden {
-   display: none;
-   
+    display: none;
   }
-
 }
 
-.mob-nav-list{
+.mob-nav-list {
   font-weight: 500;
   font-size: 26px;
   line-height: 1.5;
@@ -54,27 +52,25 @@
   align-items: center;
   gap: 32px;
   margin-top: 40px;
-  } 
-
-.burger-btn{
-  background-color: #060307;
-  fill:#fff;
-  border: 0;
-
 }
 
-.mob-menu-close{
+.burger-btn {
+  background-color: #060307;
+  fill: #fff;
+  border: 0;
+}
+
+.mob-menu-close {
   opacity: 1;
   visibility: visible;
   background-color: #060307;
-  fill:#fff;
+  fill: #fff;
   border: 0;
 }
 
- .is-hidden{
-    display: none;
-
-  }   
+.is-hidden {
+  display: none;
+}
 
 .mob-nav-item:hover,
 .mob-nav-item:focus {
@@ -86,28 +82,24 @@
   color: #bfa0c2;
 }
 
-
-@media screen and (min-width: 768px){
-  .header-container{
-    min-width:640px;
-
+@media screen and (min-width: 768px) {
+  .header-container {
+    min-width: 640px;
   }
-  .header-nav{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  
+  .header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
-  .header-nav-list{
+  .header-nav-list {
     display: flex;
     gap: 32px;
-    
   }
-  .button-container{
+  .button-container {
     display: none;
   }
-  .mob-menu{
+  .mob-menu {
     display: none;
   }
 
@@ -119,17 +111,5 @@
   .header-nav-item:focus {
     border: 1px solid #060307;
     color: var(--color-hover);
-
   }
 }
-
-
-
-
-
-
-
-
-
-
-
