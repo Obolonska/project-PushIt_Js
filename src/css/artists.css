@@ -505,7 +505,7 @@ input:-internal-autofill-selected {
 .is-hidden {
   display: none;
 }
-.hide-loader {
+span.loader.hide-loader {
   display: none;
   visibility: hidden;
   opacity: 0;
