@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/project-PushIt_Js/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ArtistHub</title>
     <link
@@ -19,9 +19,9 @@
       rel="stylesheet"
     />
     <script type="module" crossorigin src="/project-PushIt_Js/index.js"></script>
-    <link rel="modulepreload" crossorigin href="/project-PushIt_Js/assets/vendor-CQMm3erF.js">
+    <link rel="modulepreload" crossorigin href="/project-PushIt_Js/assets/vendor-DZ3qZG1b.js">
     <link rel="stylesheet" crossorigin href="/project-PushIt_Js/assets/vendor-BZ_WhpHG.css">
-    <link rel="stylesheet" crossorigin href="/project-PushIt_Js/assets/index-h0Jdsw8z.css">
+    <link rel="stylesheet" crossorigin href="/project-PushIt_Js/assets/index-CpSdiKFZ.css">
   </head>
   <body>
     <header class="header-section">
@@ -29,7 +29,7 @@
     <nav class="header-nav">
       <a class="header-logo-link" href="./index.html">
         <svg class="header-logo">
-          <use class="header-logo-icon" href="/project-PushIt_Js/assets/icons-Cm1JtCZ-.svg#icon-logo"></use>
+          <use class="header-logo-icon" href="/project-PushIt_Js/assets/icons-mSHeLn5t.svg#icon-logo"></use>
         </svg>
       </a>
       <ul class="header-nav-list">
@@ -52,7 +52,7 @@
       </button>
       <button type="button" class="is-hidden mob-menu-close" data-menu-close>
         <svg class="icon-close" width="24" height="24">
-          <use href="/project-PushIt_Js/assets/icons-Cm1JtCZ-.svg#icon-close"></use>
+          <use href="/project-PushIt_Js/assets/icons-mSHeLn5t.svg#icon-close"></use>
         </svg>
       </button>
     </div>
@@ -91,7 +91,7 @@
       <a href="#artist-section" class="hero__btn">
         <span>Explore Artists</span>
         <svg class="hero-btn-icon" width="24" height="24">
-          <use href="/project-PushIt_Js/assets/icons-Cm1JtCZ-.svg#right-arrow-hero"></use>
+          <use href="/project-PushIt_Js/assets/icons-mSHeLn5t.svg#right-arrow-hero"></use>
         </svg>
       </a>
     </div>
@@ -104,16 +104,96 @@
   </div>
 </section>
 
-      <section class="artists" id="artist-section">
-    <div class="container artists-container">
-        <h2 class="artists-title">Artists</h2>
-        <h3 class="artists-subtitle">Explore Your New Favorite Artists</h3>
+      
+<section class="artists" id="artists-section">
+  <div class="container artists-container">
+    <h2 class="artists-title">Artists</h2>
+    <h3 class="artists-subtitle">Explore Your New Favorite Artists</h3>
+    <div class="artist-content">
+      <div class="filrer-container">
+        <div class="filrer-container-dropdown">
+          <p class="label-text">Filters</p>
+          <div class="artist-dropdown">
+            <button type="button" class="search-and-filters">
+              Search and filters
+            </button>
+            <form class="artist-form">
+              <div class="artist-filter">
+                <button class="resetButton" type="button" id="resetButton">
+                  Reset
+                </button>
 
+                <div class="form-input-container">
+                  <button
+                    type="button"
+                    class="search-button"
+                    aria-label="Пошук"
+                  >
+                    <svg class="icon-search" width="24" height="24" fill="#666">
+                      <use href="/project-PushIt_Js/assets/icons-mSHeLn5t.svg#icon-search"></use>
+                    </svg>
+                  </button>
+
+                  <input
+                    id="filters"
+                    class="form-input-filters"
+                    type="text"
+                    name="filters"
+                    placeholder="Search"
+                  />
+                </div>
+              </div>
+              <select
+                class="artist-sorting"
+                id="sorting"
+                name="sorting"
+                data-placeholder="Sorting"
+              >
+                <option value="">Default</option>
+                <option value="asc">A-Z</option>
+                <option value="desc">Z-A</option>
+              </select>
+              <select
+                class="artist-sorting"
+                id="genre"
+                name="genre"
+                data-placeholder="Genre"
+              >
+                <option value="">All genres</option>
+              </select>
+            </form>
+          </div>
+        </div>
+        <span class="loader hide-loader"></span>
+        <div class="empty-state is-hidden">
+          <svg class="empty-state-icon" width="40" height="40" fill="#fff">
+            <use href="/project-PushIt_Js/assets/icons-mSHeLn5t.svg#icon-error-circle"></use>
+          </svg>
+          <h2 class="empty-state-title">Silence on the stage…</h2>
+          <p class="empty-state-text">
+            Looks like no artists match your filters. Try changing them or hit
+            “Reset Filters” to bring back the beat.
+          </p>
+          <button
+            class="resetButtonSearch"
+            type="button"
+            id="resetButtonSearch"
+          >
+            Reset filters
+          </button>
+        </div>
+      </div>
+      <div class="artists-cards-and-btn">
         <ul class="artists-cards-list"></ul>
-    
-        <button type="button" class="load-more">Load More</button>
+
+        <button type="button" class="load-more is-hidden">Load More</button>
+      </div>
     </div>
+
+    <div id="pagination"></div>
+  </div>
 </section>
+
       <section id="about-us-section">
 <div class="about-us-container container">
     <div class="about-us-photo">
@@ -146,7 +226,7 @@
     </div>
     <div class="about-us-info">
         <svg class="about-us-logo" >
-            <use href="/project-PushIt_Js/assets/icons-Cm1JtCZ-.svg#icon-logo-icon"></use>
+            <use href="/project-PushIt_Js/assets/icons-mSHeLn5t.svg#icon-logo-icon"></use>
         </svg>
             <h2 class="about-us-header">
                 About ArtistsHub
@@ -165,7 +245,7 @@
   <div class="fb_outer_wrapper container">
     <button type="button" class="left_btn hide swiper-button-prev">
       <svg class="fb_left_svg" width="14" height="14">
-        <use class="fb_arrow_left" href="/project-PushIt_Js/assets/icons-Cm1JtCZ-.svg#icon-left-arrow"></use>
+        <use class="fb_arrow_left" href="/project-PushIt_Js/assets/icons-mSHeLn5t.svg#icon-left-arrow"></use>
       </svg>
     </button>
     <div class="swiper">
@@ -178,7 +258,7 @@
       <svg class="fb_right_svg" width="14" height="14">
         <use
           class="fb_arrow_right"
-          href="/project-PushIt_Js/assets/icons-Cm1JtCZ-.svg#icon-right-arrow"
+          href="/project-PushIt_Js/assets/icons-mSHeLn5t.svg#icon-right-arrow"
         ></use>
       </svg>
     </button>
@@ -374,7 +454,7 @@
     <div class="footer-content">
       <a href="./index.html">
         <svg class="footer-logo">
-          <use href="/project-PushIt_Js/assets/icons-Cm1JtCZ-.svg#icon-logo"></use>
+          <use href="/project-PushIt_Js/assets/icons-mSHeLn5t.svg#icon-logo"></use>
         </svg>
       </a>
 
@@ -392,21 +472,21 @@
         <li>
           <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
             <svg class="footer-socials-icon">
-              <use href="/project-PushIt_Js/assets/icons-Cm1JtCZ-.svg#icon-instagram"></use>
+              <use href="/project-PushIt_Js/assets/icons-mSHeLn5t.svg#icon-instagram"></use>
             </svg>
           </a>
         </li>
         <li>
           <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
             <svg class="footer-socials-icon">
-              <use href="/project-PushIt_Js/assets/icons-Cm1JtCZ-.svg#icon-facebook"></use>
+              <use href="/project-PushIt_Js/assets/icons-mSHeLn5t.svg#icon-facebook"></use>
             </svg>
           </a>
         </li>
         <li>
           <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
             <svg class="footer-socials-icon">
-              <use href="/project-PushIt_Js/assets/icons-Cm1JtCZ-.svg#icon-youtube"></use>
+              <use href="/project-PushIt_Js/assets/icons-mSHeLn5t.svg#icon-youtube"></use>
             </svg>
           </a>
         </li>
