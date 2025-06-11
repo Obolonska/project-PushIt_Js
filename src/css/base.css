@@ -16,13 +16,6 @@
   --color-focus: #6f4d89;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-  min-width: 100vw;
-  min-height: 100vh;
-  margin: 0;
-}
 
 main {
   flex-grow: 1;
