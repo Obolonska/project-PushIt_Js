@@ -1,10 +1,89 @@
-<section class="artists" id="artist-section">
-    <div class="container artists-container">
-        <h2 class="artists-title">Artists</h2>
-        <h3 class="artists-subtitle">Explore Your New Favorite Artists</h3>
 
+<section class="artists" id="artists-section">
+  <div class="container artists-container">
+    <h2 class="artists-title">Artists</h2>
+    <h3 class="artists-subtitle">Explore Your New Favorite Artists</h3>
+    <div class="artist-content">
+      <div class="filrer-container">
+        <div class="filrer-container-dropdown">
+          <p class="label-text">Filters</p>
+          <div class="artist-dropdown">
+            <button type="button" class="search-and-filters">
+              Search and filters
+            </button>
+            <form class="artist-form">
+              <div class="artist-filter">
+                <button class="resetButton" type="button" id="resetButton">
+                  Reset
+                </button>
+
+                <div class="form-input-container">
+                  <button
+                    type="button"
+                    class="search-button"
+                    aria-label="Пошук"
+                  >
+                    <svg class="icon-search" width="24" height="24" fill="#666">
+                      <use href="/img/icons.svg#icon-search"></use>
+                    </svg>
+                  </button>
+
+                  <input
+                    id="filters"
+                    class="form-input-filters"
+                    type="text"
+                    name="filters"
+                    placeholder="Search"
+                  />
+                </div>
+              </div>
+              <select
+                class="artist-sorting"
+                id="sorting"
+                name="sorting"
+                data-placeholder="Sorting"
+              >
+                <option value="">Default</option>
+                <option value="asc">A-Z</option>
+                <option value="desc">Z-A</option>
+              </select>
+              <select
+                class="artist-sorting"
+                id="genre"
+                name="genre"
+                data-placeholder="Genre"
+              >
+                <option value="">All genres</option>
+              </select>
+            </form>
+          </div>
+        </div>
+        <span class="loader hide-loader"></span>
+        <div class="empty-state is-hidden">
+          <svg class="empty-state-icon" width="40" height="40" fill="#fff">
+            <use href="/img/icons.svg#icon-error-circle"></use>
+          </svg>
+          <h2 class="empty-state-title">Silence on the stage…</h2>
+          <p class="empty-state-text">
+            Looks like no artists match your filters. Try changing them or hit
+            “Reset Filters” to bring back the beat.
+          </p>
+          <button
+            class="resetButtonSearch"
+            type="button"
+            id="resetButtonSearch"
+          >
+            Reset filters
+          </button>
+        </div>
+      </div>
+      <div class="artists-cards-and-btn">
         <ul class="artists-cards-list"></ul>
-    
-        <button type="button" class="load-more">Load More</button>
+
+        <button type="button" class="load-more is-hidden">Load More</button>
+      </div>
     </div>
+
+    <div id="pagination"></div>
+  </div>
 </section>
