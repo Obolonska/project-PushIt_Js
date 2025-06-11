@@ -18,7 +18,9 @@
   "license": "ISC",
   "dependencies": {
     "choices.js": "^11.1.0",
+    "izitoast": "^1.4.0",
     "swiper": "^11.2.8",
+    "tui-pagination": "^3.4.1",
     "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-html-inject": "^1.1.2"
   }

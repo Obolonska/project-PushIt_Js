@@ -317,7 +317,6 @@ function showLoader() {
 }
 function hideLoader() {
   document.querySelector('.loader').classList.add('hide-loader');
-  if (page < totalPages) {
-    showLoadMoreButton();
-  }
+
+  showLoadMoreButton();
 }
