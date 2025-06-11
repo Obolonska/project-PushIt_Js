@@ -4,12 +4,15 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 16px #0000004d;
   background-color: #060307;
-  padding-top: 11px;
-  padding-bottom: 11px;
-}
+  height: 64px;
+  overflow: hidden;
 
+}
+body.menu-open {
+  overflow: hidden;
+}
 
 .header-container {
   width: 100%;
@@ -30,12 +33,14 @@
 }
 
 .mob-menu {
+  overflow-y: auto;
   position: fixed;
   left: 0;
   width: 100%;
   height: 100%;
   display: block;
   background-color: #060307;
+  transition: opacity .25s cubic-bezier(.4,0,.2,1), visibility .25s cubic-bezier(.4,0,.2,1);
 }
 @media screen and (max-width: 768px) {
   .mob-menu.is-hidden {
@@ -68,6 +73,7 @@
   background-color: #060307;
   fill: #fff;
   border: 0;
+  transition: background-color .25s cubic-bezier(.4,0,.2,1), border .25s cubic-bezier(.4,0,.2,1);
 }
 
 .is-hidden {
@@ -76,7 +82,7 @@
 
 .mob-nav-item:hover,
 .mob-nav-item:focus {
-  border: 1px solid #060307;
+  transition: color 250ms;
   color: var(--color-hover);
 }
 
@@ -87,9 +93,11 @@
 
 
 @media screen and (min-width: 768px){
+  .header-section{
+    height: 72px;
+  }
   .header-container{
   width:704px;
-  display: block;
 
   }
   .header-nav {
@@ -115,7 +123,7 @@
 
   .header-nav-item:hover,
   .header-nav-item:focus {
-    border: 1px solid #060307;
+    transition: color 250ms;
     color: var(--color-hover);
   }
 }

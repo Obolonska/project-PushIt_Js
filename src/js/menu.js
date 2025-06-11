@@ -37,3 +37,17 @@
       
     }
   })();
+
+const openBtn = document.querySelector('[data-menu-open]');
+const closeBtn = document.querySelector('[data-menu-close]');
+const menu = document.querySelector('[data-modal]');
+
+openBtn.addEventListener('click', () => {
+  menu.classList.remove('is-hidden');
+  document.body.classList.add('menu-open');
+});
+
+closeBtn.addEventListener('click', () => {
+  menu.classList.add('is-hidden');
+  document.body.classList.remove('menu-open');
+});
