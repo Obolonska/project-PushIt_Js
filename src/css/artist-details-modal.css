@@ -1,3 +1,6 @@
+body.modal-artist-open {
+    overflow: hidden; }
+
 .backdrop {
     position: fixed;
     top: 0;
@@ -9,7 +12,7 @@
 }
 
 .modal-artist {
-    max-width: 288px;
+    width: 288px;
     position: absolute;
     background: rgba(0, 0, 0, 0.25);
     z-index: 9999;
@@ -21,6 +24,16 @@
     margin: 64px 16px;
     box-sizing: border-box;
     overflow-y: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 90vh;
+    /* обмеження по висоті */
+    overflow: hidden;
+    /* не дає контенту вилазити */
+    display: flex;
+    flex-direction: column;
 }
 
 .btn-close {
@@ -35,13 +48,13 @@
 }
 
 .name-artist {
-    font-family: var(--second-family);
+    
     font-weight: 700;
     font-size: 20px;
     line-height: 130%;
     letter-spacing: -0.01em;
     text-align: center;
-    color: var(--color-scheme-1-text);
+    
     margin-top: 4px;
     margin-bottom: 16px;
 }
@@ -53,11 +66,10 @@
 }
 
 .bio-name {
-    font-family: var(--font-family);
     font-weight: 600;
     font-size: 18px;
     line-height: 150%;
-    color: var(--color-scheme-1-text);
+    
 }
 
 
@@ -181,6 +193,7 @@
     color: var(--color-scheme-1-text);
     width: 74px;
     align-items: center;
+    margin-right: 16px;
 }
 
 .albums-icons {
@@ -204,6 +217,7 @@
 .bio-text {
     overflow-y: auto;
     max-height: 297px;
+    margin-bottom: 16px;
 }
 
 img {
@@ -213,3 +227,165 @@ img {
 .hidden {
     display: none;
 }
+
+.ganr-name {
+    
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    color: #ffffff;
+    padding: 4px 10px;
+    border: 1px solid #383539;
+    border-radius: 6px;
+    
+}
+
+.ganr-list{
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+
+
+.modal-scrolled {
+    overflow-y: auto;
+    max-height: 100%;
+    padding-right: 8px;
+    /* щоб текст не перекрився скролом */ 
+}
+
+.large {
+    width:272px;
+}
+
+.small {
+    width:146px;
+    
+}
+       
+    
+@media only screen and (min-width: 768px){
+    .modal-artist{
+        width: 702px;
+        margin: 0;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+    .btn-close{
+        padding-right: 47px;
+        right:0;
+    }
+    .name-artist{
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 130%;
+        letter-spacing: -0.01em;
+        text-align: center;
+        margin-bottom: 48px;
+        margin-top: 16px;
+        margin-bottom: 32px;
+    }
+    .photo-artist{
+        width: 654px;
+        
+    }
+    .list-bio{
+        display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            /* 2 колонки */
+            grid-template-rows: repeat(2, auto);
+            /* 2 рядки */
+            gap: 24px;
+    }
+    .large{
+        width: 484px;
+    }
+    .small{
+        width: 146px;
+    }
+    .bio-text{
+        margin-bottom: 24px;
+    }
+    .ganr-list{
+        margin-bottom: 48px;
+    }
+    .grid{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+    }
+    .albums{
+        width: 311px;
+    }
+    .track-header{
+        width: 286px;
+    }
+    
+    .head-name-time{
+        width: 135px;
+    }
+    .track{
+        width: 286px;
+    }
+    .time{
+        width: 107px;
+    }
+    .albums{
+        margin-bottom: 0;
+    }
+    .bio-text{
+        overflow-y: auto;
+        max-height: 108px;
+    }
+
+}
+
+
+@media only screen and (min-width: 1440px){
+    .modal-artist{
+        width: 1312px;
+        padding-left: 64px;
+        padding-right: 64px;
+    }
+
+     .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 32px;
+    }
+    .descktop{
+        display: flex;
+    }
+    .descktop-text{
+        width: 576px;
+    }
+    .photo-artist{
+        width: 576px;
+    }
+    .artist-description{
+        margin-right: 32px;
+    }
+    .albums{
+        width: 272px;
+    }
+    .head-name-time {
+        width: 102px;
+    }
+    .time {
+        width: 74px;
+    }
+    .track {
+       width: 250px;
+    }
+    .track-header{
+        width: 250px;
+    }
+    .bio-text {
+        overflow-y: auto;
+        max-height: 162px;
+    }
+}
+
+
