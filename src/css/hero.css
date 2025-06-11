@@ -214,6 +214,11 @@
     z-index: 2;
   }
 }
+@media (max-width: 767px) {
+  .hero__title {
+    margin-bottom: 20px;
+  }
+}
 /* /* .hero__overlay-bottom {
   height: 100px;
   position: absolute;
