@@ -73,6 +73,7 @@
     .team-photo{
         max-width: 640px;
         height: 664px;
+        margin: 0;
     }
     .about-us-info{
         max-width: 640px;

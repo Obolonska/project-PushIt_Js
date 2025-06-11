@@ -5,24 +5,55 @@ import iconsUrl from '../img/icons.svg?url';
 
 const swiperWrapper = document.querySelector('.swiper-wrapper');
 
+let currentPage = 1;
+const limit = 5;
+let totalSlides = 0;
+let isFetching = false;
+let swiper;
+
 async function getFeedbacks() {
   try {
-    const res = await fetch('https://sound-wave.b.goit.study/api/feedbacks?limit=3&page=2');
+    const res = await fetch(`https://sound-wave.b.goit.study/api/feedbacks?limit=${limit}&page=${currentPage}`);
     const data = await res.json();
-    console.log('API response:', data);
+    totalSlides = parseInt(data.total, 10);
 
     const markup = renderSlides(data.data);
     swiperWrapper.innerHTML = markup;
 
-    new Swiper('.swiper', {
-      loop: true,
+    swiper = new Swiper('.swiper', {
+      loop: false,
       centeredSlides: false,
       spaceBetween: 0,
-      pagination: { el: '.swiper-pagination', clickable: true },
+      slidesPerView: 1,
+      pagination: { el: '.swiper-pagination', clickable: true, dynamicBullets: true },
       navigation: { nextEl: '.right_btn', prevEl: '.left_btn' },
       scrollbar: { el: '.swiper-scrollbar' },
-    });
 
+      on: {
+        reachEnd: async () => {
+          if (isFetching) return;
+          if ((currentPage * limit) >= totalSlides) return;
+
+          isFetching = true;
+          currentPage++;
+
+          try {
+            const res = await fetch(`https://sound-wave.b.goit.study/api/feedbacks?limit=${limit}&page=${currentPage}`);
+            const data = await res.json();
+            const newMarkup = renderSlides(data.data);
+
+            const tempContainer = document.createElement('div');
+            tempContainer.innerHTML = newMarkup;
+            const newSlides = Array.from(tempContainer.children);
+            swiper.appendSlide(newSlides);
+          } catch (error) {
+            console.error('Error fetching more feedbacks:', error);
+          }
+
+          isFetching = false;
+        }
+      }
+    });
   } catch (err) {
     console.error('Fetch error:', err);
   }
@@ -84,4 +115,3 @@ function toggleNavButtons() {
 toggleNavButtons();
 window.addEventListener('resize', toggleNavButtons);
 
-refs.feedbackModalBtn.addEventListener('click', feedbackModalServise.open)

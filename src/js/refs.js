@@ -1,3 +1,3 @@
 export const refs = {
-    feedbackModalBtn: document.querySelector('.fb-btn.js-fb-btn')
+    feedbackModalBtn: document.querySelector('.leave-feedback-btn')
 }
