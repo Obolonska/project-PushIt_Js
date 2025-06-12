@@ -1,6 +1,6 @@
-/* Perfect Feedback Modal - Идеальные стили точно по макету + улучшения */
+/* Feedback Modal Styles */
 
-/* Утилитарные классы */
+/* Utility classes */
 .visually-hidden {
   position: absolute !important;
   width: 1px !important;
@@ -13,7 +13,13 @@
   border: 0 !important;
 }
 
-/* Основной контейнер модального окна */
+/* Prevent body scroll when modal is open */
+.feedback-modal-open {
+  overflow: hidden;
+  padding-right: var(--scrollbar-width, 0);
+}
+
+/* Main modal container */
 .feedback-modal {
   position: fixed;
   top: 0;
@@ -26,8 +32,7 @@
   justify-content: center;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .feedback-modal.is-open {
@@ -36,75 +41,76 @@
   visibility: visible;
 }
 
-/* Overlay */
+/* Modal overlay */
 .feedback-modal__overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.feedback-modal__overlay:hover {
-  background: rgba(0, 0, 0, 0.6);
-}
-
-/* Контент модального окна - точно по макету */
+/* Modal content container */
 .feedback-modal__content {
   position: relative;
-  background: #1a1a1a;
-  border-radius: 12px;
   width: 320px;
-  height: 508px;
-  padding: 16px 24px 58px 24px;
-  transform: scale(0.9) translateY(20px);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 90vw;
+  max-height: 90vh;
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  padding: 16px 16px 58px 16px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  outline: none;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
 }
 
 .feedback-modal.is-open .feedback-modal__content {
-  transform: scale(1) translateY(0);
+  transform: scale(1);
 }
 
-/* Заголовок - точно по макету */
+/* Modal header */
 .feedback-modal__header {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 24px;
+  position: relative;
 }
 
 .feedback-modal__title {
-  color: #ffffff;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 1.2;
+  color: #ffffff;
   margin: 0;
-  order: 1;
+  margin-bottom: 8px;
 }
 
-/* Крестик - БЕЛЫЙ как требовалось */
+/* Close button */
 .feedback-modal__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
   background: none;
   border: none;
   color: #ffffff;
   cursor: pointer;
-  padding: 8px;
-  border-radius: 6px;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-  align-self: flex-end;
-  order: 2;
-  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
 }
 
 .feedback-modal__close:hover {
   background-color: rgba(255, 255, 255, 0.1);
-  transform: scale(1.1);
 }
 
 .feedback-modal__close:focus {
@@ -113,24 +119,17 @@
 }
 
 .feedback-modal__close svg {
-  display: block;
-  width: 24px;
-  height: 24px;
-  transition: transform 0.2s ease;
+  width: 16px;
+  height: 16px;
 }
 
-.feedback-modal__close:hover svg {
-  transform: rotate(90deg);
-}
-
-/* Форма */
+/* Form styles */
 .feedback-modal__form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
-/* Поля формы */
 .feedback-modal__field {
   display: flex;
   flex-direction: column;
@@ -138,29 +137,32 @@
 }
 
 .feedback-modal__label {
-  color: #ffffff;
   font-size: 14px;
   font-weight: 500;
-  line-height: 1.4;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .feedback-modal__required {
   color: #ef4444;
-  margin-left: 2px;
+  font-weight: 600;
 }
 
-/* Инпуты и текстареа */
+/* Input styles */
 .feedback-modal__input,
 .feedback-modal__textarea {
-  background: #2a2a2a;
+  width: 100%;
+  padding: 12px;
   border: 1px solid #404040;
   border-radius: 8px;
+  background-color: #2a2a2a;
   color: #ffffff;
-  font-size: 16px;
-  line-height: 1.5;
-  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 1.4;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  font-family: inherit;
+  resize: none;
 }
 
 .feedback-modal__input:focus,
@@ -176,30 +178,25 @@
 }
 
 .feedback-modal__textarea {
-  resize: vertical;
-  min-height: 100px;
+  min-height: 80px;
+  font-family: inherit;
 }
 
-/* Подсказки и счетчики */
-.feedback-modal__hint {
-  color: #888888;
-  font-size: 12px;
-  line-height: 1.4;
-}
-
+/* Field footer */
 .feedback-modal__field-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
+  gap: 8px;
 }
 
 .feedback-modal__counter {
-  color: #888888;
   font-size: 12px;
-  font-variant-numeric: tabular-nums;
+  color: #888888;
+  font-weight: 500;
 }
 
-/* Рейтинг - БЕЗ слова "Рейтинг" как требовалось */
+/* Rating field */
 .feedback-modal__rating-field {
   border: none;
   padding: 0;
@@ -207,22 +204,25 @@
 }
 
 .feedback-modal__legend {
-  color: #ffffff;
   font-size: 14px;
   font-weight: 500;
-  line-height: 1.4;
+  color: #ffffff;
   margin-bottom: 8px;
-  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .feedback-modal__rating {
   display: flex;
-  gap: 8px;
-  margin-bottom: 32px; /* 32px отступ до кнопки как требовалось */
+  gap: 4px;
+  margin-bottom: 32px;
 }
 
 .feedback-modal__rating-input {
-  display: none;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .feedback-modal__star {
@@ -232,12 +232,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
+  padding: 2px;
   border-radius: 4px;
 }
 
 .feedback-modal__star:hover {
-  color: #fbbf24;
   transform: scale(1.1);
 }
 
@@ -246,95 +245,68 @@
   outline-offset: 2px;
 }
 
-/* Логика выделения звездочек */
 .feedback-modal__rating-input:checked + .feedback-modal__star {
   color: #fbbf24;
 }
 
-.feedback-modal__rating-input:checked
-  + .feedback-modal__star
-  ~ .feedback-modal__star {
-  color: #404040;
-}
-
-/* Hover эффект для звездочек */
-.feedback-modal__star:hover,
-.feedback-modal__star:hover ~ .feedback-modal__star {
-  color: #fbbf24;
-}
-
-/* Кнопка отправки - точный цвет и font-weight как требовалось */
+/* Submit button */
 .feedback-modal__submit {
-  background: #8b5cf6; /* Правильный цвет */
+  width: 100%;
+  padding: 12px 24px;
+  background-color: #8b5cf6;
+  color: #ffffff;
   border: none;
   border-radius: 8px;
-  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: 500; /* font-weight: 500 как требовалось */
-  font-family: inherit;
-  line-height: 1.5;
-  padding: 12px 24px;
-  transition: background-color 0.2s ease, transform 0.1s ease,
-    box-shadow 0.2s ease;
-  position: relative;
-  overflow: hidden;
+  transition: background-color 0.2s ease, transform 0.1s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  position: relative;
+  overflow: hidden;
 }
 
-.feedback-modal__submit:hover {
-  background: #7c3aed;
+.feedback-modal__submit:hover:not(:disabled) {
+  background-color: #7c3aed;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
-}
-
-.feedback-modal__submit:active {
-  transform: translateY(0);
-}
-
-.feedback-modal__submit:disabled {
-  background: #404040;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
 }
 
 .feedback-modal__submit:focus {
-  outline: 2px solid #ffffff;
+  outline: 2px solid #8b5cf6;
   outline-offset: 2px;
 }
 
-/* Состояния кнопки */
-.feedback-modal__submit-icon,
-.feedback-modal__submit-text,
-.feedback-modal__loading {
-  transition: opacity 0.2s ease, transform 0.2s ease;
+.feedback-modal__submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
 }
 
-.feedback-modal__submit.is-loading .feedback-modal__submit-icon,
+.feedback-modal__submit-text {
+  transition: opacity 0.2s ease;
+}
+
+.feedback-modal__loading {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
 .feedback-modal__submit.is-loading .feedback-modal__submit-text {
   opacity: 0;
-  transform: scale(0.8);
 }
 
 .feedback-modal__submit.is-loading .feedback-modal__loading {
   opacity: 1;
-  transform: scale(1);
 }
 
-.feedback-modal__loading {
-  opacity: 0;
-  transform: scale(0.8);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  position: absolute;
-}
-
-/* Спиннер */
+/* Spinner animation */
 .feedback-modal__spinner {
   animation: spin 1s linear infinite;
 }
@@ -348,32 +320,30 @@
   }
 }
 
-/* Ошибки */
+/* Error messages */
 .feedback-modal__error {
-  color: #ef4444;
   font-size: 12px;
-  line-height: 1.4;
+  color: #ef4444;
   min-height: 16px;
   opacity: 0;
-  transform: translateY(-4px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
 .feedback-modal__error.is-visible {
   opacity: 1;
-  transform: translateY(0);
 }
 
-/* Статус сообщения */
+/* Status messages */
 .feedback-modal__status {
-  margin-top: 16px;
-  padding: 12px 16px;
+  padding: 12px;
   border-radius: 8px;
   font-size: 14px;
-  line-height: 1.4;
+  font-weight: 500;
+  text-align: center;
   opacity: 0;
-  transform: translateY(8px);
+  transform: translateY(10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
+  margin-top: 16px;
 }
 
 .feedback-modal__status.is-visible {
@@ -382,85 +352,62 @@
 }
 
 .feedback-modal__status.is-success {
-  background: rgba(34, 197, 94, 0.1);
-  border: 1px solid rgba(34, 197, 94, 0.2);
-  color: #22c55e;
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .feedback-modal__status.is-error {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  background-color: rgba(239, 68, 68, 0.1);
   color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
-/* Блокировка скролла */
-body.feedback-modal-open {
+/* Screen reader announcer */
+.feedback-modal__announcer {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
   overflow: hidden;
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
+/* Mobile responsive */
+@media (max-width: 480px) {
   .feedback-modal__content {
-    width: 95%;
-    max-width: 320px;
-    margin: 20px;
-    max-height: calc(100vh - 40px);
-    overflow-y: auto;
+    width: 100%;
+    max-width: calc(100vw - 32px);
+    margin: 16px;
   }
 
   .feedback-modal__title {
-    font-size: 20px;
-  }
-
-  .feedback-modal__input,
-  .feedback-modal__textarea {
-    font-size: 16px; /* Предотвращает зум на iOS */
-  }
-
-  .feedback-modal__submit {
-    padding: 14px 24px;
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .feedback-modal__content {
-    padding: 16px 16px 58px 16px;
+    font-size: 18px;
   }
 
   .feedback-modal__rating {
-    gap: 6px;
-  }
-
-  .feedback-modal__star svg {
-    width: 18px;
-    height: 18px;
+    justify-content: center;
   }
 }
 
-/* Поддержка prefers-reduced-motion */
-@media (prefers-reduced-motion: reduce) {
-  .feedback-modal,
-  .feedback-modal__content,
-  .feedback-modal__overlay,
-  .feedback-modal__close,
-  .feedback-modal__submit,
-  .feedback-modal__star,
-  .feedback-modal__error,
-  .feedback-modal__status {
-    transition: none;
-  }
-
-  .feedback-modal__spinner {
-    animation: none;
-  }
-
-  .feedback-modal__close:hover svg {
-    transform: none;
+/* Tablet responsive */
+@media (min-width: 481px) and (max-width: 768px) {
+  .feedback-modal__content {
+    width: 360px;
   }
 }
 
-/* Высокий контраст */
+/* Desktop responsive */
+@media (min-width: 769px) {
+  .feedback-modal__content {
+    width: 320px;
+  }
+
+  .feedback-modal__submit:hover:not(:disabled) {
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  }
+}
+
+/* High contrast mode support */
 @media (prefers-contrast: high) {
   .feedback-modal__content {
     border: 2px solid #ffffff;
@@ -470,15 +417,23 @@ body.feedback-modal-open {
   .feedback-modal__textarea {
     border-width: 2px;
   }
-
-  .feedback-modal__submit {
-    border: 2px solid #ffffff;
-  }
 }
 
-/* Темная тема (дополнительная поддержка) */
-@media (prefers-color-scheme: dark) {
-  .feedback-modal__content {
-    background: #1a1a1a;
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .feedback-modal,
+  .feedback-modal__content,
+  .feedback-modal__close,
+  .feedback-modal__input,
+  .feedback-modal__textarea,
+  .feedback-modal__star,
+  .feedback-modal__submit,
+  .feedback-modal__status,
+  .feedback-modal__error {
+    transition: none;
+  }
+
+  .feedback-modal__spinner {
+    animation: none;
   }
 }

@@ -1,6 +1,6 @@
 /**
- * Perfect Feedback Modal - Адаптированный под стиль команды
- * Использует те же методы и паттерны что и основной проект
+ * Feedback Modal Component
+ * Handles modal functionality, form validation, and user interactions
  */
 
 class FeedbackModal {
@@ -14,7 +14,7 @@ class FeedbackModal {
         this.isOpen = false;
         this.isSubmitting = false;
 
-        // Конфигурация как у команды
+        // Configuration options
         this.config = {
             autoSave: true,
             autoSaveKey: 'feedback-modal-draft',
@@ -32,7 +32,7 @@ class FeedbackModal {
     }
 
     bindEvents() {
-        // Открытие модального окна - как у команды
+        // Open modal when clicking trigger elements
         document.addEventListener('click', (e) => {
             if (e.target.matches('[data-feedback-modal]') ||
                 e.target.closest('[data-feedback-modal]')) {
@@ -41,25 +41,25 @@ class FeedbackModal {
             }
         });
 
-        // Закрытие модального окна - как у команды
+        // Close modal events
         this.closeBtn?.addEventListener('click', () => this.close());
         this.overlay?.addEventListener('click', () => this.close());
 
-        // Закрытие по Escape - как у команды
+        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && this.isOpen) {
                 this.close();
             }
         });
 
-        // Отправка формы - как у команды
+        // Form submission
         this.form?.addEventListener('submit', (e) => this.handleSubmit(e));
 
-        // Валидация в реальном времени - как у команды
+        // Real-time validation
         this.form?.addEventListener('input', (e) => this.validateField(e.target));
         this.form?.addEventListener('blur', (e) => this.validateField(e.target), true);
 
-        // Счетчик символов
+        // Character counter for message field
         const messageField = document.getElementById('feedbackMessage');
         messageField?.addEventListener('input', () => this.updateCounter());
     }
@@ -76,12 +76,12 @@ class FeedbackModal {
             const input = star.previousElementSibling;
             const rating = parseInt(input?.value || 0);
 
-            // Hover эффект - как у команды
+            // Hover effects
             star.addEventListener('mouseenter', () => {
                 this.highlightStars(stars, rating);
             });
 
-            // Клик по звезде - как у команды
+            // Click handling
             star.addEventListener('click', () => {
                 currentRating = rating;
                 input.checked = true;
@@ -90,7 +90,7 @@ class FeedbackModal {
             });
         });
 
-        // Сброс hover эффекта - как у команды
+        // Reset hover effects
         ratingContainer.addEventListener('mouseleave', () => {
             this.setRating(stars, currentRating);
         });
@@ -131,7 +131,7 @@ class FeedbackModal {
         const max = 512;
         counter.textContent = `${current}/${max}`;
 
-        // Изменяем цвет при приближении к лимиту
+        // Change color based on usage
         if (current > max * 0.9) {
             counter.style.color = '#ef4444';
         } else if (current > max * 0.8) {
@@ -148,13 +148,13 @@ class FeedbackModal {
         this.modal.classList.add('is-open');
         document.body.classList.add('feedback-modal-open');
 
-        // Фокус на первое поле - как у команды
+        // Focus management
         setTimeout(() => {
             const firstInput = this.form?.querySelector('input, textarea');
             firstInput?.focus();
         }, 100);
 
-        // Загружаем черновик
+        // Load saved draft
         this.loadDraft();
         this.updateCounter();
     }
@@ -166,7 +166,7 @@ class FeedbackModal {
         this.modal.classList.remove('is-open');
         document.body.classList.remove('feedback-modal-open');
 
-        // Скрываем статус
+        // Hide status messages
         this.hideStatus();
     }
 
@@ -185,13 +185,13 @@ class FeedbackModal {
             const formData = this.getFormData();
             await this.submitFeedback(formData);
 
-            // Успешная отправка - как у команды
+            // Success handling
             this.showSuccess();
             this.clearDraft();
             setTimeout(() => this.close(), 3000);
 
         } catch (error) {
-            console.error('Ошибка отправки:', error);
+            console.error('Submit error:', error);
             this.showError('Sorry, there was an error submitting your feedback. Please try again.');
         } finally {
             this.isSubmitting = false;
@@ -257,7 +257,7 @@ class FeedbackModal {
                 break;
         }
 
-        // Автосохранение как у команды
+        // Auto-save functionality
         if (this.config.autoSave) {
             this.saveDraft();
         }
@@ -311,10 +311,10 @@ class FeedbackModal {
     }
 
     async submitFeedback(data) {
-        // Имитация API запроса - как у команды
+        // Simulate API request
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                // Имитация случайной ошибки (10% вероятность)
+                // Simulate occasional errors for testing
                 if (Math.random() < 0.1) {
                     reject(new Error('Network error'));
                 } else {
@@ -348,7 +348,7 @@ class FeedbackModal {
         statusElement.classList.add('is-visible', `is-${type}`);
         statusElement.textContent = message;
 
-        // Автоматическое скрытие для ошибок
+        // Auto-hide error messages
         if (type === 'error') {
             setTimeout(() => {
                 this.hideStatus();
@@ -403,7 +403,7 @@ class FeedbackModal {
                     if (ratingInput) {
                         ratingInput.checked = true;
 
-                        // Обновляем отображение звездочек
+                        // Update star display
                         const stars = this.modal.querySelectorAll('.feedback-modal__star');
                         this.setRating(stars, data.rating);
                     }
@@ -427,28 +427,41 @@ class FeedbackModal {
     resetForm() {
         this.form?.reset();
 
-        // Сброс рейтинга
+        // Reset star ratings
         const stars = this.modal?.querySelectorAll('.feedback-modal__star');
         stars?.forEach(star => star.style.color = '#404040');
 
-        // Очистка ошибок
+        // Clear error messages
         const errors = this.modal?.querySelectorAll('.feedback-modal__error');
         errors?.forEach(error => {
             error.textContent = '';
             error.classList.remove('is-visible');
         });
 
-        // Сброс счетчика
+        // Reset counter
         this.updateCounter();
     }
 }
 
-// Инициализация при загрузке страницы - как у команды
+// Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     window.feedbackModal = new FeedbackModal();
 });
 
-// Экспорт для возможного использования в других модулях - как у команды
+// Global functions for compatibility
+window.openFeedbackModal = () => {
+    if (window.feedbackModal) {
+        window.feedbackModal.open();
+    }
+};
+
+window.closeFeedbackModal = () => {
+    if (window.feedbackModal) {
+        window.feedbackModal.close();
+    }
+};
+
+// Export for module systems
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = FeedbackModal;
 }
