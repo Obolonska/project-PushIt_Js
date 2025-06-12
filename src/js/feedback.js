@@ -59,8 +59,6 @@ async function getFeedbacks() {
   }
 }
 
-
-
 function slideTemplate(slide) {
   return `
     <div class="fb_item swiper-slide">
@@ -91,7 +89,6 @@ function createStars(rating) {
 
   return starsMarkup;
 }
-
 
 document.addEventListener('DOMContentLoaded', () => {
   getFeedbacks();
