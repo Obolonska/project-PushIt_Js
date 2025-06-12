@@ -3,73 +3,91 @@
     <div class="feedback-modal__overlay"></div>
     <div class="feedback-modal__content">
         <button class="feedback-modal__close" type="button" aria-label="Закрити модальне вікно">
-            <svg width="24" height="24">
-                <use href="#icon-close"></use>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
             </svg>
         </button>
 
         <h2 class="feedback-modal__title">Submit feedback</h2>
 
-        <form class="feedback-modal__form" id="feedbackForm">
-            <div class="feedback-modal__field">
-                <label class="feedback-modal__label" for="feedbackName">
-                    Ім'я
-                </label>
-                <input class="feedback-modal__input" type="text" id="feedbackName" name="name" required minlength="2"
-                    maxlength="16" placeholder="Введіть ваше ім'я">
-                <span class="feedback-modal__error" id="nameError"></span>
+        <form class="feedback-form" id="feedbackForm">
+            <div class="feedback-form__field">
+                <label class="feedback-form__label" for="feedbackName">Name</label>
+                <input class="feedback-form__input" type="text" id="feedbackName" name="name" placeholder="Emily"
+                    required minlength="2" maxlength="16">
+                <span class="feedback-form__error" id="nameError"></span>
             </div>
 
-            <div class="feedback-modal__field">
-                <label class="feedback-modal__label" for="feedbackMessage">
-                    Повідомлення
-                </label>
-                <textarea class="feedback-modal__textarea" id="feedbackMessage" name="descr" required minlength="10"
-                    maxlength="512" placeholder="Поділіться вашими думками..." rows="4"></textarea>
-                <span class="feedback-modal__error" id="messageError"></span>
+            <div class="feedback-form__field">
+                <label class="feedback-form__label" for="feedbackMessage">Message</label>
+                <textarea class="feedback-form__textarea" id="feedbackMessage" name="descr"
+                    placeholder="Type your message..." required minlength="10" maxlength="512" rows="4"></textarea>
+                <span class="feedback-form__error" id="messageError"></span>
             </div>
 
-            <div class="feedback-modal__field">
-                <label class="feedback-modal__label">
-                    Рейтинг
-                </label>
-                <div class="feedback-modal__rating" id="feedbackRating">
-                    <button type="button" class="feedback-modal__star" data-rating="1">
-                        <svg width="20" height="20">
-                            <use href="#icon-white-star"></use>
+            <div class="feedback-form__field">
+                <span class="feedback-form__label">Rating</span>
+                <div class="feedback-rating" id="feedbackRating">
+                    <input type="radio" id="star1" name="rating" value="1" class="feedback-rating__input">
+                    <label for="star1" class="feedback-rating__star" aria-label="1 зірка">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10 1L12.09 6.26L18 7.27L14 11.14L15.18 17.02L10 14.77L4.82 17.02L6 11.14L2 7.27L7.91 6.26L10 1Z"
+                                fill="currentColor" />
                         </svg>
-                    </button>
-                    <button type="button" class="feedback-modal__star" data-rating="2">
-                        <svg width="20" height="20">
-                            <use href="#icon-white-star"></use>
+                    </label>
+
+                    <input type="radio" id="star2" name="rating" value="2" class="feedback-rating__input">
+                    <label for="star2" class="feedback-rating__star" aria-label="2 зірки">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10 1L12.09 6.26L18 7.27L14 11.14L15.18 17.02L10 14.77L4.82 17.02L6 11.14L2 7.27L7.91 6.26L10 1Z"
+                                fill="currentColor" />
                         </svg>
-                    </button>
-                    <button type="button" class="feedback-modal__star" data-rating="3">
-                        <svg width="20" height="20">
-                            <use href="#icon-white-star"></use>
+                    </label>
+
+                    <input type="radio" id="star3" name="rating" value="3" class="feedback-rating__input">
+                    <label for="star3" class="feedback-rating__star" aria-label="3 зірки">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10 1L12.09 6.26L18 7.27L14 11.14L15.18 17.02L10 14.77L4.82 17.02L6 11.14L2 7.27L7.91 6.26L10 1Z"
+                                fill="currentColor" />
                         </svg>
-                    </button>
-                    <button type="button" class="feedback-modal__star" data-rating="4">
-                        <svg width="20" height="20">
-                            <use href="#icon-white-star"></use>
+                    </label>
+
+                    <input type="radio" id="star4" name="rating" value="4" class="feedback-rating__input">
+                    <label for="star4" class="feedback-rating__star" aria-label="4 зірки">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10 1L12.09 6.26L18 7.27L14 11.14L15.18 17.02L10 14.77L4.82 17.02L6 11.14L2 7.27L7.91 6.26L10 1Z"
+                                fill="currentColor" />
                         </svg>
-                    </button>
-                    <button type="button" class="feedback-modal__star" data-rating="5">
-                        <svg width="20" height="20">
-                            <use href="#icon-white-star"></use>
+                    </label>
+
+                    <input type="radio" id="star5" name="rating" value="5" class="feedback-rating__input">
+                    <label for="star5" class="feedback-rating__star" aria-label="5 зірок">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10 1L12.09 6.26L18 7.27L14 11.14L15.18 17.02L10 14.77L4.82 17.02L6 11.14L2 7.27L7.91 6.26L10 1Z"
+                                fill="currentColor" />
                         </svg>
-                    </button>
+                    </label>
                 </div>
-                <span class="feedback-modal__error" id="ratingError"></span>
+                <span class="feedback-form__error" id="ratingError"></span>
             </div>
 
-            <button class="feedback-modal__submit" type="submit">
-                <span class="feedback-modal__submit-text">Відправити</span>
-                <div class="feedback-modal__loader" style="display: none;">
-                    <svg width="20" height="20">
-                        <use href="#icon-loader"></use>
+            <button class="feedback-form__submit" type="submit" id="submitBtn">
+                <span class="feedback-form__submit-text">Submit</span>
+                <span class="feedback-form__loading" id="loadingSpinner" style="display: none;">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-dasharray="50.27" stroke-dashoffset="50.27">
+                            <animateTransform attributeName="transform" type="rotate" values="0 10 10;360 10 10"
+                                dur="1s" repeatCount="indefinite" />
+                        </circle>
                     </svg>
-                </div>
+                </span>
             </button>
         </form>
     </div>
