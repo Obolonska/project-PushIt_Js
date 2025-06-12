@@ -124,17 +124,6 @@
   }
 }
 
-.album-info__year {
-}
-
-.album-info__sex {
-}
-
-.album-info__members {
-}
-
-.album-info__country {
-}
 .album-info__label {
   font-weight: 600;
 }
@@ -296,9 +285,6 @@
   padding-bottom: 3px;
 }
 
-.time {
-}
-
 .img-icon {
   width: 35px;
 }
@@ -306,7 +292,4 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.scroll-padding {
 }
