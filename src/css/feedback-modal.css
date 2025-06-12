@@ -1,53 +1,57 @@
 /* Стилі для модального вікна зворотного зв'язку */
 
-/* Модальне вікно */
+/* Основний контейнер модального вікна */
 .feedback-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 9999;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: all 0.3s ease;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-.feedback-modal--active {
+.feedback-modal.active {
   opacity: 1;
   visibility: visible;
 }
 
-/* Оверлей */
+/* Оверлей для закриття модального вікна */
 .feedback-modal__overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(4px);
+  cursor: pointer;
 }
 
 /* Контент модального вікна */
 .feedback-modal__content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.9);
+  position: relative;
   background: #1a1a1a;
   border-radius: 16px;
   padding: 32px;
-  width: 90%;
+  width: 100%;
   max-width: 480px;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease;
+  transform: scale(0.9) translateY(20px);
+  transition: all 0.3s ease;
 }
 
-.feedback-modal--active .feedback-modal__content {
-  transform: translate(-50%, -50%) scale(1);
+.feedback-modal.active .feedback-modal__content {
+  transform: scale(1) translateY(0);
 }
 
 /* Кнопка закриття */
@@ -55,65 +59,60 @@
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 40px;
-  height: 40px;
-  background: transparent;
+  background: none;
   border: none;
   color: #9ca3af;
   cursor: pointer;
+  padding: 8px;
   border-radius: 8px;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
 }
 
 .feedback-modal__close:hover {
-  background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
-}
-
-.feedback-modal__close:focus {
-  outline: 2px solid #8b5cf6;
-  outline-offset: 2px;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* Заголовок */
 .feedback-modal__title {
+  color: #ffffff;
   font-size: 24px;
   font-weight: 600;
-  color: #ffffff;
   margin: 0 0 24px 0;
   text-align: center;
 }
 
 /* Форма */
-.feedback-form {
+.feedback-modal__form {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.feedback-form__field {
+/* Поле форми */
+.feedback-modal__field {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.feedback-form__label {
+/* Лейбл */
+.feedback-modal__label {
+  color: #ffffff;
   font-size: 14px;
   font-weight: 500;
-  color: #d1d5db;
 }
 
-/* Поля вводу */
-.feedback-form__input,
-.feedback-form__textarea {
-  width: 100%;
-  padding: 12px 16px;
+/* Інпут */
+.feedback-modal__input,
+.feedback-modal__textarea {
   background: #2d2d2d;
-  border: 1px solid #404040;
+  border: 2px solid #404040;
   border-radius: 8px;
+  padding: 12px 16px;
   color: #ffffff;
   font-size: 14px;
   font-family: inherit;
@@ -121,70 +120,75 @@
   resize: none;
 }
 
-.feedback-form__input:focus,
-.feedback-form__textarea:focus {
+.feedback-modal__input:focus,
+.feedback-modal__textarea:focus {
   outline: none;
   border-color: #8b5cf6;
   box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
 
-.feedback-form__input::placeholder,
-.feedback-form__textarea::placeholder {
-  color: #6b7280;
+.feedback-modal__input::placeholder,
+.feedback-modal__textarea::placeholder {
+  color: #9ca3af;
 }
 
-.feedback-form__textarea {
+.feedback-modal__textarea {
   min-height: 100px;
+  max-height: 150px;
 }
 
-/* Рейтинг зірками */
-.feedback-rating {
+/* Помилки валідації */
+.feedback-modal__error {
+  color: #ef4444;
+  font-size: 12px;
+  min-height: 16px;
+  display: block;
+}
+
+.feedback-modal__input.error,
+.feedback-modal__textarea.error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Рейтинг зірочками */
+.feedback-modal__rating {
   display: flex;
   gap: 4px;
   align-items: center;
 }
 
-.feedback-rating__input {
+.feedback-modal__rating-input {
   display: none;
 }
 
-.feedback-rating__star {
-  width: 32px;
-  height: 32px;
+.feedback-modal__star {
+  font-size: 32px;
   color: #404040;
   cursor: pointer;
   transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  user-select: none;
+  line-height: 1;
 }
 
-.feedback-rating__star:hover,
-.feedback-rating__star--active {
-  color: #fbbf24;
+.feedback-modal__star:hover,
+.feedback-modal__star.active {
+  color: #8b5cf6;
   transform: scale(1.1);
 }
 
-.feedback-rating__input:checked ~ .feedback-rating__star,
-.feedback-rating__input:checked + .feedback-rating__star {
-  color: #fbbf24;
-}
-
-/* Повідомлення про помилки */
-.feedback-form__error {
-  font-size: 12px;
-  color: #ef4444;
-  display: none;
-  margin-top: 4px;
+.feedback-modal__rating-input:checked ~ .feedback-modal__star,
+.feedback-modal__rating-input:checked + .feedback-modal__star {
+  color: #8b5cf6;
 }
 
 /* Кнопка відправки */
-.feedback-form__submit {
+.feedback-modal__submit {
   background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
   color: #ffffff;
   border: none;
-  padding: 16px 24px;
   border-radius: 12px;
+  padding: 16px 24px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -194,34 +198,103 @@
   justify-content: center;
   gap: 8px;
   margin-top: 8px;
+  position: relative;
+  overflow: hidden;
 }
 
-.feedback-form__submit:hover:not(:disabled) {
+.feedback-modal__submit:hover:not(:disabled) {
   background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
 }
 
-.feedback-form__submit:active:not(:disabled) {
+.feedback-modal__submit:active:not(:disabled) {
   transform: translateY(0);
 }
 
-.feedback-form__submit:disabled {
+.feedback-modal__submit:disabled {
   opacity: 0.7;
   cursor: not-allowed;
   transform: none;
 }
 
-.feedback-form__submit:focus {
-  outline: 2px solid #8b5cf6;
-  outline-offset: 2px;
+.feedback-modal__submit-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.feedback-form__loading {
-  display: none;
+/* Адаптивність */
+@media (max-width: 768px) {
+  .feedback-modal {
+    padding: 16px;
+  }
+
+  .feedback-modal__content {
+    padding: 24px;
+    border-radius: 12px;
+    max-width: none;
+  }
+
+  .feedback-modal__title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .feedback-modal__star {
+    font-size: 28px;
+  }
+
+  .feedback-modal__submit {
+    padding: 14px 20px;
+    font-size: 14px;
+  }
 }
 
-/* Кнопка "Leave feedback" для About Us секції */
+@media (max-width: 480px) {
+  .feedback-modal__content {
+    padding: 20px;
+  }
+
+  .feedback-modal__title {
+    font-size: 18px;
+  }
+
+  .feedback-modal__star {
+    font-size: 24px;
+  }
+}
+
+/* Блокування скролу сторінки */
+body.modal-open {
+  overflow: hidden;
+  padding-right: var(--scrollbar-width, 0);
+}
+
+/* Анімації */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+}
+
+/* Стилі для кнопки відкриття модального вікна в секції About Us */
 .feedback-button-container {
   text-align: center;
   margin-top: 40px;
@@ -240,6 +313,10 @@
   transition: all 0.3s ease;
   box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
   min-width: 160px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
 
 .leave-feedback-btn:hover {
@@ -252,32 +329,10 @@
   transform: translateY(0);
 }
 
-.leave-feedback-btn:focus {
-  outline: 2px solid #8b5cf6;
-  outline-offset: 2px;
-}
-
-/* Адаптивність */
+/* Адаптивність для кнопки */
 @media (max-width: 768px) {
-  .feedback-modal__content {
-    padding: 24px;
-    width: 95%;
-    margin: 20px;
-    max-height: calc(100vh - 40px);
-  }
-
-  .feedback-modal__title {
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
-
-  .feedback-form {
-    gap: 16px;
-  }
-
-  .feedback-form__submit {
-    padding: 14px 20px;
-    font-size: 14px;
+  .feedback-button-container {
+    margin-top: 32px;
   }
 
   .leave-feedback-btn {
@@ -285,84 +340,16 @@
     font-size: 14px;
     min-width: 140px;
   }
-
-  .feedback-rating__star {
-    width: 28px;
-    height: 28px;
-  }
 }
 
 @media (max-width: 480px) {
-  .feedback-modal__content {
-    padding: 20px;
-    width: calc(100% - 32px);
-    margin: 16px;
+  .feedback-button-container {
+    margin-top: 24px;
   }
 
-  .feedback-modal__title {
-    font-size: 18px;
-  }
-
-  .feedback-form__input,
-  .feedback-form__textarea {
-    padding: 10px 12px;
-    font-size: 16px; /* Запобігає зуму на iOS */
-  }
-
-  .feedback-rating__star {
-    width: 24px;
-    height: 24px;
-  }
-}
-
-/* Анімації */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
-  }
-}
-
-/* Доступність */
-@media (prefers-reduced-motion: reduce) {
-  .feedback-modal,
-  .feedback-modal__content,
-  .feedback-form__submit,
-  .leave-feedback-btn,
-  .feedback-rating__star {
-    transition: none;
-  }
-}
-
-/* Високий контраст */
-@media (prefers-contrast: high) {
-  .feedback-modal__content {
-    border: 2px solid #ffffff;
-  }
-
-  .feedback-form__input,
-  .feedback-form__textarea {
-    border: 2px solid #ffffff;
-  }
-
-  .feedback-form__input:focus,
-  .feedback-form__textarea:focus {
-    border-color: #8b5cf6;
-    box-shadow: 0 0 0 2px #8b5cf6;
+  .leave-feedback-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+    min-width: 120px;
   }
 }

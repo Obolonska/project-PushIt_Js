@@ -1,216 +1,198 @@
 // Модуль для управління модальним вікном зворотного зв'язку
+
 class FeedbackModal {
     constructor() {
         this.modal = null;
-        this.overlay = null;
-        this.closeBtn = null;
         this.form = null;
-        this.submitBtn = null;
-        this.loadingSpinner = null;
         this.isSubmitting = false;
+        this.currentRating = 0;
+
+        // API конфігурація
+        this.apiUrl = 'https://sound-wave.b.goit.study/api/feedbacks';
 
         this.init();
     }
 
     init() {
-        // Ініціалізація після завантаження DOM
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.setupModal());
-        } else {
-            this.setupModal();
-        }
-    }
-
-    setupModal() {
+        // Знаходимо модальне вікно
         this.modal = document.getElementById('feedbackModal');
-        if (!this.modal) return;
-
-        this.overlay = this.modal.querySelector('.feedback-modal__overlay');
-        this.closeBtn = this.modal.querySelector('.feedback-modal__close');
         this.form = document.getElementById('feedbackForm');
-        this.submitBtn = document.getElementById('submitBtn');
-        this.loadingSpinner = document.getElementById('loadingSpinner');
+
+        if (!this.modal || !this.form) {
+            console.error('Feedback modal elements not found');
+            return;
+        }
 
         this.bindEvents();
-        this.setupTriggerButtons();
-    }
-
-    setupTriggerButtons() {
-        // Знаходимо всі кнопки з data-атрибутом для відкриття модального вікна
-        const triggerButtons = document.querySelectorAll('[data-feedback-modal]');
-        triggerButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.open();
-            });
-        });
-
-        // Також підтримуємо глобальну функцію для зворотної сумісності
-        window.openFeedbackModal = () => this.open();
-        window.closeFeedbackModal = () => this.close();
+        this.calculateScrollbarWidth();
     }
 
     bindEvents() {
-        // Закриття модального вікна
-        if (this.closeBtn) {
-            this.closeBtn.addEventListener('click', () => this.close());
-        }
+        // Обробка форми
+        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
 
-        if (this.overlay) {
-            this.overlay.addEventListener('click', () => this.close());
-        }
+        // Обробка рейтингу
+        this.setupRating();
+
+        // Валідація в реальному часі
+        this.setupValidation();
 
         // Закриття по Escape
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.isOpen()) {
+            if (e.key === 'Escape' && this.modal.classList.contains('active')) {
                 this.close();
             }
         });
 
-        // Обробка форми
-        if (this.form) {
-            this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-            this.setupFormValidation();
-        }
-    }
-
-    setupFormValidation() {
-        const nameInput = document.getElementById('feedbackName');
-        const messageInput = document.getElementById('feedbackMessage');
-        const ratingInputs = document.querySelectorAll('input[name="rating"]');
-
-        // Валідація імені
-        if (nameInput) {
-            nameInput.addEventListener('input', () => this.validateName());
-            nameInput.addEventListener('blur', () => this.validateName());
-        }
-
-        // Валідація повідомлення
-        if (messageInput) {
-            messageInput.addEventListener('input', () => this.validateMessage());
-            messageInput.addEventListener('blur', () => this.validateMessage());
-        }
-
-        // Валідація рейтингу
-        ratingInputs.forEach(input => {
-            input.addEventListener('change', () => this.validateRating());
+        // Закриття по кліку на оверлей
+        this.modal.querySelector('.feedback-modal__overlay').addEventListener('click', () => {
+            this.close();
         });
 
-        // Hover ефект для зірок
-        this.setupStarHoverEffect();
+        // Закриття по кнопці
+        this.modal.querySelector('.feedback-modal__close').addEventListener('click', () => {
+            this.close();
+        });
     }
 
-    setupStarHoverEffect() {
-        const ratingContainer = document.getElementById('feedbackRating');
-        if (!ratingContainer) return;
-
-        const stars = ratingContainer.querySelectorAll('.feedback-rating__star');
+    setupRating() {
+        const stars = this.modal.querySelectorAll('.feedback-modal__star');
+        const ratingInputs = this.modal.querySelectorAll('.feedback-modal__rating-input');
 
         stars.forEach((star, index) => {
+            // Hover ефект
             star.addEventListener('mouseenter', () => {
                 this.highlightStars(index + 1);
             });
 
-            star.addEventListener('mouseleave', () => {
-                const checkedRating = ratingContainer.querySelector('input[name="rating"]:checked');
-                const checkedValue = checkedRating ? parseInt(checkedRating.value) : 0;
-                this.highlightStars(checkedValue);
+            // Клік для вибору рейтингу
+            star.addEventListener('click', () => {
+                this.setRating(index + 1);
             });
+        });
+
+        // Повернення до поточного рейтингу при виході миші
+        this.modal.querySelector('.feedback-modal__rating').addEventListener('mouseleave', () => {
+            this.highlightStars(this.currentRating);
         });
     }
 
-    highlightStars(count) {
-        const stars = document.querySelectorAll('.feedback-rating__star');
+    highlightStars(rating) {
+        const stars = this.modal.querySelectorAll('.feedback-modal__star');
         stars.forEach((star, index) => {
-            if (index < count) {
-                star.classList.add('feedback-rating__star--active');
+            if (index < rating) {
+                star.classList.add('active');
             } else {
-                star.classList.remove('feedback-rating__star--active');
+                star.classList.remove('active');
             }
         });
     }
 
+    setRating(rating) {
+        this.currentRating = rating;
+        const ratingInput = this.modal.querySelector(`input[name="rating"][value="${rating}"]`);
+        if (ratingInput) {
+            ratingInput.checked = true;
+        }
+        this.highlightStars(rating);
+        this.clearError('rating');
+    }
+
+    setupValidation() {
+        const nameInput = this.modal.querySelector('#feedbackName');
+        const messageInput = this.modal.querySelector('#feedbackMessage');
+
+        nameInput.addEventListener('input', () => this.validateName());
+        nameInput.addEventListener('blur', () => this.validateName());
+
+        messageInput.addEventListener('input', () => this.validateMessage());
+        messageInput.addEventListener('blur', () => this.validateMessage());
+    }
+
     validateName() {
-        const nameInput = document.getElementById('feedbackName');
-        const nameError = document.getElementById('nameError');
-        const value = nameInput.value.trim();
+        const nameInput = this.modal.querySelector('#feedbackName');
+        const name = nameInput.value.trim();
 
-        if (value.length === 0) {
-            this.showError(nameError, "Ім'я є обов'язковим полем");
+        if (!name) {
+            this.showError('name', 'Ім\'я є обов\'язковим');
             return false;
         }
 
-        if (value.length < 2) {
-            this.showError(nameError, "Ім'я повинно містити мінімум 2 символи");
+        if (name.length < 2) {
+            this.showError('name', 'Ім\'я повинно містити мінімум 2 символи');
             return false;
         }
 
-        if (value.length > 16) {
-            this.showError(nameError, "Ім'я повинно містити максимум 16 символів");
+        if (name.length > 16) {
+            this.showError('name', 'Ім\'я не повинно перевищувати 16 символів');
             return false;
         }
 
-        this.hideError(nameError);
+        this.clearError('name');
         return true;
     }
 
     validateMessage() {
-        const messageInput = document.getElementById('feedbackMessage');
-        const messageError = document.getElementById('messageError');
-        const value = messageInput.value.trim();
+        const messageInput = this.modal.querySelector('#feedbackMessage');
+        const message = messageInput.value.trim();
 
-        if (value.length === 0) {
-            this.showError(messageError, "Повідомлення є обов'язковим полем");
+        if (!message) {
+            this.showError('message', 'Повідомлення є обов\'язковим');
             return false;
         }
 
-        if (value.length < 10) {
-            this.showError(messageError, "Повідомлення повинно містити мінімум 10 символів");
+        if (message.length < 10) {
+            this.showError('message', 'Повідомлення повинно містити мінімум 10 символів');
             return false;
         }
 
-        if (value.length > 512) {
-            this.showError(messageError, "Повідомлення повинно містити максимум 512 символів");
+        if (message.length > 512) {
+            this.showError('message', 'Повідомлення не повинно перевищувати 512 символів');
             return false;
         }
 
-        this.hideError(messageError);
+        this.clearError('message');
         return true;
     }
 
     validateRating() {
-        const ratingError = document.getElementById('ratingError');
-        const checkedRating = document.querySelector('input[name="rating"]:checked');
-
-        if (!checkedRating) {
-            this.showError(ratingError, "Будь ласка, оберіть рейтинг");
+        if (this.currentRating === 0) {
+            this.showError('rating', 'Будь ласка, оберіть рейтинг');
             return false;
         }
 
-        this.hideError(ratingError);
+        this.clearError('rating');
         return true;
     }
 
-    showError(errorElement, message) {
+    showError(field, message) {
+        const errorElement = this.modal.querySelector(`#${field}Error`);
+        const inputElement = this.modal.querySelector(`#feedback${field.charAt(0).toUpperCase() + field.slice(1)}`);
+
         if (errorElement) {
             errorElement.textContent = message;
-            errorElement.style.display = 'block';
+        }
+
+        if (inputElement) {
+            inputElement.classList.add('error');
         }
     }
 
-    hideError(errorElement) {
+    clearError(field) {
+        const errorElement = this.modal.querySelector(`#${field}Error`);
+        const inputElement = this.modal.querySelector(`#feedback${field.charAt(0).toUpperCase() + field.slice(1)}`);
+
         if (errorElement) {
             errorElement.textContent = '';
-            errorElement.style.display = 'none';
+        }
+
+        if (inputElement) {
+            inputElement.classList.remove('error');
         }
     }
 
-    validateForm() {
-        const isNameValid = this.validateName();
-        const isMessageValid = this.validateMessage();
-        const isRatingValid = this.validateRating();
-
-        return isNameValid && isMessageValid && isRatingValid;
+    clearAllErrors() {
+        ['name', 'message', 'rating'].forEach(field => this.clearError(field));
     }
 
     async handleSubmit(e) {
@@ -218,22 +200,27 @@ class FeedbackModal {
 
         if (this.isSubmitting) return;
 
-        if (!this.validateForm()) {
+        // Валідація всіх полів
+        const isNameValid = this.validateName();
+        const isMessageValid = this.validateMessage();
+        const isRatingValid = this.validateRating();
+
+        if (!isNameValid || !isMessageValid || !isRatingValid) {
             return;
         }
 
-        this.isSubmitting = true;
-        this.showLoading();
+        // Збираємо дані форми
+        const formData = new FormData(this.form);
+        const data = {
+            name: formData.get('name').trim(),
+            descr: formData.get('descr').trim(),
+            rating: parseInt(formData.get('rating'))
+        };
 
         try {
-            const formData = new FormData(this.form);
-            const data = {
-                name: formData.get('name').trim(),
-                descr: formData.get('descr').trim(),
-                rating: parseInt(formData.get('rating'))
-            };
+            this.setSubmitting(true);
 
-            const response = await fetch('https://sound-wave.b.goit.study/api/feedbacks', {
+            const response = await fetch(this.apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -242,102 +229,128 @@ class FeedbackModal {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
             }
 
             const result = await response.json();
 
             // Успішна відправка
             this.showSuccessMessage();
-            this.resetForm();
-
-            // Закриваємо модальне вікно через 2 секунди
             setTimeout(() => {
                 this.close();
+                this.resetForm();
             }, 2000);
 
         } catch (error) {
             console.error('Error submitting feedback:', error);
-            this.showErrorMessage('Помилка при відправці. Спробуйте ще раз.');
+            this.showErrorMessage(error.message);
         } finally {
-            this.isSubmitting = false;
-            this.hideLoading();
+            this.setSubmitting(false);
         }
     }
 
-    showLoading() {
-        if (this.submitBtn) {
-            this.submitBtn.disabled = true;
-            this.submitBtn.querySelector('.feedback-form__submit-text').style.display = 'none';
-            this.loadingSpinner.style.display = 'inline-block';
-        }
-    }
+    setSubmitting(isSubmitting) {
+        this.isSubmitting = isSubmitting;
+        const submitBtn = this.modal.querySelector('#submitBtn');
+        const submitText = submitBtn.querySelector('.feedback-modal__submit-text');
+        const submitLoader = submitBtn.querySelector('.feedback-modal__submit-loader');
 
-    hideLoading() {
-        if (this.submitBtn) {
-            this.submitBtn.disabled = false;
-            this.submitBtn.querySelector('.feedback-form__submit-text').style.display = 'inline-block';
-            this.loadingSpinner.style.display = 'none';
+        if (isSubmitting) {
+            submitBtn.disabled = true;
+            submitText.style.display = 'none';
+            submitLoader.style.display = 'flex';
+        } else {
+            submitBtn.disabled = false;
+            submitText.style.display = 'block';
+            submitLoader.style.display = 'none';
         }
     }
 
     showSuccessMessage() {
         // Можна додати toast повідомлення або змінити текст кнопки
-        const submitText = this.submitBtn.querySelector('.feedback-form__submit-text');
+        const submitBtn = this.modal.querySelector('#submitBtn');
+        const submitText = submitBtn.querySelector('.feedback-modal__submit-text');
         const originalText = submitText.textContent;
+
         submitText.textContent = 'Відправлено!';
-        submitText.style.color = '#10b981';
+        submitBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
 
         setTimeout(() => {
             submitText.textContent = originalText;
-            submitText.style.color = '';
+            submitBtn.style.background = '';
         }, 2000);
     }
 
     showErrorMessage(message) {
         // Показуємо помилку користувачу
-        alert(message); // Можна замінити на більш елегантне рішення
+        alert(`Помилка відправки: ${message}`);
     }
 
-    resetForm() {
-        if (this.form) {
-            this.form.reset();
-
-            // Очищаємо помилки
-            const errorElements = this.form.querySelectorAll('.feedback-form__error');
-            errorElements.forEach(error => this.hideError(error));
-
-            // Скидаємо зірки
-            this.highlightStars(0);
-        }
+    calculateScrollbarWidth() {
+        const scrollDiv = document.createElement('div');
+        scrollDiv.style.cssText = 'width: 100px; height: 100px; overflow: scroll; position: absolute; top: -9999px;';
+        document.body.appendChild(scrollDiv);
+        const scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+        document.body.removeChild(scrollDiv);
+        document.documentElement.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
     }
 
     open() {
-        if (this.modal) {
-            this.modal.classList.add('feedback-modal--active');
-            document.body.style.overflow = 'hidden';
+        this.modal.classList.add('active');
+        document.body.classList.add('modal-open');
 
-            // Фокус на першому полі
-            const firstInput = this.modal.querySelector('input, textarea');
+        // Фокус на першому полі
+        setTimeout(() => {
+            const firstInput = this.modal.querySelector('#feedbackName');
             if (firstInput) {
-                setTimeout(() => firstInput.focus(), 100);
+                firstInput.focus();
             }
-        }
+        }, 300);
     }
 
     close() {
-        if (this.modal) {
-            this.modal.classList.remove('feedback-modal--active');
-            document.body.style.overflow = '';
-            this.resetForm();
-        }
+        this.modal.classList.remove('active');
+        document.body.classList.remove('modal-open');
     }
 
-    isOpen() {
-        return this.modal && this.modal.classList.contains('feedback-modal--active');
+    resetForm() {
+        this.form.reset();
+        this.currentRating = 0;
+        this.highlightStars(0);
+        this.clearAllErrors();
     }
 }
 
 // Ініціалізація модального вікна
-const feedbackModal = new FeedbackModal();
+let feedbackModalInstance = null;
+
+function initFeedbackModal() {
+    if (!feedbackModalInstance) {
+        feedbackModalInstance = new FeedbackModal();
+    }
+}
+
+// Функції для відкриття та закриття модального вікна
+function openFeedbackModal() {
+    if (feedbackModalInstance) {
+        feedbackModalInstance.open();
+    } else {
+        console.error('Feedback modal not initialized');
+    }
+}
+
+function closeFeedbackModal() {
+    if (feedbackModalInstance) {
+        feedbackModalInstance.close();
+    }
+}
+
+// Автоматична ініціалізація при завантаженні DOM
+document.addEventListener('DOMContentLoaded', initFeedbackModal);
+
+// Експорт для використання в інших модулях
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { FeedbackModal, openFeedbackModal, closeFeedbackModal };
+}
 
