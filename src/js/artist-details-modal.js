@@ -10,7 +10,7 @@ const refs = {
   sex: document.querySelector('.album-info__sex .album-info__description'),
   members: document.querySelector('.album-info__members .album-info__description'),
   country: document.querySelector('.album-info__country .album-info__description'),
-  avatar: document.querySelector('.artist-description__left img'),
+  avatar: document.querySelector('.artist-description__left'),
   albums: document.querySelector('.albums'),
   artistsLearnMore: document.querySelector('.artist-learn-more-btn'),
   backdrop: document.querySelector('.artist-modal-backdrop'),
@@ -104,7 +104,7 @@ refs.sex.innerHTML = strGender;
   refs.years.innerHTML = getYearsString(intFormedYear,intDiedYear)
   refs.country.innerHTML = strCountry;
   refs.autorTitle.innerHTML = strArtist;
-  refs.avatar.src = strArtistThumb;
+  refs.avatar.innerHTML = `<img src="${strArtistThumb}" alt="${strArtistThumb}"/>`;
 }
 
 function renderAlbums(albums) {
