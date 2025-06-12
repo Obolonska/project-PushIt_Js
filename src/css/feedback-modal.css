@@ -1,4 +1,4 @@
-/* Модальне вікно зворотного зв'язку */
+/* Feedback modal window */
 .feedback-modal {
   position: fixed;
   top: 0;
@@ -9,6 +9,12 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  /* Custom properties for button effects */
+  --opacity-neutral-darkest-5: rgba(0, 0, 0, 0.05);
+  --opacity-neutral-darkest-15: rgba(0, 0, 0, 0.15);
+  --opacity-white-5: rgba(255, 255, 255, 0.05);
+  --color-affair: #6b4a9b;
 }
 
 .feedback-modal.is-open {
@@ -55,7 +61,6 @@
   padding: 8px;
   border-radius: 8px;
   transition: background-color 0.3s ease;
-  color: #ffffff;
 }
 
 .feedback-modal__close:hover {
@@ -64,6 +69,7 @@
 
 .feedback-modal__close svg {
   display: block;
+  fill: #ffffff; /* White close button */
 }
 
 .feedback-modal__title {
@@ -72,7 +78,7 @@
   font-size: 28px;
   line-height: 1.2;
   color: #ffffff;
-  margin: 0 0 24px 0;
+  margin: 48px 0 24px 0; /* Positioned below close button */
   text-align: center;
 }
 
@@ -139,7 +145,6 @@
   padding: 4px;
   border-radius: 4px;
   transition: transform 0.2s ease;
-  color: #ffffff;
 }
 
 .feedback-modal__star:hover {
@@ -152,11 +157,12 @@
 }
 
 .feedback-modal__submit {
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  background: var(--color-affair);
   color: #ffffff;
   border: none;
   border-radius: 12px;
-  padding: 16px 32px;
+  width: 320px; /* Mobile button size */
+  height: 47px; /* Assuming button height for mobile */
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 600;
   font-size: 16px;
@@ -165,13 +171,24 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  margin-top: 8px;
+  margin: 8px auto 0; /* Center horizontally */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px 0 var(--opacity-neutral-darkest-5),
+    inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px var(--opacity-neutral-darkest-15),
+    inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 32px 24px 0 var(--opacity-white-5);
 }
 
 .feedback-modal__submit:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4),
+    inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px var(--opacity-neutral-darkest-15),
+    inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 32px 24px 0 var(--opacity-white-5);
 }
 
 .feedback-modal__submit:active:not(:disabled) {
@@ -193,6 +210,32 @@
   animation: spin 1s linear infinite;
 }
 
+.feedback-modal__notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #10b981;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease;
+  z-index: 1001;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -211,38 +254,19 @@
   margin-top: 4px;
 }
 
-/* Адаптивність */
-@media (max-width: 768px) {
+/* Responsiveness */
+@media (max-width: 767px) {
+  /* Mobile */
   .feedback-modal__content {
-    padding: 24px;
-    width: 95%;
-    margin: 20px auto;
-    max-height: calc(100vh - 40px);
-  }
-
-  .feedback-modal__title {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-
-  .feedback-modal__form {
-    gap: 16px;
-  }
-
-  .feedback-modal__submit {
-    padding: 14px 28px;
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .feedback-modal__content {
+    width: 320px; /* Mobile size */
+    height: 568px;
     padding: 20px;
     border-radius: 12px;
   }
 
   .feedback-modal__title {
     font-size: 20px;
+    margin: 36px 0 16px 0;
   }
 
   .feedback-modal__input,
@@ -259,9 +283,54 @@
     width: 18px;
     height: 18px;
   }
+
+  .feedback-modal__notification {
+    bottom: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    font-size: 12px;
+  }
 }
 
-/* Блокування скролу сторінки */
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* Tablet */
+  .feedback-modal__content {
+    padding: 24px;
+    width: 95%;
+    max-height: calc(100vh - 40px);
+  }
+
+  .feedback-modal__submit {
+    width: 340px; /* Tablet size */
+    height: 47px;
+  }
+
+  .feedback-modal__title {
+    font-size: 24px;
+    margin: 40px 0 20px 0;
+  }
+
+  .feedback-modal__form {
+    gap: 16px;
+  }
+
+  .feedback-modal__notification {
+    bottom: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 1025px) {
+  /* PC */
+  .feedback-modal__submit {
+    width: 108px; /* PC size */
+    height: 47px;
+  }
+}
+
+/* Prevent page scrolling */
 body:has(.feedback-modal.is-open) {
   overflow: hidden;
 }
