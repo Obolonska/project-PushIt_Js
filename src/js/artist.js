@@ -6,6 +6,7 @@ import iconsUrl from '../img/icons.svg?url';
 import '../public/choices.css';
 // import 'tui-pagination/dist/tui-pagination.css';
 import Choices from 'choices.js';
+import {fetchAlbums} from "./artist-details-modal.js";
 
 //main
 const refs = {
@@ -132,11 +133,12 @@ async function fetchGenres() {
   }
 }
 
-function getArtistId(event) {
+async function getArtistId(event) {
   if (event.target.classList.contains('artist-learn-more-btn')) {
     const artistCard = event.target.closest('.artist-card');
     const artlistId = artistCard.dataset.id;
     console.log('Clicked artist ID: ', artlistId);
+    fetchAlbums(artlistId)
   }
 }
 // refs.artistsList.addEventListener('click', event => {
