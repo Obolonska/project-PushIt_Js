@@ -1,17 +1,19 @@
-<!-- Feedback Modal Component -->
+<!-- Adaptive Feedback Modal Component -->
 <section class="feedback-modal" id="feedbackModal" role="dialog" aria-modal="true" aria-labelledby="feedbackModalTitle"
     aria-describedby="feedbackModalDescription">
     <!-- Modal overlay -->
     <div class="feedback-modal__overlay" aria-hidden="true"></div>
 
-    <!-- Modal content -->
+    <!-- Modal content container -->
     <div class="feedback-modal__content" role="document" tabindex="-1">
-        <!-- Header with close button -->
+        <!-- Header section -->
         <header class="feedback-modal__header">
+            <!-- Title -->
             <h2 class="feedback-modal__title" id="feedbackModalTitle">
                 Submit feedback
             </h2>
 
+            <!-- Close button -->
             <button class="feedback-modal__close" type="button" aria-label="Close feedback modal">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true">
@@ -36,7 +38,7 @@
                 </label>
 
                 <input class="feedback-modal__input" type="text" id="feedbackName" name="name" required minlength="2"
-                    maxlength="16" placeholder="Enter your name" aria-describedby="nameError">
+                    maxlength="16" placeholder="Enter your name" aria-describedby="nameError" autocomplete="name">
 
                 <div class="feedback-modal__error" id="nameError" role="alert"></div>
             </div>
@@ -70,6 +72,7 @@
 
                 <div class="feedback-modal__rating" id="feedbackRating" role="radiogroup"
                     aria-describedby="ratingError">
+                    <!-- 5 stars -->
                     <input type="radio" id="star5" name="rating" value="5" required
                         class="feedback-modal__rating-input">
                     <label for="star5" class="feedback-modal__star" aria-label="5 stars">
@@ -80,6 +83,7 @@
                         </svg>
                     </label>
 
+                    <!-- 4 stars -->
                     <input type="radio" id="star4" name="rating" value="4" class="feedback-modal__rating-input">
                     <label for="star4" class="feedback-modal__star" aria-label="4 stars">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -89,6 +93,7 @@
                         </svg>
                     </label>
 
+                    <!-- 3 stars -->
                     <input type="radio" id="star3" name="rating" value="3" class="feedback-modal__rating-input">
                     <label for="star3" class="feedback-modal__star" aria-label="3 stars">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -98,6 +103,7 @@
                         </svg>
                     </label>
 
+                    <!-- 2 stars -->
                     <input type="radio" id="star2" name="rating" value="2" class="feedback-modal__rating-input">
                     <label for="star2" class="feedback-modal__star" aria-label="2 stars">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -107,6 +113,7 @@
                         </svg>
                     </label>
 
+                    <!-- 1 star -->
                     <input type="radio" id="star1" name="rating" value="1" class="feedback-modal__rating-input">
                     <label for="star1" class="feedback-modal__star" aria-label="1 star">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -122,7 +129,7 @@
 
             <!-- Submit button -->
             <button class="feedback-modal__submit" type="submit">
-                <span class="feedback-modal__submit-text">Submit feedback</span>
+                <span class="feedback-modal__submit-text">Submit</span>
 
                 <span class="feedback-modal__loading">
                     <svg class="feedback-modal__spinner" width="16" height="16" viewBox="0 0 16 16" fill="none"
