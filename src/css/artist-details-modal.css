@@ -224,12 +224,9 @@
 }
 
 .albums__item {
-  padding: 4px;
-  overflow-y: auto;
-  height: 300px;
+  padding: 14px 11px;
 }
 .albums__item-wrapper {
-  padding: 10px;
   background:  #1E1C1F;
   border-radius: 16px;
   margin-bottom: 32px;
