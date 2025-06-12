@@ -22,7 +22,7 @@ async function fetchPhotos() {
 }
 
 function renderPhotos(arr) {
-  return arr.map(image => `<img src="${image}"/>`).join('');
+  return arr.map(image => `<img src="${image}" alt="artist"/>`).join('');
 }
 
 fetchPhotos();
