@@ -1,151 +1,74 @@
-<!-- Adaptive Feedback Modal Component -->
-<section class="feedback-modal" id="feedbackModal" role="dialog" aria-modal="true" aria-labelledby="feedbackModalTitle"
-    aria-describedby="feedbackModalDescription">
-    <!-- Modal overlay -->
-    <div class="feedback-modal__overlay" aria-hidden="true"></div>
+<!-- Feedback modal window -->
+<div class="feedback-modal" id="feedbackModal">
+    <div class="feedback-modal__overlay" title="Натисніть, щоб закрити"></div>
+    <div class="feedback-modal__content">
+        <button class="feedback-modal__close" type="button" aria-label="Close modal window" title="Закрити">
+            <svg width="24" height="24">
+                <use href="#icon-close"></use>
+            </svg>
+        </button>
 
-    <!-- Modal content container -->
-    <div class="feedback-modal__content" role="document" tabindex="-1">
-        <!-- Header section -->
-        <header class="feedback-modal__header">
-            <!-- Title -->
-            <h2 class="feedback-modal__title" id="feedbackModalTitle">
-                Submit feedback
-            </h2>
+        <h2 class="feedback-modal__title">Submit Feedback</h2>
 
-            <!-- Close button -->
-            <button class="feedback-modal__close" type="button" aria-label="Close feedback modal">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true">
-                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </button>
-        </header>
-
-        <!-- Screen reader description -->
-        <p id="feedbackModalDescription" class="feedback-modal__description visually-hidden">
-            Share your feedback. Fill in your name, message, and rating.
-        </p>
-
-        <!-- Feedback form -->
-        <form class="feedback-modal__form" id="feedbackForm" novalidate>
-            <!-- Name field -->
+        <form class="feedback-modal__form" id="feedbackForm">
             <div class="feedback-modal__field">
                 <label class="feedback-modal__label" for="feedbackName">
                     Name
-                    <span class="feedback-modal__required">*</span>
                 </label>
-
                 <input class="feedback-modal__input" type="text" id="feedbackName" name="name" required minlength="2"
-                    maxlength="16" placeholder="Enter your name" aria-describedby="nameError" autocomplete="name">
-
-                <div class="feedback-modal__error" id="nameError" role="alert"></div>
+                    maxlength="16" placeholder="Enter your name" title="Введіть ім'я (2-16 символів)">
+                <span class="feedback-modal__error" id="nameError"></span>
             </div>
 
-            <!-- Message field -->
             <div class="feedback-modal__field">
                 <label class="feedback-modal__label" for="feedbackMessage">
                     Message
-                    <span class="feedback-modal__required">*</span>
                 </label>
-
                 <textarea class="feedback-modal__textarea" id="feedbackMessage" name="descr" required minlength="10"
-                    maxlength="512" placeholder="Tell us about your experience..." rows="4"
-                    aria-describedby="messageError messageCounter"></textarea>
-
-                <div class="feedback-modal__field-footer">
-                    <div class="feedback-modal__counter" id="messageCounter">
-                        0/512
-                    </div>
-                </div>
-
-                <div class="feedback-modal__error" id="messageError" role="alert"></div>
+                    maxlength="512" placeholder="Share your thoughts..." rows="4"
+                    title="Введіть повідомлення (10-512 символів)"></textarea>
+                <span class="feedback-modal__error" id="messageError"></span>
             </div>
 
-            <!-- Rating field -->
-            <fieldset class="feedback-modal__field feedback-modal__rating-field">
-                <legend class="feedback-modal__legend">
-                    Rating
-                    <span class="feedback-modal__required">*</span>
-                </legend>
-
-                <div class="feedback-modal__rating" id="feedbackRating" role="radiogroup"
-                    aria-describedby="ratingError">
-                    <!-- 5 stars -->
-                    <input type="radio" id="star5" name="rating" value="5" required
-                        class="feedback-modal__rating-input">
-                    <label for="star5" class="feedback-modal__star" aria-label="5 stars">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 1L12.09 6.26L18 7.27L14 11.14L15.18 17.02L10 14.77L4.82 17.02L6 11.14L2 7.27L7.91 6.26L10 1Z"
-                                fill="currentColor" />
+            <div class="feedback-modal__field">
+                <div class="feedback-modal__rating" id="feedbackRating">
+                    <button type="button" class="feedback-modal__star" data-rating="1" title="Оцінити 1 зірку">
+                        <svg width="20" height="20">
+                            <use href="#icon-white-star"></use>
                         </svg>
-                    </label>
-
-                    <!-- 4 stars -->
-                    <input type="radio" id="star4" name="rating" value="4" class="feedback-modal__rating-input">
-                    <label for="star4" class="feedback-modal__star" aria-label="4 stars">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 1L12.09 6.26L18 7.27L14 11.14L15.18 17.02L10 14.77L4.82 17.02L6 11.14L2 7.27L7.91 6.26L10 1Z"
-                                fill="currentColor" />
+                    </button>
+                    <button type="button" class="feedback-modal__star" data-rating="2" title="Оцінити 2 зірки">
+                        <svg width="20" height="20">
+                            <use href="#icon-white-star"></use>
                         </svg>
-                    </label>
-
-                    <!-- 3 stars -->
-                    <input type="radio" id="star3" name="rating" value="3" class="feedback-modal__rating-input">
-                    <label for="star3" class="feedback-modal__star" aria-label="3 stars">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 1L12.09 6.26L18 7.27L14 11.14L15.18 17.02L10 14.77L4.82 17.02L6 11.14L2 7.27L7.91 6.26L10 1Z"
-                                fill="currentColor" />
+                    </button>
+                    <button type="button" class="feedback-modal__star" data-rating="3" title="Оцінити 3 зірки">
+                        <svg width="20" height="20">
+                            <use href="#icon-white-star"></use>
                         </svg>
-                    </label>
-
-                    <!-- 2 stars -->
-                    <input type="radio" id="star2" name="rating" value="2" class="feedback-modal__rating-input">
-                    <label for="star2" class="feedback-modal__star" aria-label="2 stars">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 1L12.09 6.26L18 7.27L14 11.14L15.18 17.02L10 14.77L4.82 17.02L6 11.14L2 7.27L7.91 6.26L10 1Z"
-                                fill="currentColor" />
+                    </button>
+                    <button type="button" class="feedback-modal__star" data-rating="4" title="Оцінити 4 зірки">
+                        <svg width="20" height="20">
+                            <use href="#icon-white-star"></use>
                         </svg>
-                    </label>
-
-                    <!-- 1 star -->
-                    <input type="radio" id="star1" name="rating" value="1" class="feedback-modal__rating-input">
-                    <label for="star1" class="feedback-modal__star" aria-label="1 star">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 1L12.09 6.26L18 7.27L14 11.14L15.18 17.02L10 14.77L4.82 17.02L6 11.14L2 7.27L7.91 6.26L10 1Z"
-                                fill="currentColor" />
+                    </button>
+                    <button type="button" class="feedback-modal__star" data-rating="5" title="Оцінити 5 зірок">
+                        <svg width="20" height="20">
+                            <use href="#icon-white-star"></use>
                         </svg>
-                    </label>
+                    </button>
                 </div>
+                <span class="feedback-modal__error" id="ratingError"></span>
+            </div>
 
-                <div class="feedback-modal__error" id="ratingError" role="alert"></div>
-            </fieldset>
-
-            <!-- Submit button -->
-            <button class="feedback-modal__submit" type="submit">
+            <button class="feedback-modal__submit" type="submit" title="Відправити відгук">
                 <span class="feedback-modal__submit-text">Submit</span>
-
-                <span class="feedback-modal__loading">
-                    <svg class="feedback-modal__spinner" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-dasharray="37.7" stroke-dashoffset="37.7" />
+                <div class="feedback-modal__loader" style="display: none;">
+                    <svg width="20" height="20">
+                        <use href="#icon-loader"></use>
                     </svg>
-                    Sending...
-                </span>
+                </div>
             </button>
         </form>
-
-        <!-- Status messages -->
-        <div class="feedback-modal__status" id="feedbackStatus" role="status" aria-live="polite"></div>
     </div>
-
-    <!-- Screen reader announcements -->
-    <div class="feedback-modal__announcer" aria-live="assertive" class="visually-hidden"></div>
-</section>
+</div>
