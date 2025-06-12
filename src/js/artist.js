@@ -137,7 +137,6 @@ async function getArtistId(event) {
   if (event.target.classList.contains('artist-learn-more-btn')) {
     const artistCard = event.target.closest('.artist-card');
     const artlistId = artistCard.dataset.id;
-    console.log('Clicked artist ID: ', artlistId);
     fetchAlbums(artlistId);
   }
 }
