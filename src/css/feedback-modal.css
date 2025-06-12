@@ -1,88 +1,126 @@
-/* Стилі для модального вікна зворотного зв'язку */
+/* Perfect Feedback Modal - Идеальные стили точно по макету + улучшения */
 
-/* Основний контейнер модального вікна */
+/* Утилитарные классы */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Основной контейнер модального окна */
 .feedback-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(4px);
-  display: flex;
+  z-index: 9999;
+  display: none;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
-  padding: 20px;
-  box-sizing: border-box;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.feedback-modal.active {
+.feedback-modal.is-open {
+  display: flex;
   opacity: 1;
   visibility: visible;
 }
 
-/* Оверлей для закриття модального вікна */
+/* Overlay */
 .feedback-modal__overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  background: rgba(0, 0, 0, 0.5);
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* Контент модального вікна */
+.feedback-modal__overlay:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Контент модального окна - точно по макету */
 .feedback-modal__content {
   position: relative;
   background: #1a1a1a;
-  border-radius: 16px;
-  padding: 32px;
-  width: 100%;
-  max-width: 480px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  width: 320px;
+  height: 508px;
+  padding: 16px 24px 58px 24px;
   transform: scale(0.9) translateY(20px);
-  transition: all 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  outline: none;
 }
 
-.feedback-modal.active .feedback-modal__content {
+.feedback-modal.is-open .feedback-modal__content {
   transform: scale(1) translateY(0);
 }
 
-/* Кнопка закриття */
-.feedback-modal__close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: none;
-  border: none;
-  color: #9ca3af;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  transition: all 0.2s ease;
+/* Заголовок - точно по макету */
+.feedback-modal__header {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 24px;
 }
 
-.feedback-modal__close:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* Заголовок */
 .feedback-modal__title {
   color: #ffffff;
   font-size: 24px;
   font-weight: 600;
-  margin: 0 0 24px 0;
-  text-align: center;
+  line-height: 1.2;
+  margin: 0;
+  order: 1;
+}
+
+/* Крестик - БЕЛЫЙ как требовалось */
+.feedback-modal__close {
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  align-self: flex-end;
+  order: 2;
+  margin-top: 16px;
+}
+
+.feedback-modal__close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.feedback-modal__close:focus {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+
+.feedback-modal__close svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s ease;
+}
+
+.feedback-modal__close:hover svg {
+  transform: rotate(90deg);
 }
 
 /* Форма */
@@ -92,32 +130,37 @@
   gap: 20px;
 }
 
-/* Поле форми */
+/* Поля формы */
 .feedback-modal__field {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-/* Лейбл */
 .feedback-modal__label {
   color: #ffffff;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.4;
 }
 
-/* Інпут */
+.feedback-modal__required {
+  color: #ef4444;
+  margin-left: 2px;
+}
+
+/* Инпуты и текстареа */
 .feedback-modal__input,
 .feedback-modal__textarea {
-  background: #2d2d2d;
-  border: 2px solid #404040;
+  background: #2a2a2a;
+  border: 1px solid #404040;
   border-radius: 8px;
-  padding: 12px 16px;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 12px 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   font-family: inherit;
-  transition: all 0.2s ease;
-  resize: none;
 }
 
 .feedback-modal__input:focus,
@@ -129,33 +172,53 @@
 
 .feedback-modal__input::placeholder,
 .feedback-modal__textarea::placeholder {
-  color: #9ca3af;
+  color: #888888;
 }
 
 .feedback-modal__textarea {
+  resize: vertical;
   min-height: 100px;
-  max-height: 150px;
 }
 
-/* Помилки валідації */
-.feedback-modal__error {
-  color: #ef4444;
+/* Подсказки и счетчики */
+.feedback-modal__hint {
+  color: #888888;
   font-size: 12px;
-  min-height: 16px;
-  display: block;
+  line-height: 1.4;
 }
 
-.feedback-modal__input.error,
-.feedback-modal__textarea.error {
-  border-color: #ef4444;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+.feedback-modal__field-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Рейтинг зірочками */
+.feedback-modal__counter {
+  color: #888888;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Рейтинг - БЕЗ слова "Рейтинг" как требовалось */
+.feedback-modal__rating-field {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feedback-modal__legend {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  padding: 0;
+}
+
 .feedback-modal__rating {
   display: flex;
-  gap: 4px;
-  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px; /* 32px отступ до кнопки как требовалось */
 }
 
 .feedback-modal__rating-input {
@@ -163,193 +226,259 @@
 }
 
 .feedback-modal__star {
-  font-size: 32px;
-  color: #404040;
   cursor: pointer;
-  transition: all 0.2s ease;
-  user-select: none;
-  line-height: 1;
+  color: #404040;
+  transition: color 0.2s ease, transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
 }
 
-.feedback-modal__star:hover,
-.feedback-modal__star.active {
-  color: #8b5cf6;
+.feedback-modal__star:hover {
+  color: #fbbf24;
   transform: scale(1.1);
 }
 
-.feedback-modal__rating-input:checked ~ .feedback-modal__star,
-.feedback-modal__rating-input:checked + .feedback-modal__star {
-  color: #8b5cf6;
+.feedback-modal__star:focus {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
 }
 
-/* Кнопка відправки */
+/* Логика выделения звездочек */
+.feedback-modal__rating-input:checked + .feedback-modal__star {
+  color: #fbbf24;
+}
+
+.feedback-modal__rating-input:checked
+  + .feedback-modal__star
+  ~ .feedback-modal__star {
+  color: #404040;
+}
+
+/* Hover эффект для звездочек */
+.feedback-modal__star:hover,
+.feedback-modal__star:hover ~ .feedback-modal__star {
+  color: #fbbf24;
+}
+
+/* Кнопка отправки - точный цвет и font-weight как требовалось */
 .feedback-modal__submit {
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  color: #ffffff;
+  background: #8b5cf6; /* Правильный цвет */
   border: none;
-  border-radius: 12px;
-  padding: 16px 24px;
-  font-size: 16px;
-  font-weight: 600;
+  border-radius: 8px;
+  color: #ffffff;
   cursor: pointer;
-  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: 500; /* font-weight: 500 как требовалось */
+  font-family: inherit;
+  line-height: 1.5;
+  padding: 12px 24px;
+  transition: background-color 0.2s ease, transform 0.1s ease,
+    box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-top: 8px;
-  position: relative;
-  overflow: hidden;
 }
 
-.feedback-modal__submit:hover:not(:disabled) {
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+.feedback-modal__submit:hover {
+  background: #7c3aed;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
 }
 
-.feedback-modal__submit:active:not(:disabled) {
+.feedback-modal__submit:active {
   transform: translateY(0);
 }
 
 .feedback-modal__submit:disabled {
-  opacity: 0.7;
+  background: #404040;
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 
-.feedback-modal__submit-loader {
+.feedback-modal__submit:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* Состояния кнопки */
+.feedback-modal__submit-icon,
+.feedback-modal__submit-text,
+.feedback-modal__loading {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.feedback-modal__submit.is-loading .feedback-modal__submit-icon,
+.feedback-modal__submit.is-loading .feedback-modal__submit-text {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.feedback-modal__submit.is-loading .feedback-modal__loading {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.feedback-modal__loading {
+  opacity: 0;
+  transform: scale(0.8);
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 8px;
+  position: absolute;
 }
 
-/* Адаптивність */
-@media (max-width: 768px) {
-  .feedback-modal {
-    padding: 16px;
-  }
+/* Спиннер */
+.feedback-modal__spinner {
+  animation: spin 1s linear infinite;
+}
 
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Ошибки */
+.feedback-modal__error {
+  color: #ef4444;
+  font-size: 12px;
+  line-height: 1.4;
+  min-height: 16px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.feedback-modal__error.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Статус сообщения */
+.feedback-modal__status {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.feedback-modal__status.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.feedback-modal__status.is-success {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.feedback-modal__status.is-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+/* Блокировка скролла */
+body.feedback-modal-open {
+  overflow: hidden;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
   .feedback-modal__content {
-    padding: 24px;
-    border-radius: 12px;
-    max-width: none;
+    width: 95%;
+    max-width: 320px;
+    margin: 20px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
   }
 
   .feedback-modal__title {
     font-size: 20px;
-    margin-bottom: 20px;
   }
 
-  .feedback-modal__star {
-    font-size: 28px;
+  .feedback-modal__input,
+  .feedback-modal__textarea {
+    font-size: 16px; /* Предотвращает зум на iOS */
   }
 
   .feedback-modal__submit {
-    padding: 14px 20px;
-    font-size: 14px;
+    padding: 14px 24px;
+    font-size: 16px;
   }
 }
 
 @media (max-width: 480px) {
   .feedback-modal__content {
-    padding: 20px;
+    padding: 16px 16px 58px 16px;
   }
 
-  .feedback-modal__title {
-    font-size: 18px;
+  .feedback-modal__rating {
+    gap: 6px;
   }
 
-  .feedback-modal__star {
-    font-size: 24px;
-  }
-}
-
-/* Блокування скролу сторінки */
-body.modal-open {
-  overflow: hidden;
-  padding-right: var(--scrollbar-width, 0);
-}
-
-/* Анімації */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9) translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
+  .feedback-modal__star svg {
+    width: 18px;
+    height: 18px;
   }
 }
 
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.9) translateY(20px);
-  }
-}
-
-/* Стилі для кнопки відкриття модального вікна в секції About Us */
-.feedback-button-container {
-  text-align: center;
-  margin-top: 40px;
-}
-
-.leave-feedback-btn {
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  color: white;
-  border: none;
-  padding: 16px 32px;
-  border-radius: 12px;
-  font-family: inherit;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
-  min-width: 160px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-}
-
-.leave-feedback-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-}
-
-.leave-feedback-btn:active {
-  transform: translateY(0);
-}
-
-/* Адаптивність для кнопки */
-@media (max-width: 768px) {
-  .feedback-button-container {
-    margin-top: 32px;
+/* Поддержка prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .feedback-modal,
+  .feedback-modal__content,
+  .feedback-modal__overlay,
+  .feedback-modal__close,
+  .feedback-modal__submit,
+  .feedback-modal__star,
+  .feedback-modal__error,
+  .feedback-modal__status {
+    transition: none;
   }
 
-  .leave-feedback-btn {
-    padding: 14px 28px;
-    font-size: 14px;
-    min-width: 140px;
+  .feedback-modal__spinner {
+    animation: none;
+  }
+
+  .feedback-modal__close:hover svg {
+    transform: none;
   }
 }
 
-@media (max-width: 480px) {
-  .feedback-button-container {
-    margin-top: 24px;
+/* Высокий контраст */
+@media (prefers-contrast: high) {
+  .feedback-modal__content {
+    border: 2px solid #ffffff;
   }
 
-  .leave-feedback-btn {
-    padding: 12px 24px;
-    font-size: 14px;
-    min-width: 120px;
+  .feedback-modal__input,
+  .feedback-modal__textarea {
+    border-width: 2px;
+  }
+
+  .feedback-modal__submit {
+    border: 2px solid #ffffff;
+  }
+}
+
+/* Темная тема (дополнительная поддержка) */
+@media (prefers-color-scheme: dark) {
+  .feedback-modal__content {
+    background: #1a1a1a;
   }
 }

@@ -1,66 +1,174 @@
-<!-- Модальне вікно зворотного зв'язку -->
-<div class="feedback-modal" id="feedbackModal">
-    <div class="feedback-modal__overlay" onclick="closeFeedbackModal()"></div>
-    <div class="feedback-modal__content">
-        <button class="feedback-modal__close" onclick="closeFeedbackModal()" aria-label="Закрити модальне вікно">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-            </svg>
-        </button>
+<!-- Perfect Feedback Modal - Идеальное модальное окно обратной связи -->
+<section class="feedback-modal" id="feedbackModal" role="dialog" aria-modal="true" aria-labelledby="feedbackModalTitle"
+    aria-describedby="feedbackModalDescription" data-modal="feedback">
+    <!-- Overlay для закрытия модального окна -->
+    <div class="feedback-modal__overlay" aria-hidden="true" data-modal-overlay></div>
 
-        <h2 class="feedback-modal__title">Submit feedback</h2>
+    <!-- Основной контент модального окна -->
+    <div class="feedback-modal__content" role="document" tabindex="-1">
+        <!-- Заголовок с кнопкой закрытия -->
+        <header class="feedback-modal__header">
+            <h2 class="feedback-modal__title" id="feedbackModalTitle">
+                Submit feedback
+            </h2>
 
-        <form class="feedback-modal__form" id="feedbackForm" novalidate>
+            <button class="feedback-modal__close" type="button" aria-label="Close feedback modal" data-modal-close
+                tabindex="0">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true" focusable="false">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </header>
+
+        <!-- Описание модального окна для screen readers -->
+        <p id="feedbackModalDescription" class="feedback-modal__description visually-hidden">
+            Share your feedback about ArtistsHub. Fill in your name, message, and rating.
+        </p>
+
+        <!-- Форма обратной связи -->
+        <form class="feedback-modal__form" id="feedbackForm" novalidate autocomplete="on">
+            <!-- Поле имени -->
             <div class="feedback-modal__field">
-                <label for="feedbackName" class="feedback-modal__label">Name</label>
-                <input type="text" id="feedbackName" name="name" class="feedback-modal__input" placeholder="Emily"
-                    required minlength="2" maxlength="16">
-                <span class="feedback-modal__error" id="nameError"></span>
+                <label class="feedback-modal__label" for="feedbackName">
+                    Name
+                    <span class="feedback-modal__required" aria-label="required">*</span>
+                </label>
+
+                <input class="feedback-modal__input" type="text" id="feedbackName" name="name" required minlength="2"
+                    maxlength="16" placeholder="Enter your name" autocomplete="name"
+                    aria-describedby="nameError nameHint" data-field="name">
+
+                <div class="feedback-modal__hint" id="nameHint">
+                    2-16 characters
+                </div>
+
+                <div class="feedback-modal__error" id="nameError" role="alert" aria-live="polite"></div>
             </div>
 
+            <!-- Поле сообщения -->
             <div class="feedback-modal__field">
-                <label for="feedbackMessage" class="feedback-modal__label">Message</label>
-                <textarea id="feedbackMessage" name="descr" class="feedback-modal__textarea"
-                    placeholder="Type your message..." required minlength="10" maxlength="512" rows="4"></textarea>
-                <span class="feedback-modal__error" id="messageError"></span>
+                <label class="feedback-modal__label" for="feedbackMessage">
+                    Message
+                    <span class="feedback-modal__required" aria-label="required">*</span>
+                </label>
+
+                <textarea class="feedback-modal__textarea" id="feedbackMessage" name="descr" required minlength="10"
+                    maxlength="512" placeholder="Tell us about your experience with ArtistsHub..." rows="4"
+                    aria-describedby="messageError messageHint messageCounter" data-field="message"></textarea>
+
+                <div class="feedback-modal__field-footer">
+                    <div class="feedback-modal__hint" id="messageHint">
+                        10-512 characters
+                    </div>
+                    <div class="feedback-modal__counter" id="messageCounter">
+                        0/512
+                    </div>
+                </div>
+
+                <div class="feedback-modal__error" id="messageError" role="alert" aria-live="polite"></div>
             </div>
 
-            <div class="feedback-modal__field">
-                <label class="feedback-modal__label">Rating</label>
-                <div class="feedback-modal__rating" id="feedbackRating">
-                    <input type="radio" id="star1" name="rating" value="1" class="feedback-modal__rating-input">
-                    <label for="star1" class="feedback-modal__star" data-rating="1">★</label>
+            <!-- Поле рейтинга -->
+            <fieldset class="feedback-modal__field feedback-modal__rating-field">
+                <legend class="feedback-modal__legend">
+                    Rating
+                    <span class="feedback-modal__required" aria-label="required">*</span>
+                </legend>
 
-                    <input type="radio" id="star2" name="rating" value="2" class="feedback-modal__rating-input">
-                    <label for="star2" class="feedback-modal__star" data-rating="2">★</label>
-
-                    <input type="radio" id="star3" name="rating" value="3" class="feedback-modal__rating-input">
-                    <label for="star3" class="feedback-modal__star" data-rating="3">★</label>
+                <div class="feedback-modal__rating" id="feedbackRating" role="radiogroup"
+                    aria-describedby="ratingError ratingHint" data-field="rating">
+                    <input type="radio" id="star5" name="rating" value="5" required
+                        class="feedback-modal__rating-input">
+                    <label for="star5" class="feedback-modal__star" aria-label="5 stars - Excellent" title="Excellent">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true">
+                            <path
+                                d="M10 1L12.09 6.26L18 7.27L14 11.14L15.18 17.02L10 14.77L4.82 17.02L6 11.14L2 7.27L7.91 6.26L10 1Z"
+                                fill="currentColor" />
+                        </svg>
+                    </label>
 
                     <input type="radio" id="star4" name="rating" value="4" class="feedback-modal__rating-input">
-                    <label for="star4" class="feedback-modal__star" data-rating="4">★</label>
+                    <label for="star4" class="feedback-modal__star" aria-label="4 stars - Very good" title="Very good">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true">
+                            <path
+                                d="M10 1L12.09 6.26L18 7.27L14 11.14L15.18 17.02L10 14.77L4.82 17.02L6 11.14L2 7.27L7.91 6.26L10 1Z"
+                                fill="currentColor" />
+                        </svg>
+                    </label>
 
-                    <input type="radio" id="star5" name="rating" value="5" class="feedback-modal__rating-input">
-                    <label for="star5" class="feedback-modal__star" data-rating="5">★</label>
+                    <input type="radio" id="star3" name="rating" value="3" class="feedback-modal__rating-input">
+                    <label for="star3" class="feedback-modal__star" aria-label="3 stars - Good" title="Good">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true">
+                            <path
+                                d="M10 1L12.09 6.26L18 7.27L14 11.14L15.18 17.02L10 14.77L4.82 17.02L6 11.14L2 7.27L7.91 6.26L10 1Z"
+                                fill="currentColor" />
+                        </svg>
+                    </label>
+
+                    <input type="radio" id="star2" name="rating" value="2" class="feedback-modal__rating-input">
+                    <label for="star2" class="feedback-modal__star" aria-label="2 stars - Fair" title="Fair">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true">
+                            <path
+                                d="M10 1L12.09 6.26L18 7.27L14 11.14L15.18 17.02L10 14.77L4.82 17.02L6 11.14L2 7.27L7.91 6.26L10 1Z"
+                                fill="currentColor" />
+                        </svg>
+                    </label>
+
+                    <input type="radio" id="star1" name="rating" value="1" class="feedback-modal__rating-input">
+                    <label for="star1" class="feedback-modal__star" aria-label="1 star - Poor" title="Poor">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true">
+                            <path
+                                d="M10 1L12.09 6.26L18 7.27L14 11.14L15.18 17.02L10 14.77L4.82 17.02L6 11.14L2 7.27L7.91 6.26L10 1Z"
+                                fill="currentColor" />
+                        </svg>
+                    </label>
                 </div>
-                <span class="feedback-modal__error" id="ratingError"></span>
-            </div>
 
-            <button type="submit" class="feedback-modal__submit" id="submitBtn">
-                <span class="feedback-modal__submit-text">Submit</span>
-                <span class="feedback-modal__submit-loader" style="display: none;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-dasharray="31.416" stroke-dashoffset="31.416">
-                            <animate attributeName="stroke-dasharray" dur="2s" values="0 31.416;15.708 15.708;0 31.416"
-                                repeatCount="indefinite" />
-                            <animate attributeName="stroke-dashoffset" dur="2s" values="0;-15.708;-31.416"
-                                repeatCount="indefinite" />
-                        </circle>
+                <div class="feedback-modal__hint" id="ratingHint">
+                    Select a rating from 1 to 5 stars
+                </div>
+
+                <div class="feedback-modal__error" id="ratingError" role="alert" aria-live="polite"></div>
+            </fieldset>
+
+            <!-- Кнопка отправки -->
+            <button class="feedback-modal__submit" type="submit" aria-describedby="submitHint" data-submit-button>
+                <span class="feedback-modal__submit-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.5 1.5L7 9L2.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
                     </svg>
                 </span>
+
+                <span class="feedback-modal__submit-text">Submit feedback</span>
+
+                <span class="feedback-modal__loading" aria-hidden="true">
+                    <svg class="feedback-modal__spinner" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-dasharray="37.7" stroke-dashoffset="37.7" />
+                    </svg>
+                    Sending...
+                </span>
             </button>
+
+            <div class="feedback-modal__hint" id="submitHint">
+                Your feedback helps us improve ArtistsHub
+            </div>
         </form>
+
+        <!-- Сообщения об успехе/ошибке -->
+        <div class="feedback-modal__status" id="feedbackStatus" role="status" aria-live="polite" aria-atomic="true">
+        </div>
     </div>
-</div>
+
+    <!-- Скрытый элемент для объявления изменений screen reader'ам -->
+    <div class="feedback-modal__announcer" aria-live="assertive" aria-atomic="true" class="visually-hidden"></div>
+</section>
