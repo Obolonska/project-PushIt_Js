@@ -10,9 +10,11 @@ class FeedbackModal {
         this.submitBtn = this.modal?.querySelector('.feedback-modal__submit');
         this.loader = this.modal?.querySelector('.feedback-modal__loader');
         this.submitText = this.modal?.querySelector('.feedback-modal__submit-text');
+        this.notification = null;
 
         this.currentRating = 0;
         this.isSubmitting = false;
+        this.eventListeners = new Map();
 
         this.init();
     }
@@ -25,7 +27,6 @@ class FeedbackModal {
     }
 
     updateIconUrls() {
-        // Оновлюємо всі SVG іконки з правильними URL
         const svgElements = this.modal.querySelectorAll('svg use');
         svgElements.forEach(use => {
             const href = use.getAttribute('href');
@@ -36,41 +37,44 @@ class FeedbackModal {
     }
 
     bindEvents() {
-        // Закриття модального вікна
-        this.closeBtn?.addEventListener('click', () => this.close());
-        this.overlay?.addEventListener('click', () => this.close());
-
-        // Закриття по Escape
-        document.addEventListener('keydown', (e) => {
+        const closeHandler = () => this.close();
+        const overlayHandler = () => this.close();
+        const escHandler = (e) => {
             if (e.key === 'Escape' && this.isOpen()) {
                 this.close();
             }
-        });
+        };
+        const submitHandler = (e) => this.handleSubmit(e);
 
-        // Рейтинг зірочками
+        this.eventListeners.set(this.closeBtn, { type: 'click', handler: closeHandler });
+        this.eventListeners.set(this.overlay, { type: 'click', handler: overlayHandler });
+        this.eventListeners.set(document, { type: 'keydown', handler: escHandler });
+        this.eventListeners.set(this.form, { type: 'submit', handler: submitHandler });
+
+        this.closeBtn?.addEventListener('click', closeHandler);
+        this.overlay?.addEventListener('click', overlayHandler);
+        document.addEventListener('keydown', escHandler);
+        this.form?.addEventListener('submit', submitHandler);
+
         this.bindRatingEvents();
-
-        // Валідація форми
         this.bindValidationEvents();
-
-        // Відправка форми
-        this.form?.addEventListener('submit', (e) => this.handleSubmit(e));
-
-        // Кнопки відкриття модального вікна
         this.bindOpenButtons();
     }
 
     bindOpenButtons() {
-        // Підтримка data-атрибута
         const dataButtons = document.querySelectorAll('[data-feedback-modal]');
+        const classButtons = document.querySelectorAll('.feedback-modal-trigger');
+
+        const openHandler = () => this.open();
+
         dataButtons.forEach(btn => {
-            btn.addEventListener('click', () => this.open());
+            btn.addEventListener('click', openHandler);
+            this.eventListeners.set(btn, { type: 'click', handler: openHandler });
         });
 
-        // Підтримка класу
-        const classButtons = document.querySelectorAll('.feedback-modal-trigger');
         classButtons.forEach(btn => {
-            btn.addEventListener('click', () => this.open());
+            btn.addEventListener('click', openHandler);
+            this.eventListeners.set(btn, { type: 'click', handler: openHandler });
         });
     }
 
@@ -79,33 +83,45 @@ class FeedbackModal {
         if (!stars) return;
 
         stars.forEach((star, index) => {
-            // Hover ефект
-            star.addEventListener('mouseenter', () => {
-                this.highlightStars(index + 1);
-            });
+            const mouseEnterHandler = () => this.highlightStars(index + 1);
+            const clickHandler = () => this.setRating(index + 1);
 
-            // Клік по зірочці
-            star.addEventListener('click', () => {
-                this.setRating(index + 1);
-            });
+            star.addEventListener('mouseenter', mouseEnterHandler);
+            star.addEventListener('click', clickHandler);
+
+            this.eventListeners.set(star, [
+                { type: 'mouseenter', handler: mouseEnterHandler },
+                { type: 'click', handler: clickHandler }
+            ]);
         });
 
-        // Скидання hover при виході з рейтингу
         const ratingContainer = this.modal?.querySelector('.feedback-modal__rating');
-        ratingContainer?.addEventListener('mouseleave', () => {
-            this.highlightStars(this.currentRating);
-        });
+        const mouseLeaveHandler = () => this.highlightStars(this.currentRating);
+
+        ratingContainer?.addEventListener('mouseleave', mouseLeaveHandler);
+        this.eventListeners.set(ratingContainer, { type: 'mouseleave', handler: mouseLeaveHandler });
     }
 
     bindValidationEvents() {
         const nameInput = this.modal?.querySelector('#feedbackName');
         const messageInput = this.modal?.querySelector('#feedbackMessage');
 
-        nameInput?.addEventListener('input', () => this.validateName());
-        nameInput?.addEventListener('blur', () => this.validateName());
+        const nameInputHandler = () => this.validateName();
+        const messageInputHandler = () => this.validateMessage();
 
-        messageInput?.addEventListener('input', () => this.validateMessage());
-        messageInput?.addEventListener('blur', () => this.validateMessage());
+        nameInput?.addEventListener('input', nameInputHandler);
+        nameInput?.addEventListener('blur', nameInputHandler);
+        messageInput?.addEventListener('input', messageInputHandler);
+        messageInput?.addEventListener('blur', messageInputHandler);
+
+        this.eventListeners.set(nameInput, [
+            { type: 'input', handler: nameInputHandler },
+            { type: 'blur', handler: nameInputHandler }
+        ]);
+        this.eventListeners.set(messageInput, [
+            { type: 'input', handler: messageInputHandler },
+            { type: 'blur', handler: messageInputHandler }
+        ]);
     }
 
     highlightStars(rating) {
@@ -134,8 +150,13 @@ class FeedbackModal {
         const nameInput = this.modal?.querySelector('#feedbackName');
         const value = nameInput?.value.trim() || '';
 
+        if (value.length === 0) {
+            this.showError('nameError', 'Поле імені не може бути порожнім');
+            return false;
+        }
+
         if (value.length < 2) {
-            this.showError('nameError', 'Ім\'я повинно містити мінімум 2 символи');
+            this.showError('nameError', 'Ім\'я повинно містити щонайменше 2 символи');
             return false;
         }
 
@@ -152,8 +173,13 @@ class FeedbackModal {
         const messageInput = this.modal?.querySelector('#feedbackMessage');
         const value = messageInput?.value.trim() || '';
 
+        if (value.length === 0) {
+            this.showError('messageError', 'Поле повідомлення не може бути порожнім');
+            return false;
+        }
+
         if (value.length < 10) {
-            this.showError('messageError', 'Повідомлення повинно містити мінімум 10 символів');
+            this.showError('messageError', 'Повідомлення повинно містити щонайменше 10 символів');
             return false;
         }
 
@@ -168,7 +194,7 @@ class FeedbackModal {
 
     validateRating() {
         if (this.currentRating === 0) {
-            this.showError('ratingError', 'Будь ласка, оберіть рейтинг');
+            this.showError('ratingError', 'Будь ласка, виберіть рейтинг');
             return false;
         }
 
@@ -205,7 +231,6 @@ class FeedbackModal {
 
         if (this.isSubmitting) return;
 
-        // Валідація всіх полів
         const isNameValid = this.validateName();
         const isMessageValid = this.validateMessage();
         const isRatingValid = this.validateRating();
@@ -249,6 +274,7 @@ class FeedbackModal {
             console.log('Feedback submitted successfully:', data);
 
             this.showSuccessMessage();
+            this.showNotification();
             setTimeout(() => this.close(), 2000);
 
         } catch (err) {
@@ -278,15 +304,29 @@ class FeedbackModal {
     }
 
     showSuccessMessage() {
-        // Можна додати toast повідомлення або змінити текст кнопки
         if (this.submitText) {
-            this.submitText.textContent = 'Відправлено!';
+            this.submitText.textContent = 'Submitted!';
         }
     }
 
     showErrorMessage(message) {
-        // Показуємо загальну помилку
         this.showError('ratingError', message);
+    }
+
+    showNotification() {
+        if (this.notification) {
+            this.notification.remove();
+        }
+
+        this.notification = document.createElement('div');
+        this.notification.className = 'feedback-modal__notification';
+        this.notification.textContent = 'Feedback submitted successfully!';
+        this.modal.appendChild(this.notification);
+
+        setTimeout(() => {
+            this.notification?.remove();
+            this.notification = null;
+        }, 2000);
     }
 
     open() {
@@ -295,7 +335,6 @@ class FeedbackModal {
         this.modal.classList.add('is-open');
         document.body.style.overflow = 'hidden';
 
-        // Фокус на першому полі
         const firstInput = this.modal.querySelector('#feedbackName');
         setTimeout(() => firstInput?.focus(), 100);
     }
@@ -306,7 +345,7 @@ class FeedbackModal {
         this.modal.classList.remove('is-open');
         document.body.style.overflow = '';
 
-        // Скидання форми
+        this.removeEventListeners();
         this.resetForm();
     }
 
@@ -318,8 +357,21 @@ class FeedbackModal {
         this.setSubmittingState(false);
 
         if (this.submitText) {
-            this.submitText.textContent = 'Відправити';
+            this.submitText.textContent = 'Submit';
         }
+    }
+
+    removeEventListeners() {
+        this.eventListeners.forEach((listeners, element) => {
+            if (Array.isArray(listeners)) {
+                listeners.forEach(({ type, handler }) => {
+                    element.removeEventListener(type, handler);
+                });
+            } else {
+                element.removeEventListener(listeners.type, listeners.handler);
+            }
+        });
+        this.eventListeners.clear();
     }
 
     isOpen() {
@@ -327,14 +379,12 @@ class FeedbackModal {
     }
 }
 
-// Ініціалізація при завантаженні DOM
 let feedbackModalInstance = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     feedbackModalInstance = new FeedbackModal();
 });
 
-// Глобальні функції для сумісності
 window.openFeedbackModal = () => {
     feedbackModalInstance?.open();
 };
@@ -344,4 +394,3 @@ window.closeFeedbackModal = () => {
 };
 
 export default FeedbackModal;
-
