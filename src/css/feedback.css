@@ -31,25 +31,20 @@
 .fb_user_text {
   font-family: 'Epilogue', sans-serif;
   font-weight: 700;
-  font-size: 18px;
   line-height: 1.4;
   color: #fff;
+  letter-spacing: -0.01em;
   margin-bottom: 32px;
 }
 .fb_user_name {
   font-weight: 600;
-  font-size: 18px;
-  line-height: 1.5;
   color: #fff;
   margin-bottom: 16px;
 }
 
 .fb-btn {
   display: block;
-  font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 500;
-  font-size: 18px;
-  line-height: 1.5;
   color: #fff;
   margin: 0 auto;
   border-radius: 12px;
