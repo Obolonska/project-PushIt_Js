@@ -6,7 +6,7 @@ import iconsUrl from '../img/icons.svg?url';
 import '../public/choices.css';
 // import 'tui-pagination/dist/tui-pagination.css';
 import Choices from 'choices.js';
-import {fetchAlbums} from "./artist-details-modal.js";
+import { fetchAlbums } from './artist-details-modal.js';
 
 //main
 const refs = {
@@ -138,7 +138,7 @@ async function getArtistId(event) {
     const artistCard = event.target.closest('.artist-card');
     const artlistId = artistCard.dataset.id;
     console.log('Clicked artist ID: ', artlistId);
-    fetchAlbums(artlistId)
+    fetchAlbums(artlistId);
   }
 }
 // refs.artistsList.addEventListener('click', event => {
@@ -167,7 +167,7 @@ async function createList(cardsArray) {
       return `
         <li class="artist-card"  data-id="${_id}">
           <div class="artist-thumb">
-      <img src="${strArtistThumb}" alt="${strArtist}" class="artist-img">
+      <img src="${strArtistThumb}" alt="${strArtist}" class="artist-img" loading="lazy">
           </div>
           <ul class="aritist-genre-list">${genresList}</ul>
               <h3 class="artist-name">${strArtist}</h3>

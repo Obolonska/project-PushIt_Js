@@ -119,7 +119,7 @@ function renderAlbumInfo({
   refs.years.innerHTML = getYearsString(intFormedYear, intDiedYear);
   refs.country.innerHTML = strCountry;
   refs.autorTitle.innerHTML = strArtist;
-  refs.avatar.innerHTML = `<img src="${strArtistThumb}" alt="${strArtistThumb}"/>`;
+  refs.avatar.innerHTML = `<img src="${strArtistThumb}" alt="${strArtistThumb}" loading="lazy"/>`;
 }
 
 function renderAlbums(albums) {
