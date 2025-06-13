@@ -32,7 +32,7 @@
   background: transparent;
   border: none;
   color: white;
-  margin-right: 12px;
+  margin-right: 0;
 }
 .btn-close svg {
   fill: white;
@@ -44,6 +44,10 @@
   height: 90vh;
 }
 @media (max-width: 768px) {
+  .btn-close {
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-right: 12px;
+  }
   .modal-scrolled {
     padding: 8px;
     padding-top: 52px;
