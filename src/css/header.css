@@ -1,6 +1,6 @@
 .header-section {
   position: sticky;
-  top: 0; 
+  top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
@@ -8,7 +8,6 @@
   background-color: #060307;
   height: 64px;
   overflow: hidden;
-
 }
 body.menu-open {
   overflow: hidden;
@@ -40,7 +39,8 @@ body.menu-open {
   height: 100%;
   display: block;
   background-color: #060307;
-  transition: opacity .25s cubic-bezier(.4,0,.2,1), visibility .25s cubic-bezier(.4,0,.2,1);
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 @media screen and (max-width: 768px) {
   .mob-menu.is-hidden {
@@ -73,7 +73,8 @@ body.menu-open {
   background-color: #060307;
   fill: #fff;
   border: 0;
-  transition: background-color .25s cubic-bezier(.4,0,.2,1), border .25s cubic-bezier(.4,0,.2,1);
+  transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    border 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .is-hidden {
@@ -90,15 +91,13 @@ body.menu-open {
   color: #bfa0c2;
 }
 
-
-
-@media screen and (min-width: 768px){
-  .header-section{
+@media screen and (min-width: 768px) {
+  .header-section {
     height: 72px;
+    display: flex;
   }
-  .header-container{
-  width:704px;
-
+  .header-container {
+    width: 704px;
   }
   .header-nav {
     display: flex;
@@ -128,18 +127,11 @@ body.menu-open {
   }
 }
 
-
-@media screen and (min-width: 1440px){
-  .header-container{
-  width:1440px;
-
+@media screen and (min-width: 1440px) {
+  .header-section {
+    display: flex;
   }
-  
+  .header-container {
+    width: 1440px;
+  }
 }
-
-
-
-
-
-
-
