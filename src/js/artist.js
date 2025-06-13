@@ -300,6 +300,7 @@ function toggleArtistForm() {
   // Лише на мобілках/планшетах — перемикати клас
   if (isMobile) {
     refs.artistForm.classList.toggle('is-hidden');
+    refs.toggleButton.classList.toggle('active');
   }
 }
 refs.toggleButton.addEventListener('click', toggleArtistForm);
