@@ -27,7 +27,7 @@ const refs = {
 refs.closeBtn.addEventListener('click', () => {
   closeModal();
 });
-window.addEventListener('keydown',handlePressEsc)
+
 refs.backdrop.addEventListener('click', handleBackdropClick);
 
 const API_URL = 'https://sound-wave.b.goit.study/api';
@@ -51,11 +51,13 @@ function openModal() {
   refs.modalScrolled.scrollTo(0, 0);
   BlockScreenService.block();
   refs.backdrop.classList.remove('hidden');
+  window.addEventListener('keydown', handlePressEsc);
 }
 function closeModal() {
   refs.modalScrolled.scrollTo(0, 0);
   refs.backdrop.classList.add('hidden');
   BlockScreenService.unblock();
+  window.removeEventListener('keydown', handlePressEsc);
 }
 
 function genresTemplate(genre) {
@@ -138,13 +140,15 @@ function renderLink(movie) {
 }
 
 function handleBackdropClick(e) {
-  if (!e.currentTarget === e.target) {return; }
+  if (!e.currentTarget === e.target) {
+    return;
+  }
   closeModal();
 }
 
 function handlePressEsc(event) {
-if (event.key === 'Escape') {
-  closeModal();
-  document.removeEventListener('keydown',handlePressEsc)
-}
+  if (event.key === 'Escape') {
+    closeModal();
+    document.removeEventListener('keydown', handlePressEsc);
+  }
 }
