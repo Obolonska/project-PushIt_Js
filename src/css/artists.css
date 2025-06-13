@@ -45,7 +45,15 @@
 .filrer-container-dropdown {
   margin-bottom: 16px;
 }
+
+.artist-dropdown {
+  position: relative;
+}
+
+
 .artist-form {
+  top: 50px;
+  position: absolute;
   margin-bottom: 12px;
   border-radius: 12px;
   padding: 12px;
@@ -460,6 +468,7 @@ input:-internal-autofill-selected {
   }
 
   .artist-form {
+    position: static;
     background-color: transparent;
     padding: 0;
   }
@@ -534,7 +543,7 @@ input:-internal-autofill-selected {
     border: none;
     position: absolute;
     left: 250px;
-    top: 0;
+    top: -40px;
 
     cursor: pointer;
   }

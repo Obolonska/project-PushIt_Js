@@ -10,9 +10,17 @@
   padding-top: 64px;
   margin: auto;
 }
+
+.hero__right {
+  height:385px
+}
 @media screen and (min-width: 768px) {
   .hero {
     padding-top: 32px;
+  }
+
+  .hero__right {
+    height: 632px;
   }
   .hero__title {
     width: 624px;
@@ -61,14 +69,11 @@
   display: flex;
   overflow: hidden;
   gap: 20px;
-  height: 90vh;
+
   position: relative;
   border-radius: 12px;
 }
 @media screen and (max-width: 1440px) {
-  .hero__right {
-    height: 400px;
-  }
 }
 .hero__right img {
   border-radius: 20px;
@@ -77,10 +82,10 @@
   width: 100%;
   height: 17px;
   position: absolute;
-  top: -10px;
+  top: 10px;
   z-index: 10;
   background: linear-gradient(to top, rgba(6, 3, 7, 0), rgba(6, 3, 7, 0) 50%);
-  backdrop-filter: blur(10px);
+  /*backdrop-filter: blur(10px);*/
 }
 .hero img {
   height: 340px;
@@ -170,6 +175,19 @@
   .hero {
     padding-top: 0;
   }
+
+  .hero__right::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 120px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, #060307 100%);
+    pointer-events: none;
+    z-index: 2;
+  }
+
   .container hero__container {
     flex-direction: row;
     justify-content: space-between;
@@ -196,17 +214,7 @@
     position: relative;
     overflow: hidden;
   }
-  .hero__right::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 120px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, #060307 100%);
-    pointer-events: none;
-    z-index: 2;
-  }
+
 }
 @media (max-width: 767px) {
   .hero__title {
