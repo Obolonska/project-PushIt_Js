@@ -1,30 +1,25 @@
 (() => {
   const refs = {
-    openBtn: document.querySelector('[data-menu-open]'),
-    closeBtn: document.querySelector('[data-menu-close]'),
-    menu: document.querySelector('[data-modal]'),
-    menuLinks: document.querySelectorAll('[data-menu-item]'),
+    body: document.body,
+    openModalBtn: document.querySelector('[data-menu-open]'),
+    closeModalBtn: document.querySelector('[data-menu-close]'),
+    links: document.querySelectorAll('.mobile-menu-link'),
+    modal: document.querySelector('[data-modal]'),
   };
 
-  refs.openBtn.addEventListener('click', onOpenMenu);
-  refs.closeBtn.addEventListener('click', onCloseMenu);
-  refs.menuLinks.forEach(link => {
-    link.addEventListener('click', onCloseMenu);
+  refs.openModalBtn.addEventListener('click', openModal);
+  refs.closeModalBtn.addEventListener('click', closeModal);
+  refs.links.forEach(link => {
+    link.addEventListener('click', closeModal);
   });
 
-  function onOpenMenu() {
-    refs.menu.classList.remove('is-hidden');
-    refs.openBtn.classList.add('is-hidden');
-    refs.closeBtn.classList.remove('is-hidden');
-    document.body.classList.add('menu-open');
+  function openModal() {
+    refs.modal.classList.remove('is-hidden');
+    refs.body.classList.add('menu-open');
   }
 
-  function onCloseMenu() {
-    refs.menu.classList.add('is-hidden');
-    refs.openBtn.classList.remove('is-hidden');
-    refs.closeBtn.classList.add('is-hidden');
-    document.body.classList.remove('menu-open');
+  function closeModal() {
+    refs.modal.classList.add('is-hidden');
+    refs.body.classList.remove('menu-open');
   }
 })();
-
-
