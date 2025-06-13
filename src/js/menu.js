@@ -13,13 +13,18 @@
     link.addEventListener('click', closeModal);
   });
 
-  function openModal() {
+  function openModal(e) {
     refs.modal.classList.remove('is-hidden');
     refs.body.classList.add('menu-open');
+    refs.openModalBtn.classList.add('is-hidden');
+    refs.closeModalBtn.classList.remove('is-hidden');
+    console.log(e.target);
   }
 
   function closeModal() {
     refs.modal.classList.add('is-hidden');
     refs.body.classList.remove('menu-open');
+    refs.openModalBtn.classList.remove('is-hidden');
+    refs.closeModalBtn.classList.add('is-hidden');
   }
 })();

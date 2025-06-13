@@ -7,6 +7,7 @@ import '../public/choices.css';
 // import 'tui-pagination/dist/tui-pagination.css';
 import Choices from 'choices.js';
 import { fetchAlbums } from './artist-details-modal.js';
+import { LoaderService } from './helpers/loader-service.js';
 
 //main
 const refs = {
@@ -217,15 +218,16 @@ async function firstLoad(name, sort, genre, page) {
     //   });
     console.log('Помилка:', error.message); //х
     hideLoadMoreButton();
-    hideLoader();
+
     return;
   }
 }
 
 async function onLoadMore() {
   page += 1;
-  showLoader();
+
   try {
+    LoaderService.showLoadMore();
     const data = await getCards(name, sorting, genre, page);
     if (data.artists.length === 0) {
       hideLoadMoreButton();
@@ -239,7 +241,6 @@ async function onLoadMore() {
     }
 
     createList(data.artists);
-    hideLoader();
 
     if (page >= totalPages) {
       //   iziToast.error({
@@ -262,6 +263,8 @@ async function onLoadMore() {
     // });
     console.log('Помилка:', error.message);
     return;
+  } finally {
+    LoaderService.hideLoadMore();
   }
 }
 

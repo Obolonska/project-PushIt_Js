@@ -174,8 +174,8 @@ class FeedbackModal {
       return false;
     }
 
-    if (value.length > 16) {
-      this.showError('nameError', "Ім'я не повинно перевищувати 16 символів");
+    if (value.length > 25) {
+      this.showError('nameError', "Ім'я не повинно перевищувати 25 символів");
       return false;
     }
 
@@ -385,11 +385,15 @@ class FeedbackModal {
   removeEventListeners() {
     this.eventListeners.forEach((listeners, element) => {
       if (Array.isArray(listeners)) {
-        listeners.forEach(({ type }) => {
-          element.removeEventListener(type);
+        listeners.forEach(({ type, handler }) => {
+          if (type === 'keydown') {
+            element.removeEventListener(type, handler);
+          }
         });
       } else {
-        element.removeEventListener(listeners.type);
+        if (listeners.type === 'keydown') {
+          element.removeEventListener(listeners.type, listeners.handler);
+        }
       }
     });
     this.eventListeners.clear();

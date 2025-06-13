@@ -16,7 +16,6 @@
   --color-focus: #6f4d89;
 }
 
-
 main {
   flex-grow: 1;
 }
@@ -73,4 +72,27 @@ button {
 
 .body-hidden {
   overflow: hidden;
+}
+
+.loader-load-more {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: none;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  margin-left: 10px;
+}
+.loader-load-more.show {
+  display: inline-block;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
