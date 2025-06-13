@@ -11,6 +11,7 @@ import { LoaderService } from './helpers/loader-service.js';
 
 //main
 const refs = {
+  loadMoreIcon: document.querySelector('.load-more-icon'),
   artistsList: document.querySelector('.artists-cards-list'),
   loadMoreBtn: document.querySelector('.load-more'),
   form: document.querySelector('.artist-form'),
@@ -227,44 +228,39 @@ async function onLoadMore() {
   page += 1;
 
   try {
+    refs.loadMoreIcon.classList.add('is-hidden');
     LoaderService.showLoadMore();
+
+    // Add a small delay to ensure the button's visual feedback is shown
+    await new Promise(resolve => setTimeout(resolve, 100));
+
     const data = await getCards(name, sorting, genre, page);
     if (data.artists.length === 0) {
       hideLoadMoreButton();
-      //   iziToast.error({
-      //     position: 'topRight',
-      //     message: 'Error!', // here
-      //     maxWidth: 432,
-      //   });
-      console.log('Список артистів порожній!'); //х
+      console.log('Список артистів порожній!');
       return;
     }
 
     createList(data.artists);
 
     if (page >= totalPages) {
-      //   iziToast.error({
-      //     position: 'topRight',
-      //     message: 'Error!', // here
-      //     maxWidth: 432,
-      //   });
       hideLoadMoreButton();
-
       console.log('Сторінок більше, ніж контенту!');
       return;
     }
 
     smoothScroll();
   } catch (error) {
-    // iziToast.error({
-    //   position: 'topRight',
-    //   message: 'Error!', // here
-    //   maxWidth: 432,
-    // });
     console.log('Помилка:', error.message);
     return;
   } finally {
     LoaderService.hideLoadMore();
+    refs.loadMoreIcon.classList.remove('is-hidden');
+
+    // Ensure focus is removed after all operations complete
+    if (document.activeElement === loadMoreButton) {
+      loadMoreButton.blur();
+    }
   }
 }
 

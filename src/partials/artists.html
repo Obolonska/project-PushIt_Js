@@ -1,7 +1,7 @@
 <section class="artists" id="artist-section">
   <div class="container artists-container">
     <h2 class="artists-title">Artists</h2>
-    <h3 class="artists-subtitle">Explore Your New Favorite Artists</h3>
+    <p class="artists-subtitle">Explore Your New Favorite Artists</p>
     <div class="artist-content">
       <div class="filrer-container">
         <div class="filrer-container-dropdown">
@@ -80,8 +80,10 @@
         <span class="loader hide-loader"></span>
         <ul class="artists-cards-list"></ul>
 
-        <button type="button" class="load-more is-hidden">
-          <span class="load-more-text">Load More</span>
+        <button type="button" aria-label="Показати більше артистів" class="load-more is-hidden">
+          <span class="load-more-text">Load More
+          </span>
+          <svg class="load-more-icon" width="24" height="24"><use href="/img/icons.svg#icon-down-arrow-alt"></use></svg>
           <span class="loader-load-more"></span>
         </button>
       </div>

@@ -120,9 +120,12 @@ body.menu-open {
     fill: #fff;
   }
 
+  .header-nav-item {
+    transition: color 250ms;
+  }
+
   .header-nav-item:hover,
   .header-nav-item:focus {
-    transition: color 250ms;
     color: var(--color-hover);
   }
 }
