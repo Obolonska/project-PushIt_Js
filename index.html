@@ -21,7 +21,7 @@
     <script type="module" crossorigin src="/project-PushIt_Js/index.js"></script>
     <link rel="modulepreload" crossorigin href="/project-PushIt_Js/assets/vendor-DZ3qZG1b.js">
     <link rel="stylesheet" crossorigin href="/project-PushIt_Js/assets/vendor-BZ_WhpHG.css">
-    <link rel="stylesheet" crossorigin href="/project-PushIt_Js/assets/index-Di4SZ9iM.css">
+    <link rel="stylesheet" crossorigin href="/project-PushIt_Js/assets/index-BNagfSv_.css">
   </head>
   <body>
     <header class="header-section">
@@ -241,7 +241,10 @@
       <div class="artists-cards-and-btn">
         <ul class="artists-cards-list"></ul>
 
-        <button type="button" class="load-more is-hidden">Load More</button>
+        <button type="button" class="load-more is-hidden">
+          <span class="load-more-text">Load More</span>
+          <span class="loader-load-more"></span>
+        </button>
       </div>
     </div>
 
@@ -348,8 +351,6 @@
           id="feedbackName"
           name="name"
           required
-          minlength="2"
-          maxlength="16"
           placeholder="Enter your name"
           title="Введіть ім'я (2-16 символів)"
         />
@@ -365,8 +366,6 @@
           id="feedbackMessage"
           name="descr"
           required
-          minlength="10"
-          maxlength="512"
           placeholder="Share your thoughts..."
           rows="4"
           title="Введіть повідомлення (10-512 символів)"
