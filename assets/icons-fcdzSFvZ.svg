@@ -64,5 +64,8 @@
     <symbol id="icon-down-arrow-alt" viewBox="0 0 31 32">
       <path fill="#fff" style="fill: var(--color1, #fff)" d="M23.945 17.282l-1.81-1.81-5.495 5.495v-12.27h-2.56v12.27l-5.495-5.495-1.81 1.81 8.585 8.585 8.585-8.585z"></path>
     </symbol>
+    <symbol id="icon-chevron-down" viewBox="0 0 32 32">
+      <path fill="#fff" style="fill: var(--color1, #fff)" d="M21.724 11.057l-5.724 5.724-5.724-5.724-1.885 1.885 7.609 7.609 7.609-7.609-1.885-1.885z"></path>
+    </symbol>
   </defs>
 </svg>
