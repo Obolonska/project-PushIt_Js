@@ -366,6 +366,18 @@ input:-internal-autofill-selected {
   margin-right: 12px;
 }
 
+.search-and-filters {
+  transition: transform 0.3s ease;
+}
+
+.search-and-filters .icon-search-tablet {
+  transition: transform 0.3s ease;
+}
+
+.search-and-filters.active .icon-search-tablet {
+  transform: rotate(180deg);
+}
+
 @keyframes rotation {
   0% {
     transform: rotate(0deg);
@@ -381,8 +393,12 @@ input:-internal-autofill-selected {
   }
   .filrer-container-dropdown {
     display: flex;
-    align-items: flex-start; /* або center, якщо хочеш по центру */
+    align-items: flex-start;
     justify-content: space-between;
+  }
+
+  .search-and-filters {
+    width: 233px;
   }
 
   .artists-cards-list {
@@ -532,4 +548,15 @@ span.loader.hide-loader {
   display: none;
   visibility: hidden;
   opacity: 0;
+}
+
+.icon-search-tablet {
+
+}
+
+.search-span {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
