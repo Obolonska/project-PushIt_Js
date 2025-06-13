@@ -5,11 +5,11 @@ async function fetchPhotos() {
   const imageRight = document.querySelector('.images-2');
   try {
     const resLeft = await fetch(
-      'https://sound-wave.b.goit.study/api/artists?limit=20&page=1'
+      'https://sound-wave.b.goit.study/api/artists?limit=4&page=1'
     );
     const dataLeft = await resLeft.json();
     const resRight = await fetch(
-      'https://sound-wave.b.goit.study/api/artists?limit=20&page=3'
+      'https://sound-wave.b.goit.study/api/artists?limit=4&page=3'
     );
     const dataRight = await resRight.json();
     const imagesLeft = dataLeft.artists.map(image => image.strArtistThumb);
@@ -22,7 +22,7 @@ async function fetchPhotos() {
 }
 
 function renderPhotos(arr) {
-  return arr.map(image => `<img src="${image}"/>`).join('');
+  return arr.map(image => `<img src="${image}" alt="artist"/>`).join('');
 }
 
 fetchPhotos();

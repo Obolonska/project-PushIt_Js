@@ -16,13 +16,6 @@
   --color-focus: #6f4d89;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-  min-width: 100vw;
-  min-height: 100vh;
-  margin: 0;
-}
 
 main {
   flex-grow: 1;
@@ -42,17 +35,16 @@ button {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.66);
   height: 100vh;
+  z-index: 1001;
   top: 0;
   left: 0;
-  z-index: 999;
   position: fixed;
   display: none;
 }
-
 .loader-backdrop.show {
   display: block;
 }
-.loader {
+.loader-base {
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -60,11 +52,11 @@ button {
   border-top: 3px solid #fff;
   border-right: 3px solid transparent;
   box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-  position: absolute;
+  z-index: 2000;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  animation: rotation 1s linear infinite;
+  position: absolute;
 }
 
 @keyframes rotation {

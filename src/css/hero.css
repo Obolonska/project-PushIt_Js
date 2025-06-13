@@ -28,23 +28,23 @@
   .hero__title {
     width: 280px;
   }
+  .hero__description {
+    margin-bottom: 24px;
+  }
 }
 .hero__title {
   color: #fff;
-  font-family: Epilogue;
+  font-family: 'Epilogue', sans-serif;
   font-size: 48px;
   font-style: normal;
   font-weight: 700;
-  line-height: 110%; /* 92.4px */
-  letter-spacing: -0.84px;
+  line-height: 1.1;
+  letter-spacing: -0.1px;
 }
 .hero__description {
-  color: #fff;
-  font-family: 'IBM Plex Sans';
   font-size: 20px;
   font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 30px */
+  margin-bottom: 32px;
 }
 .hero-btn-icon {
   fill: #fff;
@@ -105,8 +105,7 @@
   justify-content: center;
   gap: 10px;
   border-radius: 12px;
-  padding: 10px 20px;
-  margin-top: 32px;
+
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 500;
   font-size: 18px;
@@ -120,17 +119,14 @@
     inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(6, 3, 7, 0.15),
     inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
     inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
-  transition: background 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
 }
 
 .hero__btn:hover,
 .hero__btn:focus {
   background: #6f4d89;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 -2px 2px rgba(0, 0, 0, 0.3),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
-    inset 0 2px 2px rgba(255, 255, 255, 0.3);
-  outline: none;
+  transform: scale(0.97);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .column {
@@ -184,7 +180,6 @@
   .hero__left {
     width: 640px;
     margin-bottom: 0;
-    padding-top: 150px;
   }
   .hero__title {
     font-size: 84px;
@@ -214,36 +209,11 @@
     z-index: 2;
   }
 }
-/* /* .hero__overlay-bottom {
-  height: 100px;
-  position: absolute;
-  bottom: 0;
-  width: 100vw;
-  background: linear-gradient(
-    180deg,
-    rgba(6, 3, 7, 0) 75%,
-    rgba(6, 3, 7, 1) 100%
-  );
-} */
-/* @media screen and (max-width: 767px) {
-  .hero__overlay-bottom {
-    height: 0px;
+@media (max-width: 767px) {
+  .hero__title {
+    margin-bottom: 20px;
+  }
+  .hero__container {
+    gap: 64px;
   }
 }
-@media screen and (max-width: 1023px) {
-  .hero__overlay-bottom {
-    height: 0px;
-  }
-} */
-
-/* @media screen and (min-width: 768px) {
-  .hero__overlay-bottom {
-    width: 100%;
-    height: 17px;
-    position: absolute;
-    top: -10px;
-    z-index: 10;
-    background: linear-gradient(to top, rgba(6, 3, 7, 0), rgba(6, 3, 7, 0) 50%);
-    backdrop-filter: blur(10px);
-  }
-} */

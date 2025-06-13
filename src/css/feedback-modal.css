@@ -1,4 +1,4 @@
-/* Модальне вікно зворотного зв'язку */
+/* Feedback modal window */
 .feedback-modal {
   position: fixed;
   top: 0;
@@ -9,6 +9,11 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  --opacity-neutral-darkest-5: rgba(0, 0, 0, 0.05);
+  --opacity-neutral-darkest-15: rgba(0, 0, 0, 0.15);
+  --opacity-white-5: rgba(255, 255, 255, 0.05);
+  --color-affair: #6b4a9b;
 }
 
 .feedback-modal.is-open {
@@ -31,12 +36,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.9);
-  background: #1a1a1a;
+  background: #060307;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
-  padding: 32px;
-  width: 90%;
-  max-width: 480px;
-  max-height: 90vh;
+  padding: 16px;
+  width: 320px;
   overflow-y: auto;
   transition: transform 0.3s ease;
 }
@@ -52,10 +56,8 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 8px;
   border-radius: 8px;
   transition: background-color 0.3s ease;
-  color: #ffffff;
 }
 
 .feedback-modal__close:hover {
@@ -64,22 +66,23 @@
 
 .feedback-modal__close svg {
   display: block;
+  fill: #ffffff;
 }
 
 .feedback-modal__title {
+  padding-top: 48px;
   font-family: 'Epilogue', sans-serif;
   font-weight: 700;
-  font-size: 28px;
-  line-height: 1.2;
+  font-size: 24px;
+  line-height: 1.3;
   color: #ffffff;
-  margin: 0 0 24px 0;
   text-align: center;
 }
 
 .feedback-modal__form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 32px;
 }
 
 .feedback-modal__field {
@@ -89,20 +92,18 @@
 }
 
 .feedback-modal__label {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.4;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.5;
   color: #ffffff;
 }
 
 .feedback-modal__input,
 .feedback-modal__textarea {
-  background: #2a2a2a;
-  border: 1px solid #404040;
-  border-radius: 8px;
-  padding: 12px 16px;
-  font-family: 'IBM Plex Sans', sans-serif;
+  background: rgba(255, 255, 255, 0);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 8px 12px;
   font-size: 16px;
   line-height: 1.4;
   color: #ffffff;
@@ -122,13 +123,13 @@
 }
 
 .feedback-modal__textarea {
-  resize: vertical;
-  min-height: 100px;
+  resize: none;
+  height: 180px;
 }
 
 .feedback-modal__rating {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   align-items: center;
 }
 
@@ -136,10 +137,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 4px;
-  border-radius: 4px;
   transition: transform 0.2s ease;
-  color: #ffffff;
 }
 
 .feedback-modal__star:hover {
@@ -152,12 +150,12 @@
 }
 
 .feedback-modal__submit {
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  background: var(--color-affair);
   color: #ffffff;
   border: none;
   border-radius: 12px;
-  padding: 16px 32px;
-  font-family: 'IBM Plex Sans', sans-serif;
+  width: 288px;
+  height: 47px;
   font-weight: 600;
   font-size: 16px;
   line-height: 1.4;
@@ -165,13 +163,24 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  margin-top: 8px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px 0 var(--opacity-neutral-darkest-5),
+    inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px var(--opacity-neutral-darkest-15),
+    inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 32px 24px 0 var(--opacity-white-5);
 }
 
 .feedback-modal__submit:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4),
+    inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px var(--opacity-neutral-darkest-15),
+    inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 32px 24px 0 var(--opacity-white-5);
 }
 
 .feedback-modal__submit:active:not(:disabled) {
@@ -193,6 +202,32 @@
   animation: spin 1s linear infinite;
 }
 
+.feedback-modal__notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #10b981;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease;
+  z-index: 1001;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -208,60 +243,53 @@
   line-height: 1.4;
   color: #ef4444;
   display: none;
-  margin-top: 4px;
 }
 
-/* Адаптивність */
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .feedback-modal__content {
-    padding: 24px;
-    width: 95%;
-    margin: 20px auto;
-    max-height: calc(100vh - 40px);
-  }
-
-  .feedback-modal__title {
-    font-size: 24px;
-    margin-bottom: 20px;
+    padding: 64px 32px;
+    width: 704px;
   }
 
   .feedback-modal__form {
-    gap: 16px;
+    gap: 24px;
   }
 
   .feedback-modal__submit {
-    padding: 14px 28px;
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .feedback-modal__content {
-    padding: 20px;
-    border-radius: 12px;
+    margin: 0 auto;
+    width: 340px;
   }
 
   .feedback-modal__title {
-    font-size: 20px;
+    font-size: 44px;
+    line-height: 1.2;
+    margin-bottom: 48px;
+    padding-top: 0;
   }
 
-  .feedback-modal__input,
-  .feedback-modal__textarea {
-    padding: 10px 12px;
-    font-size: 14px;
-  }
-
-  .feedback-modal__rating {
-    gap: 6px;
-  }
-
-  .feedback-modal__star svg {
-    width: 18px;
-    height: 18px;
+  .feedback-modal__notification {
+    bottom: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    font-size: 12px;
   }
 }
 
-/* Блокування скролу сторінки */
+@media screen and (min-width: 1440px) {
+  .feedback-modal__content {
+    padding: 64px;
+    width: 864px;
+  }
+
+  .feedback-modal__submit {
+    width: 108px;
+  }
+
+  .feedback-modal__title {
+    font-size: 60px;
+  }
+}
+
 body:has(.feedback-modal.is-open) {
   overflow: hidden;
 }
