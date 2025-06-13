@@ -37,33 +37,31 @@ class FeedbackModal {
   }
 
   bindEvents() {
-    const closeHandler = () => this.close();
-    const overlayHandler = () => this.close();
-    const escHandler = e => {
+    this.closeHandler = () => this.close();
+    this.overlayHandler = () => this.close();
+    this.escHandler = e => {
       if (e.key === 'Escape' && this.isOpen()) {
         this.close();
       }
     };
-    const submitHandler = e => this.handleSubmit(e);
+    this.submitHandler = e => this.handleSubmit(e);
 
     this.eventListeners.set(this.closeBtn, {
       type: 'click',
-      handler: closeHandler,
+      handler: this.closeHandler,
     });
     this.eventListeners.set(this.overlay, {
       type: 'click',
-      handler: overlayHandler,
+      handler: this.overlayHandler,
     });
-    this.eventListeners.set(document, { type: 'keydown', handler: escHandler });
     this.eventListeners.set(this.form, {
       type: 'submit',
-      handler: submitHandler,
+      handler: this.submitHandler,
     });
 
-    this.closeBtn?.addEventListener('click', closeHandler);
-    this.overlay?.addEventListener('click', overlayHandler);
-    document.addEventListener('keydown', escHandler);
-    this.form?.addEventListener('submit', submitHandler);
+    this.closeBtn?.addEventListener('click', this.closeHandler);
+    this.overlay?.addEventListener('click', this.overlayHandler);
+    this.form?.addEventListener('submit', this.submitHandler);
 
     this.bindRatingEvents();
     this.bindValidationEvents();
@@ -352,20 +350,20 @@ class FeedbackModal {
 
   open() {
     if (!this.modal) return;
-
-    this.modal.classList.add('is-open');
     document.body.style.overflow = 'hidden';
-
+    this.modal.classList.add('is-open');
+    this.modal.setAttribute('aria-hidden', 'false');
+    window.addEventListener('keydown', this.escHandler);
     const firstInput = this.modal.querySelector('#feedbackName');
     setTimeout(() => firstInput?.focus(), 100);
   }
 
   close() {
     if (!this.modal) return;
-
-    this.modal.classList.remove('is-open');
     document.body.style.overflow = '';
-
+    this.modal.classList.remove('is-open');
+    this.modal.setAttribute('aria-hidden', 'true');
+    window.removeEventListener('keydown', this.escHandler);
     this.removeEventListeners();
     this.resetForm();
   }
